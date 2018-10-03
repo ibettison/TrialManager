@@ -19,8 +19,8 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication>disabled</IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
@@ -44,13 +44,86 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.0.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.6\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.2.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.2.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.2.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.2.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.2.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.2.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.2\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.TelemetryCorrelation, Version=1.0.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.4\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.0.0\lib\net451\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.0.0\lib\net451\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.0.0\lib\net451\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.0.0\lib\net451\Microsoft.Owin.Security.Cookies.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.5.0\lib\net45\System.Diagnostics.DiagnosticSource.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.DirectoryServices.AccountManagement" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -120,24 +193,334 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\Startup.cs" />
+    <Compile Include="Controllers\AccessTypesController.cs" />
+    <Compile Include="Controllers\ContactsController.cs" />
+    <Compile Include="Controllers\ContactStatusController.cs" />
+    <Compile Include="Controllers\DiseaseTherapyAreaController.cs" />
+    <Compile Include="Controllers\DocumentTypesController.cs" />
+    <Compile Include="Controllers\GrantTypeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\PhaseController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\TrialContactsController.cs" />
+    <Compile Include="Controllers\TrialDocumentsController.cs" />
+    <Compile Include="Controllers\TrialFeasibilityController.cs" />
+    <Compile Include="Controllers\TrialLocationController.cs" />
+    <Compile Include="Controllers\TrialManagementController.cs" />
+    <Compile Include="Controllers\TrialRecordsController.cs" />
+    <Compile Include="Controllers\TrialRemindersController.cs" />
+    <Compile Include="Controllers\TrialSetupController.cs" />
+    <Compile Include="Controllers\TrialStartedController.cs" />
+    <Compile Include="Controllers\TrialTypeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810021658271_initialSetup.cs" />
+    <Compile Include="Migrations\201810021658271_initialSetup.Designer.cs">
+      <DependentUpon>201810021658271_initialSetup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccessTypesModels.cs" />
+    <Compile Include="Models\AdAuthenticationService.cs" />
+    <Compile Include="Models\AjaxViewModels.cs" />
+    <Compile Include="Models\ContactsModels.cs" />
+    <Compile Include="Models\ContactStatusModels.cs" />
+    <Compile Include="Models\ContactViewModels.cs" />
+    <Compile Include="Models\ContractTypesModels.cs" />
+    <Compile Include="Models\DiseaseTherapyAreaModels.cs" />
+    <Compile Include="Models\DocumentTypesModels.cs" />
+    <Compile Include="Models\GrantTypeModels.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\NotesModels.cs" />
+    <Compile Include="Models\PhaseModels.cs" />
+    <Compile Include="Models\ResearchPassportModels.cs" />
+    <Compile Include="Models\RolesModels.cs" />
+    <Compile Include="Models\StaffPassportModels.cs" />
+    <Compile Include="Models\TrialContactsModels.cs" />
+    <Compile Include="Models\TrialDocumentsModels.cs" />
+    <Compile Include="Models\TrialFeasibilityModels.cs" />
+    <Compile Include="Models\TrialLocationModels.cs" />
+    <Compile Include="Models\TrialRecordsModels.cs" />
+    <Compile Include="Models\TrialRemindersModels.cs" />
+    <Compile Include="Models\TrialSetupModels.cs" />
+    <Compile Include="Models\TrialsModels.cs" />
+    <Compile Include="Models\TrialStartedModels.cs" />
+    <Compile Include="Models\TrialTypeModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="admin-lte\css\AdminLTE.css" />
+    <Content Include="admin-lte\css\AdminLTE.min.css" />
+    <Content Include="admin-lte\css\alt\AdminLTE-bootstrap-social.css" />
+    <Content Include="admin-lte\css\alt\AdminLTE-bootstrap-social.min.css" />
+    <Content Include="admin-lte\css\alt\AdminLTE-fullcalendar.css" />
+    <Content Include="admin-lte\css\alt\AdminLTE-fullcalendar.min.css" />
+    <Content Include="admin-lte\css\alt\AdminLTE-select2.css" />
+    <Content Include="admin-lte\css\alt\AdminLTE-select2.min.css" />
+    <Content Include="admin-lte\css\alt\AdminLTE-without-plugins.css" />
+    <Content Include="admin-lte\css\alt\AdminLTE-without-plugins.min.css" />
+    <Content Include="admin-lte\css\skins\skin-black-light.css" />
+    <Content Include="admin-lte\css\skins\skin-black-light.min.css" />
+    <Content Include="admin-lte\css\skins\skin-black.css" />
+    <Content Include="admin-lte\css\skins\skin-black.min.css" />
+    <Content Include="admin-lte\css\skins\skin-blue-light.css" />
+    <Content Include="admin-lte\css\skins\skin-blue-light.min.css" />
+    <Content Include="admin-lte\css\skins\skin-blue.css" />
+    <Content Include="admin-lte\css\skins\skin-blue.min.css" />
+    <Content Include="admin-lte\css\skins\skin-green-light.css" />
+    <Content Include="admin-lte\css\skins\skin-green-light.min.css" />
+    <Content Include="admin-lte\css\skins\skin-green.css" />
+    <Content Include="admin-lte\css\skins\skin-green.min.css" />
+    <Content Include="admin-lte\css\skins\skin-purple-light.css" />
+    <Content Include="admin-lte\css\skins\skin-purple-light.min.css" />
+    <Content Include="admin-lte\css\skins\skin-purple.css" />
+    <Content Include="admin-lte\css\skins\skin-purple.min.css" />
+    <Content Include="admin-lte\css\skins\skin-red-light.css" />
+    <Content Include="admin-lte\css\skins\skin-red-light.min.css" />
+    <Content Include="admin-lte\css\skins\skin-red.css" />
+    <Content Include="admin-lte\css\skins\skin-red.min.css" />
+    <Content Include="admin-lte\css\skins\skin-yellow-light.css" />
+    <Content Include="admin-lte\css\skins\skin-yellow-light.min.css" />
+    <Content Include="admin-lte\css\skins\skin-yellow.css" />
+    <Content Include="admin-lte\css\skins\skin-yellow.min.css" />
+    <Content Include="admin-lte\css\skins\_all-skins.css" />
+    <Content Include="admin-lte\css\skins\_all-skins.min.css" />
+    <Content Include="admin-lte\img\avatar.png" />
+    <Content Include="admin-lte\img\avatar04.png" />
+    <Content Include="admin-lte\img\avatar2.png" />
+    <Content Include="admin-lte\img\avatar3.png" />
+    <Content Include="admin-lte\img\avatar5.png" />
+    <Content Include="admin-lte\img\boxed-bg.jpg" />
+    <Content Include="admin-lte\img\boxed-bg.png" />
+    <Content Include="admin-lte\img\credit\american-express.png" />
+    <Content Include="admin-lte\img\credit\cirrus.png" />
+    <Content Include="admin-lte\img\credit\mastercard.png" />
+    <Content Include="admin-lte\img\credit\mestro.png" />
+    <Content Include="admin-lte\img\credit\paypal.png" />
+    <Content Include="admin-lte\img\credit\paypal2.png" />
+    <Content Include="admin-lte\img\credit\visa.png" />
+    <Content Include="admin-lte\img\default-50x50.gif" />
+    <Content Include="admin-lte\img\icons.png" />
+    <Content Include="admin-lte\img\photo1.png" />
+    <Content Include="admin-lte\img\photo2.png" />
+    <Content Include="admin-lte\img\photo3.jpg" />
+    <Content Include="admin-lte\img\photo4.jpg" />
+    <Content Include="admin-lte\img\user1-128x128.jpg" />
+    <Content Include="admin-lte\img\user2-160x160.jpg" />
+    <Content Include="admin-lte\img\user3-128x128.jpg" />
+    <Content Include="admin-lte\img\user4-128x128.jpg" />
+    <Content Include="admin-lte\img\user5-128x128.jpg" />
+    <Content Include="admin-lte\img\user6-128x128.jpg" />
+    <Content Include="admin-lte\img\user7-128x128.jpg" />
+    <Content Include="admin-lte\img\user8-128x128.jpg" />
+    <Content Include="admin-lte\js\adminlte.js" />
+    <Content Include="admin-lte\js\adminlte.min.js" />
+    <Content Include="admin-lte\js\demo.js" />
+    <Content Include="admin-lte\js\pages\dashboard.js" />
+    <Content Include="admin-lte\js\pages\dashboard2.js" />
+    <Content Include="admin-lte\plugins\bootstrap-slider\bootstrap-slider.js" />
+    <Content Include="admin-lte\plugins\bootstrap-slider\slider.css" />
+    <Content Include="admin-lte\plugins\bootstrap-wysihtml5\bootstrap3-wysihtml5.all.js" />
+    <Content Include="admin-lte\plugins\bootstrap-wysihtml5\bootstrap3-wysihtml5.all.min.js" />
+    <Content Include="admin-lte\plugins\bootstrap-wysihtml5\bootstrap3-wysihtml5.css" />
+    <Content Include="admin-lte\plugins\bootstrap-wysihtml5\bootstrap3-wysihtml5.min.css" />
+    <Content Include="admin-lte\plugins\iCheck\all.css" />
+    <Content Include="admin-lte\plugins\iCheck\flat\aero%402x.png" />
+    <Content Include="admin-lte\plugins\iCheck\flat\aero.css" />
+    <Content Include="admin-lte\plugins\iCheck\flat\aero.png" />
+    <Content Include="admin-lte\plugins\iCheck\flat\blue%402x.png" />
+    <Content Include="admin-lte\plugins\iCheck\flat\blue.css" />
+    <Content Include="admin-lte\plugins\iCheck\flat\blue.png" />
+    <Content Include="admin-lte\plugins\iCheck\flat\flat%402x.png" />
+    <Content Include="admin-lte\plugins\iCheck\flat\flat.css" />
+    <Content Include="admin-lte\plugins\iCheck\flat\flat.png" />
+    <Content Include="admin-lte\plugins\iCheck\flat\green%402x.png" />
+    <Content Include="admin-lte\plugins\iCheck\flat\green.css" />
+    <Content Include="admin-lte\plugins\iCheck\flat\green.png" />
+    <Content Include="admin-lte\plugins\iCheck\flat\grey%402x.png" />
+    <Content Include="admin-lte\plugins\iCheck\flat\grey.css" />
+    <Content Include="admin-lte\plugins\iCheck\flat\grey.png" />
+    <Content Include="admin-lte\plugins\iCheck\flat\orange%402x.png" />
+    <Content Include="admin-lte\plugins\iCheck\flat\orange.css" />
+    <Content Include="admin-lte\plugins\iCheck\flat\orange.png" />
+    <Content Include="admin-lte\plugins\iCheck\flat\pink%402x.png" />
+    <Content Include="admin-lte\plugins\iCheck\flat\pink.css" />
+    <Content Include="admin-lte\plugins\iCheck\flat\pink.png" />
+    <Content Include="admin-lte\plugins\iCheck\flat\purple%402x.png" />
+    <Content Include="admin-lte\plugins\iCheck\flat\purple.css" />
+    <Content Include="admin-lte\plugins\iCheck\flat\purple.png" />
+    <Content Include="admin-lte\plugins\iCheck\flat\red%402x.png" />
+    <Content Include="admin-lte\plugins\iCheck\flat\red.css" />
+    <Content Include="admin-lte\plugins\iCheck\flat\red.png" />
+    <Content Include="admin-lte\plugins\iCheck\flat\yellow%402x.png" />
+    <Content Include="admin-lte\plugins\iCheck\flat\yellow.css" />
+    <Content Include="admin-lte\plugins\iCheck\flat\yellow.png" />
+    <Content Include="admin-lte\plugins\iCheck\flat\_all.css" />
+    <Content Include="admin-lte\plugins\iCheck\futurico\futurico%402x.png" />
+    <Content Include="admin-lte\plugins\iCheck\futurico\futurico.css" />
+    <Content Include="admin-lte\plugins\iCheck\futurico\futurico.png" />
+    <Content Include="admin-lte\plugins\iCheck\icheck.js" />
+    <Content Include="admin-lte\plugins\iCheck\icheck.min.js" />
+    <Content Include="admin-lte\plugins\iCheck\line\aero.css" />
+    <Content Include="admin-lte\plugins\iCheck\line\blue.css" />
+    <Content Include="admin-lte\plugins\iCheck\line\green.css" />
+    <Content Include="admin-lte\plugins\iCheck\line\grey.css" />
+    <Content Include="admin-lte\plugins\iCheck\line\line%402x.png" />
+    <Content Include="admin-lte\plugins\iCheck\line\line.css" />
+    <Content Include="admin-lte\plugins\iCheck\line\line.png" />
+    <Content Include="admin-lte\plugins\iCheck\line\orange.css" />
+    <Content Include="admin-lte\plugins\iCheck\line\pink.css" />
+    <Content Include="admin-lte\plugins\iCheck\line\purple.css" />
+    <Content Include="admin-lte\plugins\iCheck\line\red.css" />
+    <Content Include="admin-lte\plugins\iCheck\line\yellow.css" />
+    <Content Include="admin-lte\plugins\iCheck\line\_all.css" />
+    <Content Include="admin-lte\plugins\iCheck\minimal\aero%402x.png" />
+    <Content Include="admin-lte\plugins\iCheck\minimal\aero.css" />
+    <Content Include="admin-lte\plugins\iCheck\minimal\aero.png" />
+    <Content Include="admin-lte\plugins\iCheck\minimal\blue%402x.png" />
+    <Content Include="admin-lte\plugins\iCheck\minimal\blue.css" />
+    <Content Include="admin-lte\plugins\iCheck\minimal\blue.png" />
+    <Content Include="admin-lte\plugins\iCheck\minimal\green%402x.png" />
+    <Content Include="admin-lte\plugins\iCheck\minimal\green.css" />
+    <Content Include="admin-lte\plugins\iCheck\minimal\green.png" />
+    <Content Include="admin-lte\plugins\iCheck\minimal\grey%402x.png" />
+    <Content Include="admin-lte\plugins\iCheck\minimal\grey.css" />
+    <Content Include="admin-lte\plugins\iCheck\minimal\grey.png" />
+    <Content Include="admin-lte\plugins\iCheck\minimal\minimal%402x.png" />
+    <Content Include="admin-lte\plugins\iCheck\minimal\minimal.css" />
+    <Content Include="admin-lte\plugins\iCheck\minimal\minimal.png" />
+    <Content Include="admin-lte\plugins\iCheck\minimal\orange%402x.png" />
+    <Content Include="admin-lte\plugins\iCheck\minimal\orange.css" />
+    <Content Include="admin-lte\plugins\iCheck\minimal\orange.png" />
+    <Content Include="admin-lte\plugins\iCheck\minimal\pink%402x.png" />
+    <Content Include="admin-lte\plugins\iCheck\minimal\pink.css" />
+    <Content Include="admin-lte\plugins\iCheck\minimal\pink.png" />
+    <Content Include="admin-lte\plugins\iCheck\minimal\purple%402x.png" />
+    <Content Include="admin-lte\plugins\iCheck\minimal\purple.css" />
+    <Content Include="admin-lte\plugins\iCheck\minimal\purple.png" />
+    <Content Include="admin-lte\plugins\iCheck\minimal\red%402x.png" />
+    <Content Include="admin-lte\plugins\iCheck\minimal\red.css" />
+    <Content Include="admin-lte\plugins\iCheck\minimal\red.png" />
+    <Content Include="admin-lte\plugins\iCheck\minimal\yellow%402x.png" />
+    <Content Include="admin-lte\plugins\iCheck\minimal\yellow.css" />
+    <Content Include="admin-lte\plugins\iCheck\minimal\yellow.png" />
+    <Content Include="admin-lte\plugins\iCheck\minimal\_all.css" />
+    <Content Include="admin-lte\plugins\iCheck\polaris\polaris%402x.png" />
+    <Content Include="admin-lte\plugins\iCheck\polaris\polaris.css" />
+    <Content Include="admin-lte\plugins\iCheck\polaris\polaris.png" />
+    <Content Include="admin-lte\plugins\iCheck\square\aero%402x.png" />
+    <Content Include="admin-lte\plugins\iCheck\square\aero.css" />
+    <Content Include="admin-lte\plugins\iCheck\square\aero.png" />
+    <Content Include="admin-lte\plugins\iCheck\square\blue%402x.png" />
+    <Content Include="admin-lte\plugins\iCheck\square\blue.css" />
+    <Content Include="admin-lte\plugins\iCheck\square\blue.png" />
+    <Content Include="admin-lte\plugins\iCheck\square\green%402x.png" />
+    <Content Include="admin-lte\plugins\iCheck\square\green.css" />
+    <Content Include="admin-lte\plugins\iCheck\square\green.png" />
+    <Content Include="admin-lte\plugins\iCheck\square\grey%402x.png" />
+    <Content Include="admin-lte\plugins\iCheck\square\grey.css" />
+    <Content Include="admin-lte\plugins\iCheck\square\grey.png" />
+    <Content Include="admin-lte\plugins\iCheck\square\orange%402x.png" />
+    <Content Include="admin-lte\plugins\iCheck\square\orange.css" />
+    <Content Include="admin-lte\plugins\iCheck\square\orange.png" />
+    <Content Include="admin-lte\plugins\iCheck\square\pink%402x.png" />
+    <Content Include="admin-lte\plugins\iCheck\square\pink.css" />
+    <Content Include="admin-lte\plugins\iCheck\square\pink.png" />
+    <Content Include="admin-lte\plugins\iCheck\square\purple%402x.png" />
+    <Content Include="admin-lte\plugins\iCheck\square\purple.css" />
+    <Content Include="admin-lte\plugins\iCheck\square\purple.png" />
+    <Content Include="admin-lte\plugins\iCheck\square\red%402x.png" />
+    <Content Include="admin-lte\plugins\iCheck\square\red.css" />
+    <Content Include="admin-lte\plugins\iCheck\square\red.png" />
+    <Content Include="admin-lte\plugins\iCheck\square\square%402x.png" />
+    <Content Include="admin-lte\plugins\iCheck\square\square.css" />
+    <Content Include="admin-lte\plugins\iCheck\square\square.png" />
+    <Content Include="admin-lte\plugins\iCheck\square\yellow%402x.png" />
+    <Content Include="admin-lte\plugins\iCheck\square\yellow.css" />
+    <Content Include="admin-lte\plugins\iCheck\square\yellow.png" />
+    <Content Include="admin-lte\plugins\iCheck\square\_all.css" />
+    <Content Include="admin-lte\plugins\input-mask\jquery.inputmask.date.extensions.js" />
+    <Content Include="admin-lte\plugins\input-mask\jquery.inputmask.extensions.js" />
+    <Content Include="admin-lte\plugins\input-mask\jquery.inputmask.js" />
+    <Content Include="admin-lte\plugins\input-mask\jquery.inputmask.numeric.extensions.js" />
+    <Content Include="admin-lte\plugins\input-mask\jquery.inputmask.phone.extensions.js" />
+    <Content Include="admin-lte\plugins\input-mask\jquery.inputmask.regex.extensions.js" />
+    <Content Include="admin-lte\plugins\input-mask\phone-codes\readme.txt" />
+    <Content Include="admin-lte\plugins\jQueryUI\jquery-ui.js" />
+    <Content Include="admin-lte\plugins\jQueryUI\jquery-ui.min.js" />
+    <Content Include="admin-lte\plugins\jvectormap\jquery-jvectormap-1.2.2.css" />
+    <Content Include="admin-lte\plugins\jvectormap\jquery-jvectormap-1.2.2.min.js" />
+    <Content Include="admin-lte\plugins\jvectormap\jquery-jvectormap-usa-en.js" />
+    <Content Include="admin-lte\plugins\jvectormap\jquery-jvectormap-world-mill-en.js" />
+    <Content Include="admin-lte\plugins\pace\pace.css" />
+    <Content Include="admin-lte\plugins\pace\pace.js" />
+    <Content Include="admin-lte\plugins\pace\pace.min.css" />
+    <Content Include="admin-lte\plugins\pace\pace.min.js" />
+    <Content Include="admin-lte\plugins\timepicker\bootstrap-timepicker.css" />
+    <Content Include="admin-lte\plugins\timepicker\bootstrap-timepicker.js" />
+    <Content Include="admin-lte\plugins\timepicker\bootstrap-timepicker.min.css" />
+    <Content Include="admin-lte\plugins\timepicker\bootstrap-timepicker.min.js" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\database-graphic-hi-res.jpg" />
+    <Content Include="Content\database.jpg" />
+    <Content Include="Content\dont-forget.jpg" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\hourglass.jpg" />
+    <Content Include="Content\ianb.png" />
+    <Content Include="Content\login.png" />
+    <Content Include="Content\Newcastle University-logo.jpg" />
+    <Content Include="Content\notifications-smartphone.jpg" />
+    <Content Include="Content\reminder-hand-writing.jpg" />
+    <Content Include="Content\Research_microscope.jpg" />
+    <Content Include="Content\tether\tether-theme-arrows-dark.css" />
+    <Content Include="Content\tether\tether-theme-arrows-dark.min.css" />
+    <Content Include="Content\tether\tether-theme-arrows.css" />
+    <Content Include="Content\tether\tether-theme-arrows.min.css" />
+    <Content Include="Content\tether\tether-theme-basic.css" />
+    <Content Include="Content\tether\tether-theme-basic.min.css" />
+    <Content Include="Content\tether\tether.css" />
+    <Content Include="Content\tether\tether.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="admin-lte\css\adminlte.min.css.map" />
+    <Content Include="admin-lte\css\adminlte.css.map" />
+    <Content Include="admin-lte\plugins\input-mask\phone-codes\phone-be.json" />
+    <Content Include="admin-lte\plugins\input-mask\phone-codes\phone-codes.json" />
+    <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.1.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -146,8 +529,12 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\tether.js" />
+    <Content Include="Scripts\tether.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -161,18 +548,129 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\AccessTypes\Create.cshtml" />
+    <Content Include="Views\AccessTypes\Delete.cshtml" />
+    <Content Include="Views\AccessTypes\Details.cshtml" />
+    <Content Include="Views\AccessTypes\Edit.cshtml" />
+    <Content Include="Views\AccessTypes\Index.cshtml" />
+    <Content Include="Views\ContactStatus\Create.cshtml" />
+    <Content Include="Views\ContactStatus\Delete.cshtml" />
+    <Content Include="Views\ContactStatus\Details.cshtml" />
+    <Content Include="Views\ContactStatus\Edit.cshtml" />
+    <Content Include="Views\ContactStatus\Index.cshtml" />
+    <Content Include="Views\Contacts\Create.cshtml" />
+    <Content Include="Views\Contacts\Delete.cshtml" />
+    <Content Include="Views\Contacts\Details.cshtml" />
+    <Content Include="Views\Contacts\Edit.cshtml" />
+    <Content Include="Views\Contacts\Index.cshtml" />
+    <Content Include="Views\DiseaseTherapyArea\Create.cshtml" />
+    <Content Include="Views\DiseaseTherapyArea\Delete.cshtml" />
+    <Content Include="Views\DiseaseTherapyArea\Details.cshtml" />
+    <Content Include="Views\DiseaseTherapyArea\Edit.cshtml" />
+    <Content Include="Views\DiseaseTherapyArea\Index.cshtml" />
+    <Content Include="Views\DocumentTypes\Create.cshtml" />
+    <Content Include="Views\DocumentTypes\Delete.cshtml" />
+    <Content Include="Views\DocumentTypes\Details.cshtml" />
+    <Content Include="Views\DocumentTypes\Edit.cshtml" />
+    <Content Include="Views\DocumentTypes\Index.cshtml" />
+    <Content Include="Views\GrantType\Create.cshtml" />
+    <Content Include="Views\GrantType\Delete.cshtml" />
+    <Content Include="Views\GrantType\Details.cshtml" />
+    <Content Include="Views\GrantType\Edit.cshtml" />
+    <Content Include="Views\GrantType\Index.cshtml" />
+    <Content Include="Views\Login\index.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Notes\Create.cshtml" />
+    <Content Include="Views\Notes\Delete.cshtml" />
+    <Content Include="Views\Notes\Details.cshtml" />
+    <Content Include="Views\Notes\Edit.cshtml" />
+    <Content Include="Views\Notes\Index.cshtml" />
+    <Content Include="Views\Phase\Create.cshtml" />
+    <Content Include="Views\Phase\Delete.cshtml" />
+    <Content Include="Views\Phase\Details.cshtml" />
+    <Content Include="Views\Phase\Edit.cshtml" />
+    <Content Include="Views\Phase\Index.cshtml" />
+    <Content Include="Views\Roles\Create.cshtml" />
+    <Content Include="Views\Roles\Delete.cshtml" />
+    <Content Include="Views\Roles\Details.cshtml" />
+    <Content Include="Views\Roles\Edit.cshtml" />
+    <Content Include="Views\Roles\Index.cshtml" />
+    <Content Include="Views\Shared\_LayOutHeader.cshtml" />
+    <Content Include="Views\Shared\_LayoutOld.cshtml" />
+    <Content Include="Views\Shared\_layOutSideBar.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\TrialContacts\Create.cshtml" />
+    <Content Include="Views\TrialContacts\Delete.cshtml" />
+    <Content Include="Views\TrialContacts\Details.cshtml" />
+    <Content Include="Views\TrialContacts\Edit.cshtml" />
+    <Content Include="Views\TrialContacts\Index.cshtml" />
+    <Content Include="Views\TrialDocuments\Create.cshtml" />
+    <Content Include="Views\TrialDocuments\Delete.cshtml" />
+    <Content Include="Views\TrialDocuments\Details.cshtml" />
+    <Content Include="Views\TrialDocuments\Edit.cshtml" />
+    <Content Include="Views\TrialDocuments\Index.cshtml" />
+    <Content Include="Views\TrialFeasibility\Create.cshtml" />
+    <Content Include="Views\TrialFeasibility\Delete.cshtml" />
+    <Content Include="Views\TrialFeasibility\Details.cshtml" />
+    <Content Include="Views\TrialFeasibility\Edit.cshtml" />
+    <Content Include="Views\TrialFeasibility\Index.cshtml" />
+    <Content Include="Views\TrialFeasibility\ListRecords.cshtml" />
+    <Content Include="Views\TrialFeasibility\SetupEditRecord.cshtml" />
+    <Content Include="Views\TrialFeasibility\SetupNewRecord.cshtml" />
+    <Content Include="Views\TrialFeasibility\_ListContacts.cshtml" />
+    <Content Include="Views\TrialFeasibility\_ListDocuments.cshtml" />
+    <Content Include="Views\TrialFeasibility\_ListNotes.cshtml" />
+    <Content Include="Views\TrialFeasibility\_ListReminders.cshtml" />
+    <Content Include="Views\TrialLocation\Create.cshtml" />
+    <Content Include="Views\TrialLocation\Delete.cshtml" />
+    <Content Include="Views\TrialLocation\Details.cshtml" />
+    <Content Include="Views\TrialLocation\Edit.cshtml" />
+    <Content Include="Views\TrialLocation\Index.cshtml" />
+    <Content Include="Views\TrialManagement\Edit.cshtml" />
+    <Content Include="Views\TrialManagement\Index.cshtml" />
+    <Content Include="Views\TrialRecords\Create.cshtml" />
+    <Content Include="Views\TrialRecords\Delete.cshtml" />
+    <Content Include="Views\TrialRecords\Details.cshtml" />
+    <Content Include="Views\TrialRecords\Edit.cshtml" />
+    <Content Include="Views\TrialRecords\Index.cshtml" />
+    <Content Include="Views\TrialReminders\Create.cshtml" />
+    <Content Include="Views\TrialReminders\Delete.cshtml" />
+    <Content Include="Views\TrialReminders\Details.cshtml" />
+    <Content Include="Views\TrialReminders\Edit.cshtml" />
+    <Content Include="Views\TrialReminders\Index.cshtml" />
+    <Content Include="Views\TrialSetup\Create.cshtml" />
+    <Content Include="Views\TrialSetup\Delete.cshtml" />
+    <Content Include="Views\TrialSetup\Details.cshtml" />
+    <Content Include="Views\TrialSetup\Edit.cshtml" />
+    <Content Include="Views\TrialSetup\Index.cshtml" />
+    <Content Include="Views\TrialStarted\Create.cshtml" />
+    <Content Include="Views\TrialStarted\Delete.cshtml" />
+    <Content Include="Views\TrialStarted\Details.cshtml" />
+    <Content Include="Views\TrialStarted\Edit.cshtml" />
+    <Content Include="Views\TrialStarted\Index.cshtml" />
+    <Content Include="Views\TrialType\Create.cshtml" />
+    <Content Include="Views\TrialType\Delete.cshtml" />
+    <Content Include="Views\TrialType\Details.cshtml" />
+    <Content Include="Views\TrialType\Edit.cshtml" />
+    <Content Include="Views\TrialType\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201810021658271_initialSetup.resx">
+      <DependentUpon>201810021658271_initialSetup.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

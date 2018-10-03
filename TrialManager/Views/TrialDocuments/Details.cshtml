@@ -1,0 +1,82 @@
+﻿@model Trialmanager.Models.TrialDocumentsModels
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>TrialDocumentsModels</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.ShortName.ShortName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.ShortName.ShortName)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.TypeName.TypeName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.TypeName.TypeName)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.DateTime)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DateTime)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.UploadedBy)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.UploadedBy)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.DocumentLink)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DocumentLink)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.DocumentVersion)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DocumentVersion)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.DocumentDescription)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DocumentDescription)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

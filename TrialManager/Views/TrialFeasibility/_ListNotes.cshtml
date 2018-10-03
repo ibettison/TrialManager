@@ -1,0 +1,30 @@
+﻿@{
+    Layout = null;
+}
+
+@if (ViewBag.notifications == null)
+{
+    <p> There are no Notifications currently attached to this Trial.</p>
+}
+else
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Date\Time</th>
+                <th>Who</th>
+                <th>Notification</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var note in ViewBag.notifications)
+            {
+                <tr>
+                    <td>@note.DateTime</td>
+                    <td>@note.Who</td>
+                    <td>@note.Message</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

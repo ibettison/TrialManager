@@ -1,0 +1,236 @@
+﻿
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            @ViewBag.Title
+            <small>@ViewBag.Small</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/Home/Index"><i class="fa fa-dashboard"></i>@ViewBag.link</a></li>
+            <li class="active">@ViewBag.Title</li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box box-solid box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Add a New Trial</h3>
+                        <div class="box-tools pull-right">
+                            <!-- Buttons, labels, and many other things can be placed here! -->
+                            <!-- Here is a label for example -->
+                            <span class="label label-default">Creating New Trial...</span>
+                        </div>
+                        <!-- /.box-tools -->
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <form role="form">
+                            <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Trial Title/Acronym" />
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea class="textarea form-control" placeholder="Full Trial Title"></textarea>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Application Reference" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="BH Number" />
+                                    </div>
+                                    <div class="form-group">
+                                        <select type="hidden" id="sponsordd" class="form-control">
+                                            <option disabled selected>Select a Sponsor</option>
+                                            <option>Sponsor Joe</option>
+                                            <option>Sponsor Kate</option>
+                                            <option>Sponsor Mike</option>
+                                            <option>Sponsor Clare</option>
+                                            <option>Sponsor Ian</option>
+                                            <option>Sponsor Laura</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <select id="funderdd" class="form-control">
+                                            <option disabled selected>Select a Funder</option>
+                                            <option>Funder Joe</option>
+                                            <option>Funder Kate</option>
+                                            <option>Funder Mike</option>
+                                            <option>Funder Clare</option>
+                                            <option>Funder Ian</option>
+                                            <option>Funder Laura</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <select type="hidden" id="trialdd" class="form-control">
+                                            <option disabled selected>Select a Trial type</option>
+                                            <option>Trial 1</option>
+                                            <option>trial 2</option>
+                                            <option>Trial 3</option>
+                                            <option>trial 4</option>
+                                            <option>T5</option>
+                                            <option>T6</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>
+                                            <input name="comm" type="radio" class="form-control icheck" />
+                                            Commercial
+                                            <input name="comm" type="radio" class="form-control icheck" />
+                                            Non-Commercial
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <select type="hidden" id="Phasedd" class="form-control">
+                                            <option disabled selected>Select a Trial Phase</option>
+                                            <option>Phase 1</option>
+                                            <option>Phase 2</option>
+                                            <option>Phase 3</option>
+                                            <option>Pahase 4</option>
+                                            <option>P5</option>
+                                            <option>P6</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Proposed Sample Size" />
+                                    </div>
+                                    <div class="form-group">
+                                        <select type="hidden" id="grantdd" class="form-control">
+                                            <option disabled selected>Select a Grant type</option>
+                                            <option>grant 1</option>
+                                            <option>Grant 2</option>
+                                            <option>Grant 3</option>
+                                            <option>Grant 4</option>
+                                            <option>G5</option>
+                                            <option>G6</option>
+                                        </select>
+                                    </div>
+                            <div class="form-group">
+                                <select type="hidden" id="fundStreamdd" class="form-control">
+                                    <option disabled selected>Select a Funding stream</option>
+                                    <option>FS 1</option>
+                                    <option>FS 2</option>
+                                    <option>FS 3</option>
+                                    <option>FS 4</option>
+                                    <option>FS5</option>
+                                    <option>FS6</option>
+                                </select>
+                            </div>
+                            <!-- datePicker-->
+                            <div class="form-group">
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" class="form-control pull-right datepicker" placeholder="Enter Grant Deadline Date" />
+                                </div>
+                            </div>
+                            <h4>Uni Consultancy Agreement</h4>
+                            <div class="form-group">
+                                <label>
+                                    <input name="UCA" type="radio" class="form-control icheck" />
+                                    Yes
+                                    <input name="UCA" type="radio" class="form-control icheck" />
+                                    No
+                                </label>
+                            </div>
+                            <h4>NHS Consultancy Agreement</h4>
+                            <div class="form-group">
+                                <label>
+                                    <input name="NCA" type="radio" class="form-control icheck" />
+                                    Yes
+                                    <input name="NCA" type="radio" class="form-control icheck" />
+                                    No
+                                </label>
+                            </div>
+                                    <button type="submit" class="btn btn-block btn-default">Create the new Trial</button>
+                        </form>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <!--Use this to keep the data last typed in a cookie so that it can be saved properly later-->
+                        <p>Save what you have typed in a cookie if you are distracted!</p>
+                        <a class="btn btn-app"><i class="fa fa-save"></i>Keep</a> <a class="btn btn-app"><i class="fa fa-exclamation"></i>Clear</a> <a class="btn btn-app"><i class="fa fa-close"></i>Delete</a>
+                    </div>
+                    <!-- box-footer -->
+                </div>
+                <!-- /.box -->
+            </div>
+        <div class="col-md-4">
+            <div class="box box-solid box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Add Contacts to the Trial</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table id="example15" class="table" style="width: 100%">
+                        <thead>
+                            <tr>
+                                <th>Contact Name</th>
+                                <th>Role</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Mark Walker</td>
+                                <td>Chief Investigator</td>
+                            </tr>
+                            <tr>
+
+                                <td>Aileen Burn</td>
+                                <td>Lead Nurse</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <form role="form">
+                        <div class="form-group">
+                            <select type="hidden" id="contactdd" class="form-control">
+                                <option disabled selected>Select a Contact</option>
+                                <option>Clare Jordison</option>
+                                <option>Laura Brown</option>
+                                <option>Ian Bettison</option>
+                                <option>Mark Walker</option>
+                                <option>Aileen Burn</option>
+                                <option>Andrew Daniels</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select id="roledd" class="form-control">
+                                <option disabled selected>Select a Role for this Contact</option>
+                                <option>Chief Investigator</option>
+                                <option>Principal Investigator</option>
+                                <option>Lead nurse</option>
+                                <option>Trial Co-ordinator</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-block btn-default">Add contact to Trial</button>
+                        </div>
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</section>
+</div>
+@section scripts
+{
+    <script>
+     //Select2 dropdown
+        $("#sponsordd").select2();
+        $("#funderdd").select2();
+        $("#contactdd").select2();
+        $("#roledd").select2();
+        $('input[type=checkbox], input[type=radio]').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue'
+        });
+        
+</script>
+}
+
