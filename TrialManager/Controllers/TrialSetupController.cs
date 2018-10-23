@@ -10,6 +10,7 @@ using Trialmanager.Models;
 
 namespace Trialmanager.Controllers
 {
+    [Authorize(Roles = "NTRF_AUTO_MC_TrialManager_Administrators, NTRF_AUTO_MC_TrialManager_Editors")]
     public class TrialSetupController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -49,7 +50,7 @@ namespace Trialmanager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,GrantFunderRef,SponsorRef,RecRef,EudractRef,IrasId,RecruitmentTarget,TrialLocationId,RecDate,HraDate,CtaDate,TrialId")] TrialSetupModels trialSetupModels)
+        public ActionResult Create([Bind(Include = "Id,ProjectIdentifier,ResearchDevelopmentId,GrantFunderRef,SponsorRef,RecRef,EudractRef,IrasId,RecruitmentTarget,TrialLocationId,RecDate,HraDate,CtaDate,TrialId")] TrialSetupModels trialSetupModels)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +86,7 @@ namespace Trialmanager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,GrantFunderRef,SponsorRef,RecRef,EudractRef,IrasId,RecruitmentTarget,TrialLocationId,RecDate,HraDate,CtaDate,TrialId")] TrialSetupModels trialSetupModels)
+        public ActionResult Edit([Bind(Include = "Id,ProjectIdentifier,ResearchDevelopmentId,GrantFunderRef,SponsorRef,RecRef,EudractRef,IrasId,RecruitmentTarget,TrialLocationId,RecDate,HraDate,CtaDate,TrialId")] TrialSetupModels trialSetupModels)
         {
             if (ModelState.IsValid)
             {

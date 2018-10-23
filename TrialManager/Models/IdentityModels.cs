@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using TrialManager.Models;
 
 namespace Trialmanager.Models
 {
@@ -53,6 +54,13 @@ namespace Trialmanager.Models
         public DbSet<TrialDocumentsModels> TrialDocumentsModels { get; set; }
         public DbSet<DocumentTypesModels> DocumentTypesModels { get; set; }
         public DbSet<TrialStartedModels> TrialStartedModels { get; set; }
-        public System.Data.Entity.DbSet<Trialmanager.Models.TrialContactsModels> TrialContactsModels { get; set; }
+        public DbSet<TrialContactsModels> TrialContactsModels { get; set; }
+        public DbSet<TrialLateDevelopmentModels> TrialLateDevelopmentModels { get; set; }
+        public DbSet<TrialSetupCompleteModels> TrialSetupCompleteModels { get; set; }
+        public DbSet<TrialGroupModels> TrialGroupModels { get; set; }
+
+        public DbSet<ContactTrialGroupModels> ContactTrialGroupModels { get; set; }
+
+        public DbSet<TrialGroupTrialModels> TrialGroupTrialModels { get; set; }
     }
 }

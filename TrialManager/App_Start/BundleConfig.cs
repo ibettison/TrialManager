@@ -10,7 +10,7 @@ namespace TrialManager
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
-                        "~/Scripts/jquery.dataTables.min.js",
+                        "~/Scripts/dataTables.js",
                         "~/Scripts/select2.full.js",
                         "~/Scripts/icheck.js",
                         "~/scripts/bootstrap-datepicker.js",
@@ -46,10 +46,10 @@ namespace TrialManager
                       "~/Content/css/bootstrap-datepicker.css",
                       "~/admin-lte/css/skins/skin-blue.css",
                       "~/admin-lte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css",
-                      "~/Content/dataTables.bootstrap.css",
+                      "~/Content/datatables.css",
                       "~/Content/css/select2.css",
                       "~/admin-lte/css/alt/AdminLTE-select2.css",
-                      "~/Content/css/all.css"));
+                      "~/Content/all.css"));
         }
     }
 }

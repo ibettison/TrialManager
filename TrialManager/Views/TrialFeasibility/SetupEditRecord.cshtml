@@ -17,7 +17,7 @@
                         {
                             @Html.AntiForgeryToken()
                             <div class="form-horizontal">
-                                <h4>TrialSetupModels</h4>
+                                <h4>Trial Setup</h4>
                                 <hr/>
                                 @Html.ValidationSummary(true, "", new {@class = "text-danger"})
                                 @Html.HiddenFor(model => model.Id)
@@ -25,7 +25,7 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         @Html.EditorFor(model => model.ProjectIdentifier, new { htmlAttributes = new { @class = "form-control", title = "Project Identifier", disabled = "disabled" } })
-                                        <div class="input-group-addon">
+                                        <div class="input-group-addon setup">
                                             <a href="#">
                                                 <i class="fa fa-edit"></i>
                                             </a>
@@ -36,8 +36,8 @@
                                 
                                 <div class="form-group">
                                     <div class="input-group">
-                                        @Html.EditorFor(model => model.ResearchDevelopmentId, new { htmlAttributes = new { @class = "form-control", title = "R&D Identifier", disabled = "disabled" } })
-                                        <div class="input-group-addon">
+                                        @Html.EditorFor(model => model.ResearchDevelopmentId, new { htmlAttributes = new { @class = "form-control", title = "RD Identifier", disabled = "disabled" } })
+                                        <div class="input-group-addon setup">
                                             <a href="#">
                                                 <i class="fa fa-edit"></i>
                                             </a>
@@ -49,7 +49,7 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         @Html.EditorFor(model => model.GrantFunderRef, new {htmlAttributes = new {@class = "form-control", title="Grant funder reference", disabled = "disabled"}})
-                                        <div class="input-group-addon">
+                                        <div class="input-group-addon setup">
                                             <a href="#">
                                                 <i class="fa fa-edit"></i>
                                             </a>
@@ -61,7 +61,7 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         @Html.EditorFor(model => model.SponsorRef, new {htmlAttributes = new {@class = "form-control", Title = "Sponsor Reference", disabled = "disabled" } })
-                                        <div class="input-group-addon">
+                                        <div class="input-group-addon setup">
                                             <a href="#">
                                                 <i class="fa fa-edit"></i>
                                             </a>
@@ -73,7 +73,7 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         @Html.EditorFor(model => model.RecRef, new {htmlAttributes = new {@class = "form-control", Title = "REC Reference", disabled = "disabled" } })
-                                        <div class="input-group-addon">
+                                        <div class="input-group-addon setup">
                                             <a href="#">
                                                 <i class="fa fa-edit"></i>
                                             </a>
@@ -85,7 +85,7 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         @Html.EditorFor(model => model.EudractRef, new {htmlAttributes = new {@class = "form-control", Title = "EUDract Reference", disabled = "disabled" } })
-                                        <div class="input-group-addon">
+                                        <div class="input-group-addon setup">
                                             <a href="#">
                                                 <i class="fa fa-edit"></i>
                                             </a>
@@ -97,7 +97,7 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         @Html.EditorFor(model => model.IrasId, new {htmlAttributes = new {@class = "form-control", Title="IRAS Id", disabled="disabled"}})
-                                        <div class="input-group-addon">
+                                        <div class="input-group-addon setup">
                                             <a href="#">
                                                 <i class="fa fa-edit"></i>
                                             </a>
@@ -109,7 +109,7 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         @Html.EditorFor(model => model.RecruitmentTarget, new { htmlAttributes = new { @class = "form-control", Title = "Recruitment target", disabled = "disabled" } })
-                                        <div class="input-group-addon">
+                                        <div class="input-group-addon setup">
                                             <a href="#">
                                                 <i class="fa fa-edit"></i>
                                             </a>
@@ -122,7 +122,7 @@
                                     @Html.Label("Location", htmlAttributes: new {@class = "control-label col-md-12"})
                                     <div class="input-group">
                                         @Html.DropDownList("TrialLocationId", null, htmlAttributes: new {@class = "form-control", Title = "Trial Location", disabled = "disabled" })
-                                        <div class="input-group-addon">
+                                        <div class="input-group-addon setup">
                                             <a href="#">
                                                 <i class="fa fa-edit"></i>
                                             </a>
@@ -134,7 +134,7 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         @Html.EditorFor(model => model.RecDate, new {htmlAttributes = new {@class = "form-control", Title = "REC Date", disabled = "disabled" } })
-                                        <div class="input-group-addon">
+                                        <div class="input-group-addon setup">
                                             <a href="#">
                                                 <i class="fa fa-edit"></i>
                                             </a>
@@ -146,7 +146,7 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         @Html.EditorFor(model => model.HraDate, new {htmlAttributes = new {@class = "form-control", Title = "HRA Date", disabled = "disabled" } })
-                                        <div class="input-group-addon">
+                                        <div class="input-group-addon setup">
                                             <a href="#">
                                                 <i class="fa fa-edit"></i>
                                             </a>
@@ -158,7 +158,7 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         @Html.EditorFor(model => model.CtaDate, new {htmlAttributes = new {@class = "form-control", Title = "CTA Date", disabled = "disabled" } })
-                                        <div class="input-group-addon">
+                                        <div class="input-group-addon setup">
                                             <a href="#">
                                                 <i class="fa fa-edit"></i>
                                             </a>
@@ -168,16 +168,84 @@
                                 </div>
 
                                 <input type="hidden" name="TrialId" value="@ViewBag.Id"/>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <input type="submit" value="Save" class="btn btn-default btn-block"/>
-                                    </div>
-                                </div>
+                               
                             </div>
                         }
                     </div>
                         <!-- /.box-body -->
                         </div>
                 </div>
-                <!-- /.box -->
+<!-- /.box -->
+                @if (ViewBag.setupComplete == null)
+                {
+                    <div class="box-footer">
+                        <div id="EnterProgressSetup">
+                            <div class="input-group">
+                                <div class="col-md-12">
+                                    <label class="input-group">Trial Setup</label>
+                                </div>
+                                <div class="checkbox">
+                                    @Html.RadioButton("StartedTrial", "Yes") Setup completed
+                                    @Html.RadioButton("StartedTrial", "No") Setup didn't complete
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label class="label">Reason Trial did not complete</label>
+                                </div>
+                                @Html.TextArea("Reason", new { @class = "form-control", Rows = 4, PlaceHolder = "Enter the reason the Trial did not complete setup" })
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-default btn-block" id="saveSetup">Save Trial Progress</button>
+                            </div>
+                        </div>
+                        <div id="ProgressSetup"></div>
+                    </div>
+                                    <!-- box-footer -->
+                }
+                else
+                {
+                    foreach (var item in ViewBag.setupComplete)
+                    {
+                        <div class="box-footer">
+                            <!--Use this to keep the data last typed in a cookie so that it can be saved properly later-->
+                            <div class="input-group">
+                                <div class="col-md-12">
+                                    <label class="input-group">Trial Setup</label>
+                                </div>
+                                <div class="checkbox">
+                                    @if (item.Completed == "Yes")
+                                    {
+                                        @Html.RadioButton("StartedTrial", "Yes", new { @checked = "checked" })
+                                        @Html.Label("Setup Completed")
+                                        @Html.RadioButton("StartedTrial", "No")
+                                        @Html.Label("Setup didn't Complete ")
+                                    }
+                                    else
+                                    {
+                                        @Html.RadioButton("StartedTrial", "Yes")
+                                        @Html.Label("Setup completed")
+                                        @Html.RadioButton("StartedTrial", "No", new { @checked = "checked" })
+                                        @Html.Label("Setup didn't Complete")
+                                    }
+
+
+                                </div>
+                            </div>
+                            @if (item.Completed == "No")
+                            {
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label class="label">Reason Setup did not Complete</label>
+                                    </div>
+                                    <textarea class="form-control" rows="4">@item.Reason</textarea>
+                                </div>
+                            }
+
+                        </div>
+                                    <!-- box-footer -->
+                    }
+
+                }
                    

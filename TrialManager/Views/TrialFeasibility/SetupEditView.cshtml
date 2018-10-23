@@ -1,0 +1,132 @@
+﻿@model Trialmanager.Models.TrialSetupModels
+
+                <div class="box box-solid box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Edit Setup</h3>
+                        <div class="box-tools pull-right">
+                            <!-- Buttons, labels, and many other things can be placed here! -->
+                            <!-- Here is a label for example -->
+                            <span class="label label-default">Editing Setup...</span>
+                        </div>
+                        <!-- /.box-tools -->
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="col-md-12">
+                        @using (Html.BeginForm("Edit", "TrialSetup", new {id = ViewBag.setupId}, FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="form-horizontal">
+                                <h4>Trial Setup</h4>
+                                <hr/>
+                                @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                                @Html.HiddenFor(model => model.Id)
+                                
+                                <div class="form-group">
+                                        @Html.EditorFor(model => model.ProjectIdentifier, new { htmlAttributes = new { @class = "form-control", title = "Project Identifier", disabled = "disabled" } })
+                                        @Html.ValidationMessageFor(model => model.ProjectIdentifier, "", new { @class = "text-danger" })
+                                </div>
+                                
+                                <div class="form-group">
+                                        @Html.EditorFor(model => model.ResearchDevelopmentId, new { htmlAttributes = new { @class = "form-control", title = "RD Identifier", disabled = "disabled" } })
+                                        @Html.ValidationMessageFor(model => model.ResearchDevelopmentId, "", new { @class = "text-danger" })
+
+                                </div>
+
+                                <div class="form-group">
+                                        @Html.EditorFor(model => model.GrantFunderRef, new {htmlAttributes = new {@class = "form-control", title="Grant funder reference", disabled = "disabled"}})
+                                </div>
+
+                                <div class="form-group">
+                                        @Html.EditorFor(model => model.SponsorRef, new {htmlAttributes = new {@class = "form-control", Title = "Sponsor Reference", disabled = "disabled" } })
+                                </div>
+
+                                <div class="form-group">
+                                        @Html.EditorFor(model => model.RecRef, new {htmlAttributes = new {@class = "form-control", Title = "REC Reference", disabled = "disabled" } })
+                                </div>
+
+                                <div class="form-group">
+                                        @Html.EditorFor(model => model.EudractRef, new {htmlAttributes = new {@class = "form-control", Title = "EUDract Reference", disabled = "disabled" } })
+                                </div>
+
+                                <div class="form-group">
+                                        @Html.EditorFor(model => model.IrasId, new {htmlAttributes = new {@class = "form-control", Title="IRAS Id", disabled="disabled"}})
+                                </div>
+
+                                <div class="form-group">
+                                        @Html.EditorFor(model => model.RecruitmentTarget, new { htmlAttributes = new { @class = "form-control", Title = "Recruitment target", disabled = "disabled" } })
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label("Location", htmlAttributes: new {@class = "control-label col-md-1"})
+                                        @Html.DropDownList("TrialLocationId", null, htmlAttributes: new {@class = "form-control", Title = "Trial Location", disabled = "disabled" })
+                                </div>
+
+                                <div class="form-group">
+                                        @Html.EditorFor(model => model.RecDate, new {htmlAttributes = new {@class = "form-control", Title = "REC Date", disabled = "disabled" } })
+                                </div>
+
+                                <div class="form-group">
+                                        @Html.EditorFor(model => model.HraDate, new {htmlAttributes = new {@class = "form-control", Title = "HRA Date", disabled = "disabled" } })
+                                        @Html.ValidationMessageFor(model => model.HraDate, "", new {@class = "text-danger"})
+                                </div>
+
+                                <div class="form-group">
+                                        @Html.EditorFor(model => model.CtaDate, new {htmlAttributes = new {@class = "form-control", Title = "CTA Date", disabled = "disabled" } })
+
+                                </div>
+
+                                <input type="hidden" name="TrialId" value="@ViewBag.Id"/>
+                               
+                            </div>
+                        }
+                    </div>
+                        <!-- /.box-body -->
+                        </div>
+                </div>
+<!-- /.box -->
+                @if (ViewBag.setupComplete != null)
+                {
+                    foreach (var item in ViewBag.setupComplete)
+                    {
+                        <div class="box-footer">
+                            <!--Use this to keep the data last typed in a cookie so that it can be saved properly later-->
+                            <div class="input-group">
+                                <div class="col-md-12">
+                                    <label class="input-group">Trial Setup</label>
+                                </div>
+                                <div class="checkbox">
+                                    @if (item.Started == "Yes")
+                                    {
+                                        @Html.RadioButton("StartedTrial", "Yes", new { @checked = "checked" })
+                                        @Html.Label("Setup Completed")
+                                        @Html.RadioButton("StartedTrial", "No")
+                                        @Html.Label("Setup didn't Complete ")
+                                    }
+                                    else
+                                    {
+                                        @Html.RadioButton("StartedTrial", "Yes")
+                                        @Html.Label("Setup completed")
+                                        @Html.RadioButton("StartedTrial", "No", new { @checked = "checked" })
+                                        @Html.Label("Setup didn't Complete")
+                                    }
+
+
+                                </div>
+                            </div>
+                            @if (item.Completed == "No")
+                            {
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label class="label">Reason Setup did not Complete</label>
+                                    </div>
+                                    <textarea class="form-control" rows="4">@item.Reason</textarea>
+                                </div>
+                            }
+
+                        </div>
+                                    <!-- box-footer -->
+                    }
+
+                }
+                   

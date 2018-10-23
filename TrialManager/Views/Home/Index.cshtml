@@ -1,15 +1,10 @@
-﻿@model  IEnumerable<Trialmanager.Models.TrialFeasibilityModels>
-
+﻿@using Microsoft.Ajax.Utilities
+@model  IEnumerable<TrialManager.Models.HomeViewModels>
 @{
     ViewBag.Title = "Dashboard";
     ViewBag.Small = "Control Panel";
     ViewBag.Link = "Dashboard";
-    ViewBag.Today = DateTime.Today;
-    ViewBag.date1 = new DateTime(2019, 04, 18);
-    ViewBag.date2 = new DateTime(2018, 09, 14);
-    ViewBag.date1Days = (ViewBag.date1 - ViewBag.Today).TotalDays;
-    ViewBag.date2days = (ViewBag.date2 - ViewBag.Today).TotalDays;
-    ViewBag.CI = "Professor Tim Robins";
+    ViewBag.Access = User.IsInRole("NTRF_AUTO_MC_TrialManager_Membership") ? "ReadOnly" : "Editor";
 }
 
 @if (User.Identity.IsAuthenticated)
@@ -45,8 +40,8 @@
                 <div class="col-lg-3 col-xs-6">
                     <div class="small-box bg-green">
                         <div class="inner">
-                            <h3>@ViewBag.Late</h3>
-                            <p>Late Development</p>
+                            <h3>@ViewBag.Setup</h3>
+                            <p>In Setup</p>
                         </div>
                         <div class="icon">
                             <i class="fa fa-hourglass-2"></i>
@@ -57,8 +52,8 @@
                 <div class="col-lg-3 col-xs-6">
                     <div class="small-box bg-red">
                         <div class="inner">
-                            <h3>@ViewBag.Live</h3>
-                            <p>Live Projects</p>
+                            <h3>@ViewBag.Late</h3>
+                            <p>Late Development</p>
                         </div>
                         <div class="icon">
                             <i class="fa fa-puzzle-piece"></i>
@@ -69,8 +64,8 @@
                 <div class="col-lg-3 col-xs-6">
                     <div class="small-box bg-blue">
                         <div class="inner">
-                            <h3>@ViewBag.Closed</h3>
-                            <p>Closed Projects</p>
+                            <h3>@ViewBag.Live</h3>
+                            <p>Live Projects</p>
                         </div>
                         <div class="icon">
                             <i class="fa fa-thumbs-up"></i>
@@ -80,7 +75,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-lg-2 hidden-md">
                     <div class="box">
                         <div class="box-header with-border">
                             <h3 class="box-title">Recent trials</h3>
@@ -114,7 +109,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-12 col-lg-10">
                     <div class="box">
                         <div class="box-header with-border">
                             <h3 class="box-title">List of Trials</h3>
@@ -122,48 +117,74 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
-
+                        @if (Model != null)
+                        {
                             <table id="example" class="table table-striped table-bordered" style="width: 100%">
                                 <thead>
-                                    <tr>
-                                        <th>Trial Name</th>
-                                        <th>Trial Type</th>
-                                        <th>Status</th>
-                                        <th>Chief Investigator</th>
-
-                                    </tr>
+                                <tr>
+                                    <th>Trial Name</th>
+                                    <th class="hidden-xs">Trial Type</th>
+                                    <th class="hidden-md hidden-xs">Status</th>
+                                    <th class="hidden-xs">Project</th>
+                                    <th>R&D Number</th>
+                                    <th class="hidden-xs">Chief investigator</th>
+                                    <th class="hidden-xs">Principal investigator</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var item in Model)
-                                    {
-                                        <tr>
-                                            <td>
-                                                @Html.ActionLink(Html.DisplayFor(modelItem => item.ShortName).ToString(), "Edit", new { id = item.Id })
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.TrialTypeName.TrialTypeName)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Commercial)
-                                            </td>
-                                            <td>
-                                                @Html.Raw(ViewBag.CI)
-                                            </td>
-
-                                        </tr>
-                                    }
+                                @foreach (var item in Model)
+                                {
+                                    
+                                    <tr>
+                                        <td>
+                                            @if (item.Access)
+                                            {
+                                                if (item.ReadOnly == false)
+                                                {
+                                                    @Html.ActionLink(Html.DisplayFor(modelItem => item.ShortName).ToString(), "Edit", new {id = item.TrialId})
+                                                    if (item.ReminderCount > 0)
+                                                    {
+                                                        <sup><span class="label label-danger">@item.ReminderCount</span></sup>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    @Html.ActionLink(Html.DisplayFor(modelItem => item.ShortName).ToString(), "ViewTrial", new { id = item.TrialId })
+                                                }
+                                            }
+                                            else
+                                            {
+                                                @Html.ActionLink(Html.DisplayFor(modelItem => item.ShortName).ToString(), "ViewTrial", new {id = item.TrialId})
+                                            }
+                                        </td>
+                                        <td class="hidden-xs">
+                                            @Html.DisplayFor(modelItem => item.TrialTypeName)
+                                        </td>
+                                        <td class="hidden-md hidden-xs">
+                                            @Html.DisplayFor(modelItem => item.Commercial)
+                                        </td>
+                                        <td class="hidden-xs">
+                                            @Html.DisplayFor(modelItem => item.ProjectId)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ResearchId)
+                                        </td>
+                                        <td class="hidden-xs">
+                                            @Html.DisplayFor(modelItem => item.CI)
+                                        </td>
+                                        <td class="hidden-xs">
+                                            @Html.DisplayFor(modelItem => item.PI)
+                                        </td>
+                                    </tr>
+                                }
 
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>Trial Name</th>
-                                        <th>Trial Type</th>
-                                        <th>Status</th>
-                                        <th>Chief Investigator</th>
-                                    </tr>
-                                </tfoot>
                             </table>
-
+                        }
+                        else
+                        {
+                            <p>There are no trials added to the database at the moment. Select `Trials->Start Trial` to add one.</p>
+                        }
                         </div>
                         <!-- /.box-body -->
                         <div class="box-footer">
@@ -173,89 +194,7 @@
                     </div>
                     <!-- /.box -->
                 </div>
-                <div class="col-md-4">
-                    <div class="box box-widget widget-user-2">
-                        <div class="widget-user-header bg-red-active">
-                            <div class="widget-user-image">
-                                <img class="img-circle" src="../Content/hourglass.jpg" />
-                            </div>
-                            <h3 class="widget-user-username">Global Reminders</h3>
-                            <h5 class="widget-user-desc">A countdown list for reports and Information gathering</h5>
-                        </div>
 
-                        <div class="box-footer">
-                            <div class="row">
-                                <table id="example1" class="table" style="width: 100%">
-                                    <thead>
-                                        <tr>
-                                            <th>Date</th>
-                                            <th>Reminder</th>
-                                            <th>Days till Due</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>18/04/2019</td>
-                                            <td>NIHR Report Due</td>
-                                            <td>@ViewBag.date1Days Days</td>
-                                        </tr>
-                                        <tr>
-
-                                            <td>14/09/2018</td>
-                                            <td>REC Progress Report</td>
-                                            <td>@ViewBag.date2days Days <span class="label label-warning">< 50 days</span></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="box box-widget widget-user-2">
-                        <div class="widget-user-header bg-blue-active">
-                            <div class="widget-user-image">
-                                <img class="img-circle" src="../Content/notifications-smartphone.jpg" />
-                            </div>
-                            <h3 class="widget-user-username">Global Notifications</h3>
-                            <h5 class="widget-user-desc">All messages will be seen by all users</h5>
-                        </div>
-
-                        <div class="box-footer">
-                            <div class="row">
-                                <table id="example1" class="table" style="width: 100%">
-                                    <thead>
-                                        <tr>
-                                            <th>Date</th>
-                                            <th>Who</th>
-                                            <th>Message</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>18/04/2018</td>
-                                            <td>Clare Jordison</td>
-                                            <td>We need a night out</td>
-                                        </tr>
-                                        <tr>
-
-                                            <td>27/07/2018</td>
-                                            <td>Clare Jordison</td>
-                                            <td>Come on we need a good night on the toon!</td>
-                                        </tr>
-                                        <tr>
-
-                                            <td>27/07/2018</td>
-                                            <td>Ian Bettison</td>
-                                            <td>I'm working on the application and hopefully it'll work for you.</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <!-- /.box -->
             </div>
 
         </section>

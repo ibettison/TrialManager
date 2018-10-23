@@ -5,26 +5,15 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="~/Content/ianb.png" class="img-circle" alt="User Image">
+                <img src="~/Content/user-png-image-15189.png" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-                <p>Ian Bettison</p>
+                <p>@ViewBag.FullName</p>
                 <!-- Status -->
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
         </div>
-        <!-- search form (Optional) -->
-        <form action="#" method="get" class="sidebar-form">
-            <div class="input-group">
-                <input type="text" name="q" class="form-control" placeholder="Search...">
-                <span class="input-group-btn">
-                    <button type="submit" name="search" id="search-btn" class="btn btn-flat">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </span>
-            </div>
-        </form>
-        <!-- /.search form -->
+        
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">MENU</li>
@@ -39,11 +28,22 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="/TrialFeasibility/Create"><i class="fa fa-plus"></i><span>Start Trial</span></a></li>
-                    <li><a href="#"><i class="fa fa-plus"></i><span>Find a Trial</span></a></li>
-                    <li><a href="/TrialFeasibility/"><i class="fa fa-plus"></i><span>Manage freasibility Trials</span></a></li>
-                    <li><a href="/TrialType/"><i class="fa fa-plus"></i><span>Manage Trial Types</span></a></li>
-                    <li><a href="/Phase/"><i class="fa fa-plus"></i><span>Manage Trial Phases</span></a></li>
-                </ul>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-group"></i> <span>Types</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="/TrialType/"><i class="fa fa-plus"></i><span>Trial</span></a></li>
+                            <li><a href="/Phase/"><i class="fa fa-plus"></i><span>Phase</span></a></li>
+                            <li><a href="/GrantType/"><i class="fa fa-plus"></i><span>Grant</span></a></li>
+                            <li><a href="/DiseaseTherapyArea/"><i class="fa fa-plus"></i><span>Disease/Therapy Area</span></a></li>
+                        </ul>
+                    </li>
+                        
+                 </ul>
             </li>
             <li class="treeview">
                 <a href="#">
@@ -54,24 +54,19 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="/Contacts/"><i class="fa fa-plus"></i><span>Add/edit a New Contact</span></a></li>
-                    <li><a href="#">Browse</a></li>
-                    <li><a href="#"><i class="fa fa-plus"></i><span>Add Contact type</span></a></li>
-                    <li><a href="#"><i class="fa fa-plus"></i><span>Add Contact role</span></a></li>
+                    <li><a href="/Roles/"><i class="fa fa-plus"></i><span>Add Contact role</span></a></li>
                     <li><a href="/ContactStatus/"><i class="fa fa-plus"></i><span>Add Contact status</span></a></li>
-                    <li><a href="/Contact/Delete"><i class="fa fa-plus"></i><span>Delete Contact</span></a></li>
                 </ul>
             </li>
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-calendar-plus-o"></i> <span>Reminders</span>
+                    <i class="fa fa-file-o"></i> <span>Documents</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="#">Add a New Reminder</a></li>
-                    <li><a href="#">Search Reminders</a></li>
-                    <li><a href="#">Amend Reminders</a></li>
+                    <li><a href="/DocumentTypes/"><i class="fa fa-plus"></i><span>Add/edit Document Type</span></a></li>
                 </ul>
             </li>
             <li class="treeview">
@@ -82,14 +77,26 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="#">Add New User</a></li>
-                    <li><a href="#">Amend Status</a></li>
-                    <li><a href="#">Amend Status</a></li>
-                    <li><a href="#">Add Contact type</a></li>
-                    <li><a href="#">Add Document type</a></li>
+                    <li><a href="/TrialGroup/">Create New Trial Group</a></li>
+                    <li><a href="/ContactTrialGroup/">Add User to Trial Group</a></li>
+                    <li><a href="/TrialGroupTrial/">Add Trial to Trial Group</a></li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-trash-o"></i> <span>Delete</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="#"><i class="fa fa-plus"></i><span>Delete Contacts</span></a></li>
+                            <li><a href="#"><i class="fa fa-plus"></i><span>Delete Roles</span></a></li>
+                            <li><a href="#"><i class="fa fa-plus"></i><span>Delete Documents</span></a></li>
+                        </ul>
+                    </li>
                 </ul>
-            </li>
 
+            </li>
+            
         </ul>
         <!-- /.sidebar-menu -->
     </section>

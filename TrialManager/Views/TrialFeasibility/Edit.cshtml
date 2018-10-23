@@ -36,7 +36,7 @@
         <!-- Main content -->
         <section class="content container-fluid">
             <div class="row">
-                <div class="col-md-7 col-sm-8">
+                <div class="col-lg-7 col-md-12 col-sm-12">
 
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
@@ -48,9 +48,6 @@
                             </li>
                             <li>
                                 <a href="#tab3" data-toggle="tab">Late Development</a>
-                            </li>
-                            <li>
-                                <a href="#tab4" data-toggle="tab">Milestones</a>
                             </li>
                             <li>
                                 <a href="#tab5" data-toggle="tab">Follow Up</a>
@@ -67,11 +64,11 @@
                             <div class="tab-pane active" id="tab1">
                                 <div class="box box-solid box-primary">
                                     <div class="box-header with-border">
-                                        <h3 class="box-title">Add a New Trial</h3>
+                                        <h3 class="box-title">Trial Management</h3>
                                         <div class="box-tools pull-right">
                                             <!-- Buttons, labels, and many other things can be placed here! -->
                                             <!-- Here is a label for example -->
-                                            <span class="label label-default">Creating New Trial...</span>
+                                            <span class="label label-default">Edit Trial...</span>
                                         </div>
                                         <!-- /.box-tools -->
                                     </div>
@@ -83,7 +80,7 @@
                                                 @Html.AntiForgeryToken()
 
                                                 <div class="form-horizontal">
-                                                    <h4>TrialFeasibilityModels</h4>
+                                                    <h4>Feasibility</h4>
                                                     <hr />
                                                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                                     @Html.HiddenFor(model => model.Id)
@@ -91,7 +88,7 @@
                                                     <div class="form-group">
                                                         <div class="input-group">
                                                             @Html.EditorFor(model => model.ShortName, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Enter Trial Short Name", disabled = "disabled" } })
-                                                            <div class="input-group-addon">
+                                                            <div class="input-group-addon feasibility">
                                                                 <a href="#" data-toggle="modal" data-target="#modal-default1">
                                                                     <i class="fa fa-edit"></i>
                                                                 </a>
@@ -106,7 +103,7 @@
                                                     <div class="form-group">
                                                         <div class="input-group">
                                                             @Html.EditorFor(model => model.ApplicationReference, new { htmlAttributes = new { @class = "form-control", title = "Application Reference", disabled = "disabled" } })
-                                                            <div class="input-group-addon">
+                                                            <div class="input-group-addon feasibility">
                                                                 <a href="#" data-toggle="modal" data-target="#modal-default1">
                                                                     <i class="fa fa-edit"></i>
                                                                 </a>
@@ -118,7 +115,7 @@
                                                     <div class="form-group">
                                                         <div class="input-group">
                                                             @Html.EditorFor(model => model.BhNumber, new { htmlAttributes = new { @class = "form-control", Title = "BH Number", disabled = "disabled" } })
-                                                            <div class="input-group-addon">
+                                                            <div class="input-group-addon feasibility">
                                                                 <a href="#" data-toggle="modal" data-target="#modal-default1">
                                                                     <i class="fa fa-edit"></i>
                                                                 </a>
@@ -130,7 +127,7 @@
                                                     <div class="form-group">
                                                         <div class="input-group">
                                                             @Html.DropDownList("TrialTypeId", null, htmlAttributes: new { @class = "form-control", Title = "Trial types", disabled = "disabled" })
-                                                            <div class="input-group-addon">
+                                                            <div class="input-group-addon feasibility">
                                                                 <a href="#" data-toggle="modal" data-target="#modal-default1">
                                                                     <i class="fa fa-edit"></i>
                                                                 </a>
@@ -150,7 +147,7 @@
                                                     <div class="form-group">
                                                         <div class="input-group">
                                                             @Html.DropDownList("PhaseId", null, htmlAttributes: new { @class = "form-control", disabled = "disabled" })
-                                                            <div class="input-group-addon">
+                                                            <div class="input-group-addon feasibility">
                                                                 <a href="#" data-toggle="modal" data-target="#modal-default1">
                                                                     <i class="fa fa-edit"></i>
                                                                 </a>
@@ -162,7 +159,7 @@
                                                     <div class="form-group">
                                                         <div class="input-group">
                                                             @Html.EditorFor(model => model.SampleSize, new { htmlAttributes = new { @class = "form-control", title = "Sample Size", disabled = "disabled" } })
-                                                            <div class="input-group-addon">
+                                                            <div class="input-group-addon feasibility">
                                                                 <a href="#" data-toggle="modal" data-target="#modal-default1">
                                                                     <i class="fa fa-edit"></i>
                                                                 </a>
@@ -174,7 +171,7 @@
                                                     <div class="form-group">
                                                         <div class="input-group">
                                                             @Html.DropDownList("GrantTypeId", null, htmlAttributes: new { @class = "form-control", disabled = "disabled" })
-                                                            <div class="input-group-addon">
+                                                            <div class="input-group-addon feasibility">
                                                                 <a href="#" data-toggle="modal" data-target="#modal-default1">
                                                                     <i class="fa fa-edit"></i>
                                                                 </a>
@@ -186,7 +183,7 @@
                                                     <div class="form-group">
                                                         <div class="input-group">
                                                             @Html.EditorFor(model => model.FundingStream, new { htmlAttributes = new { @class = "form-control", Title = "Funding Stream", disabled = "disabled" } })
-                                                            <div class="input-group-addon">
+                                                            <div class="input-group-addon feasibility">
                                                                 <a href="#" data-toggle="modal" data-target="#modal-default1">
                                                                     <i class="fa fa-edit"></i>
                                                                 </a>
@@ -198,7 +195,7 @@
                                                     <div class="form-group">
                                                         <div class="input-group">
                                                             @Html.EditorFor(model => model.GrantDeadlineDate, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
-                                                            <div class="input-group-addon">
+                                                            <div class="input-group-addon feasibility">
                                                                 <a href="#" data-toggle="modal" data-target="#modal-default1">
                                                                     <i class="fa fa-edit"></i>
                                                                 </a>
@@ -240,36 +237,38 @@
                                 </div>
                                 @if (ViewBag.progress == null)
                                 {
+                                    
                                     <div class="box-footer">
-                                        <!--Use this to keep the data last typed in a cookie so that it can be saved properly later-->
-                                        <div class="input-group">
-                                            <div class="col-md-12">
-                                                <label class="input-group">Trial Progress</label>
-                                            </div>
-                                            <div class="checkbox">
-                                                @Html.RadioButton("StartedTrial", "Yes") Trial Started
-                                                @Html.RadioButton("StartedTrial", "No") Trial didn't Start
+                                        <div id="EnterProgress">
+                                            <div class="input-group">
+                                                <div class="col-md-12">
+                                                    <label class="input-group">Trial Progress</label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    @Html.RadioButton("StartedTrial", "Yes") Trial Started
+                                                    @Html.RadioButton("StartedTrial", "No") Trial didn't Start
 
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-12">
+                                                    <label class="label">Reason Trial did not Start</label>
+                                                </div>
+                                                @Html.TextArea("Reason", new { @class = "form-control", Rows = 4, PlaceHolder = "Enter the reason the Trial did not start" })
+                                            </div>
+                                            <div class="form-group">
+                                                <button class="btn btn-default btn-block" id="saveTrial">Save Trial Progress</button>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <div class="col-md-12">
-                                                <label class="label">Reason Trial did not Start</label>
-                                            </div>
-                                            @Html.TextArea("Reason", new { @class = "form-control", Rows = 4, PlaceHolder = "Enter the reason the Trial did not start" })
-                                        </div>
-                                        <div class="form-group">
-                                            <button class="btn btn-default btn-block" id="saveTrial">Save Trial Progress</button>
-                                        </div>
+                                        <div id="Progress"></div>
+                                        <!-- box-footer -->
                                     </div>
-                                    <!-- box-footer -->
                                 }
                                 else
                                 {
                                     foreach (var item in ViewBag.progress)
                                     {
                                         <div class="box-footer">
-                                            <!--Use this to keep the data last typed in a cookie so that it can be saved properly later-->
                                             <div class="input-group">
                                                 <div class="col-md-12">
                                                     <label class="input-group">Trial Progress</label>
@@ -299,7 +298,7 @@
                                                     <div class="col-md-12">
                                                         <label class="label">Reason Trial did not Start</label>
                                                     </div>
-                                                    <textarea class="form-control" rows="4">@item.Reason</textarea>
+                                                    <textarea class="form-control" rows="4" disabled="disabled">@item.Reason</textarea>
                                                 </div>
                                             }
                                             
@@ -314,7 +313,7 @@
                                 <p>@{ Html.RenderAction("ShowSetup", new { Id = ViewBag.Id }); }</p>
                             </div>
                             <div class="tab-pane" id="tab3">
-                                <p>Tab3</p>
+                                <p>@{ Html.RenderAction("ShowLateDevelopment", new { Id = ViewBag.Id }); }</p>
                             </div>
                             <div class="tab-pane" id="tab4">
                                 <p>tab4</p>
@@ -406,7 +405,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-5">
+                <div class="col-lg-5 col-md-12 col-sm-12">
                     <div class="box box-solid box-default">
                         <div class="box-header with-border">
                             <h3 class="box-title">Trial Contacts</h3>
@@ -433,10 +432,10 @@
                                             <thead>
                                             <tr>
                                                 <th>Contact Name</th>
-                                                <th>Organisation</th>
-                                                <th>Email Address</th>
+                                                <th class="hidden-md hidden-xs">Organisation</th>
+                                                <th>Email</th>
                                                 <th>Telephone</th>
-                                                <th>Trial Role</th>
+                                                <th class="hidden-xs">Trial Role</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -444,10 +443,10 @@
                                         {
                                                 <tr>
                                                     <td><a href="/Contacts/Edit/@contact.ContactName.Id">@contact.ContactName.ContactName</a></td>
-                                                    <td>@contact.ContactName.Organisation</td>
-                                                    <td><a href="mailto:@contact.ContactName.Email">@contact.ContactName.Email</a></td>
+                                                    <td class="hidden-md hidden-xs">@contact.ContactName.Organisation</td>
+                                                    <td style="text-align: center;"><a href="mailto:@contact.ContactName.Email" title="@contact.ContactName.Email"><i class="fa fa-envelope-o"></i></a></td>
                                                     <td>@contact.ContactName.Telephone</td>
-                                                    <td>@contact.RoleName.RoleName</td>
+                                                    <td class="hidden-xs">@contact.RoleName.RoleName</td>
                                                 </tr>
                                             }
                                             </tbody>
@@ -553,9 +552,11 @@
                                     }
                                     else
                                     {
+                                        <div id="ReminderStatus"></div>
                                         <table class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
+                                                    <th>Cancel</th>
                                                     <th>Reminder</th>
                                                     <th>Due Date</th>
                                                     <th>Days till due</th>
@@ -565,6 +566,9 @@
                                                 @foreach (var reminder in ViewBag.reminders)
                                                 {
                                                     <tr>
+                                                        <td>
+                                                           @Html.CheckBox("CBChecked", (bool) reminder.Checked, new {id = reminder.Id, @class = "stopCount"})
+                                                        </td>
                                                         <td>@reminder.Reminder</td>
                                                         <td>@reminder.DueDate</td>
                                                         <td>
@@ -627,133 +631,317 @@
 @section scripts
 {
     <script>
-        var times = 0;
-        var inp;
-        var fieldName;
-        var original;
-        var type;
-        var aClass;
-        var Id = @ViewBag.Id;
-        $(".input-group-addon").click(function() {
-            times++;
-            if (times >= 2) {
-                if (!$('#reason').val()) {
-                    $('#message').text('Please enter a reason for this change.');
-                } else {
-                    $(this).html('<a id="saveChange" href="#"><i class="fa fa-edit"></i></a>');
-                    $('#' + fieldName).prop("disabled", true);
-                    times = 0;
-                    var postData = {
-                        Original: original,
-                        FieldName: fieldName,
-                        NewValue: inp.val(),
-                        Reason: $('#reason').val(),
-                        Id: Id
-                    }
-                    $.ajax({
-                        type: 'POST',
-                        url: '/TrialFeasibility/AjaxEdit',
-                        data: postData,
-                        success: function(data) {
-                            $("#tab7").html(data);
-                        }
-                    });
-                    $('#newDiv').remove();
-                    $('#message').remove();
-                }
+    var times = 0;
+    var inp;
+    var fieldName;
+    var original;
+    var type;
+    var aClass;
+    var Id = @ViewBag.Id;
+    $(".input-group-addon").click(function() {
+        times++;
+        var controller = "";
+        var getClass = $(this).attr('class');
+        switch (true) {
+        case getClass.indexOf('feasibility') >= 0:
+            controller = "TrialFeasibility";
+            break;
+        case getClass.indexOf('setup') >= 0:
+            controller = "TrialSetup";
+        }
+        if (times >= 2) {
+            if (!$('#reason').val()) {
+                $('#message').text('Please enter a reason for this change.');
             } else {
-                inp = $(this).parent().find(":input");
-                original = inp.val();
-                fieldName = $(inp).attr("name");
-                $('#' + fieldName).prop("disabled", false);
-                $(this).html('<a id="saveChange" href="#"><i class="fa fa-floppy-o"></i></a>');
-                var pDiv = $(this).parent().closest('div');
-                $(pDiv)
-                    .after($('<div id="newDiv" style="padding-top:17px;"><textarea id="reason" class="form-control textarea" placeholder="Enter the reason why the change is necessary"></textarea></div><div id="message"></div>'));
-
+                $(this).html('<a id="saveChange" href="#"><i class="fa fa-edit"></i></a>');
+                $('#' + fieldName).prop("disabled", true);
+                times = 0;
+                var postData = {
+                    Original: original,
+                    FieldName: fieldName,
+                    NewValue: inp.val(),
+                    Reason: $('#reason').val(),
+                    Controller: controller,
+                    TrialId: Id,
+                    Id: Id
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: '/TrialFeasibility/AjaxEdit',
+                    data: postData,
+                    success: function(data) {
+                        $("#tab7").html(data);
+                    }
+                });
+                $('#newDiv').remove();
+                $('#message').remove();
             }
+        } else {
+            inp = $(this).parent().find(":input");
+            original = inp.val();
+            fieldName = $(inp).attr("name");
+            $('#' + fieldName).prop("disabled", false);
+            $(this).html('<a id="saveChange" href="#"><i class="fa fa-floppy-o"></i></a>');
+            var pDiv = $(this).parent().closest('div');
+            $(pDiv)
+                .after($('<div id="newDiv" style="padding-top:17px;"><textarea id="reason" class="form-control textarea" placeholder="Enter the reason why the change is necessary"></textarea></div><div id="message"></div>'));
 
-        });
+        }
 
+    });
+
+    $.ajax({
+        url: '@Url.Action("ListAddedRecords", "TrialFeasibility", new {Id = ViewBag.Id}) ',
+        datatype: "json",
+        type: "post",
+        contenttype: 'application/json; charset=utf-8',
+        async: true,
+        success: function(data) {
+            $("#tab7").html(data);
+        }
+    });
+
+    $("#AddContact").click(function() {
+        var postData = {
+            ContactId: $('#ContactSel').val(),
+            RoleId: $('#RoleSel').val(),
+            TrialId: @ViewBag.Id
+        }
         $.ajax({
-            url: '@Url.Action("ListAddedRecords", "TrialFeasibility", new {Id = ViewBag.Id}) ',
-            datatype: "json",
-            type: "post",
-            contenttype: 'application/json; charset=utf-8',
-            async: true,
+            url: '/TrialFeasibility/ListContacts',
+            type: 'POST',
+            data: postData,
             success: function(data) {
-                $("#tab7").html(data);
+                $("#ListOfContacts").html(data);
             }
         });
+    });
 
-        $("#AddContact").click(function() {
-            var postData = {
-                ContactId: $('#ContactSel').val(),
-                RoleId: $('#RoleSel').val(),
-                TrialId: @ViewBag.Id }
+    $("#AddNotification").click(function() {
+        var postData = {
+            Who: '@ViewBag.User',
+            Message: $('#message').val(),
+            TrialId: @ViewBag.Id
+        }
+        $.ajax({
+            url: '/TrialFeasibility/ListNotes',
+            type: 'POST',
+            data: postData,
+            success: function(data) {
+                $("#ListOfNotes").html(data);
+                $('#message').val("");
+            }
+        });
+    });
+    $("#AddReminder").click(function() {
+        var postData = {
+            Reminder: $('#reminder').val(),
+            DueDate: $('#dueDate').val(),
+            TrialId: @ViewBag.Id
+        }
+        $.ajax({
+            url: '/TrialFeasibility/ListReminders',
+            type: 'POST',
+            data: postData,
+            success: function(data) {
+                $("#ListOfReminders").html(data);
+                $('#reminder').val("");
+                $('dueDate').val("");
+            }
+        });
+    });
+
+    $("#saveTrial").click(function() {
+        var postData = {
+            Started: $("input[name='StartedTrial']:checked").val(),
+            Reason: $('#Reason').val(),
+            TrialId: @ViewBag.Id
+        }
+        $.ajax({
+            url: '/TrialFeasibility/AddProgress',
+            type: 'POST',
+            data: postData,
+            success: function(data) {
+                $("#Progress").html(data);
+                $("#EnterProgress").fadeOut();
+            }
+        });
+    });
+
+    $("#saveSetup").click(function() {
+        var postData = {
+            Completed: $("input[name='StartedTrial']:checked").val(),
+            Reason: $('#Reason').val(),
+            TrialId: @ViewBag.Id
+        };
             $.ajax({
-                url: '/TrialFeasibility/ListContacts',
+                url: '/TrialFeasibility/AddProgressSetup',
                 type: 'POST',
                 data: postData,
                 success: function(data) {
-                    $("#ListOfContacts").html(data);
+                    $("#ProgressSetup").html(data);
+                    $("#EnterProgressSetup").fadeOut();
                 }
             });
         });
 
-        $("#AddNotification").click(function() {
+        $(".stopCount").on("ifChanged", function() 
+        {
             var postData = {
-                Who: '@ViewBag.User',
-                Message: $('#message').val(),
-                TrialId: @ViewBag.Id }
+                Id: $(this).attr('id')
+            };
             $.ajax({
-                url: '/TrialFeasibility/ListNotes',
+                url: '/TrialFeasibility/ChangeReminderStatus',
                 type: 'POST',
                 data: postData,
                 success: function(data) {
-                    $("#ListOfNotes").html(data);
-                    $('#message').val("");
+                    $("#ReminderStatus").html(data);
+                    $("#ReminderStatus").delay(1000).fadeOut();
                 }
             });
         });
-        $("#AddReminder").click(function() {
-            var postData = {
-                Reminder: $('#reminder').val(),
-                DueDate: $('#dueDate').val(),
-                TrialId: @ViewBag.Id }
-            $.ajax({
-                url: '/TrialFeasibility/ListReminders',
-                type: 'POST',
-                data: postData,
-                success: function(data) {
-                    $("#ListOfReminders").html(data);
-                    $('#reminder').val("");
-                    $('dueDate').val("");
-                }
-            });
-        });
-
-        $("#saveTrial").click(function() {
-            alert($("input[name='StartedTrial']:checked").val());
-            var postData = {
-                Started: $("input[name='StartedTrial']:checked").val(),
-                Reason: $('#Reason').val(),
-                TrialId: @ViewBag.Id }
-            $.ajax({
-                url: '/TrialFeasibility/AddProgress',
-                type: 'POST',
-                data: postData,
-                success: function(data) {
-                    $("#Progress").html(data);
-                }
-            });
-        });
-
         $(document).ready(function () {
             $('#listDocs').DataTable();
             $('#contacts').DataTable();
             $('#notifications').DataTable();
-            
+
         });
+        $("#cookieSaveSetup").click(function() {
+            Cookies.set('projectIdentifier', $('#ProjectIdentifier').val(), { expires: 10 });
+            Cookies.set('researchDevelopmentId', $('#ResearchDevelopmentId').val(), { expires: 10 });
+            Cookies.set('grantFunderRef', $('#GrantFunderRef').val(), { expires: 10 });
+            Cookies.set('sponsorRef', $('#SponsorRef').val(), { expires: 10 });
+            Cookies.set('recRef', $('#RecRef').val(), { expires: 10 });
+            Cookies.set('eudractRef', $('#EudractRef').val(), { expires: 10 });
+            Cookies.set('irasId', $('#IrasId').val(), { expires: 10 });
+            Cookies.set('recruitmentTarget', $('#RecruitmentTarget').val(), { expires: 10 });
+            Cookies.set('trialLocationId', $('#TrialLocationId').val(), { expires: 10 });
+            Cookies.set('recDate', $('#RecDate').val(), { expires: 10 });
+            Cookies.set('hraDate', $('#HraDate').val(), { expires: 10 });
+            Cookies.set('ctaDate', $('#CtaDate').val(), { expires: 10 });
+        });
+
+        $("#cookieDeleteSetup").click(function() {
+            Cookies.remove('projectIdentifier');
+            $('#ProjectIdentifier').val("");
+            Cookies.remove('researchDevelopmentId');
+            $('#ResearchDevelopmentId').val("");
+            Cookies.remove('grantFunderRef');
+            $('#GrantFunderRef').val("");
+            Cookies.remove('sponsorRef');
+            $('#SponsorRef').val("");
+            Cookies.remove('recRef');
+            $('#RecRef').val("");
+            Cookies.remove('eudractRef');
+            $('#EudractRef').val("");
+            Cookies.remove('irasId');
+            $('#IrasId').val("");
+            Cookies.remove('recruitmentTarget');
+            $('#RecruitmentTarget').val("");
+            Cookies.remove('trialLocationId');
+            $('#TrialLocationId').val("");
+            Cookies.remove('recDate');
+            $('#RecDate').val("");
+            Cookies.remove('hraDate');
+            $('#HraDate').val("");
+            Cookies.remove('ctaDate');
+            $('#CtaDate').val("");
+            $('#alertMessageSetup').hide();
+        });
+
+        function loadFnSetup(jQuery) {
+            if (typeof Cookies.get('projectIdentifier') !== 'undefined') {
+                $('#ProjectIdentifier').val(Cookies.get('projectIdentifier'));
+                $('#alertMessageSetup').show();
+            } else {
+                $('#alertMessageSetup').hide();
+            }
+            if (typeof Cookies.get('researchDevelopmentId') !== 'undefined') {
+                $('#ResearchDevelopmentId').val(Cookies.get('researchDevelopmentId'));
+            }
+            if (typeof Cookies.get('grantFunderRef') !== 'undefined') {
+                $('#GrantFunderRef').val(Cookies.get('grantFunderRef'));
+            }
+            if (typeof Cookies.get('sponsorRef') !== 'undefined') {
+                $('#SponsorRef').val(Cookies.get('sponsorRef'));
+            }
+            if (typeof Cookies.get('recRef') !== 'undefined') {
+                $('#RecRef').val(Cookies.get('recRef'));
+            }
+            if (typeof Cookies.get('eudractRef') !== 'undefined') {
+                $('#EudractRef').val(Cookies.get('eudractRef'));
+            }
+            if (typeof Cookies.get('irasId') !== 'undefined') {
+                $('#IrasId').val(Cookies.get('irasId'));
+            }
+            if (typeof Cookies.get('recruitmentTarget') !== 'undefined') {
+                $('#RecruitmentTarget').val(Cookies.get('recruitmentTarget'));
+            }
+            if (typeof Cookies.get('trialLocationId') !== 'undefined') {
+                $('#TrialLocationId').val(Cookies.get('trialLocationId'));
+            }
+            if (typeof Cookies.get('recDate') !== 'undefined') {
+                $('#RecDate').val(Cookies.get('recDate'));
+            }
+            if (typeof Cookies.get('hraDate') !== 'undefined') {
+                $('#HraDate').val(Cookies.get('hraDate'));
+            }
+            if (typeof Cookies.get('ctaDate') !== 'undefined') {
+                $('#CtaDate').val(Cookies.get('ctaDate'));
+            }
+        }
+        $(document).ready(loadFnSetup);
+
+        $("#cookieSaveLate").click(function() {
+            Cookies.set('clinicalTrialsGovRef', $('#ClinicalTrialsGovRef').val(), { expires: 10 });
+            Cookies.set('localCC', $('#LocalCC').val(), { expires: 10 });
+            Cookies.set('sponsorGreenLight', $('#SponsorGreenLight').val(), { expires: 10 });
+            Cookies.set('localSiteInitiation', $('#LocalSiteInitiation').val(), { expires: 10 });
+            Cookies.set('targetFpfvDate', $('#TargetFpfvDate').val(), { expires: 10 });
+            Cookies.set('multiSiteInitiation', $('#MultiSiteInitiation').val(), { expires: 10 });
+        });
+
+        $("#cookieDeleteLate").click(function() {
+            Cookies.remove('clinicalTrialsGovRef');
+            $('#ClinicalTrialsGovRef').val("");
+            Cookies.remove('localCC');
+            $('#LocalCC').val("");
+            Cookies.remove('sponsorGreenLight');
+            $('#SponsorGreenLight').val("");
+            Cookies.remove('localSiteInitiation');
+            $('#LocalSiteInitiation').val("");
+            Cookies.remove('targetFpfvDate');
+            $('#TargetFpfvDate').val("");
+            Cookies.remove('multiSiteInitiation');
+            $('#MultiSiteInitiation').val("");
+           
+            $('#alertMessageLate').hide();
+        });
+
+        function loadFnLate(jQuery) {
+            if (typeof Cookies.get('clinicalTrialsGovRef') !== 'undefined') {
+                $('#ClinicalTrialsGovRef').val(Cookies.get('clinicalTrialsGovRef'));
+                $('#alertMessageLate').show();
+            } else {
+                $('#alertMessageLate').hide();
+            }
+            if (typeof Cookies.get('localCC') !== 'undefined') {
+                $('#LocalCC').val(Cookies.get('localCC'));
+            }
+            if (typeof Cookies.get('sponsorGreenLight') !== 'undefined') {
+                $('#SponsorGreenLight').val(Cookies.get('sponsorGreenLight'));
+            }
+            if (typeof Cookies.get('localSiteInitiation') !== 'undefined') {
+                $('#LocalSiteInitiation').val(Cookies.get('localSiteInitiation'));
+            }
+            if (typeof Cookies.get('targetFpfvDate') !== 'undefined') {
+                $('#TargetFpfvDate').val(Cookies.get('targetFpfvDate'));
+            }
+            if (typeof Cookies.get('multiSiteInitiation') !== 'undefined') {
+                $('#MultiSiteInitiation').val(Cookies.get('multiSiteInitiation'));
+            }
+        }
+
+        $(document).ready(loadFnLate);
     </script>
 }

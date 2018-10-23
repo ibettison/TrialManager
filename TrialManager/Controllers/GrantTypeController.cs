@@ -10,6 +10,7 @@ using Trialmanager.Models;
 
 namespace Trialmanager.Controllers
 {
+    [Authorize(Roles = "NTRF_AUTO_MC_TrialManager_Administrators, NTRF_AUTO_MC_TrialManager_Editors")]
     public class GrantTypeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

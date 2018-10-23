@@ -50,7 +50,7 @@ namespace Trialmanager.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Create([Bind(Include = "Id,ContactName,Organisation,Telephone,Email,ContactStatusId,ContactNotes")] ContactsModels contactsModels)
+        public ActionResult Create([Bind(Include = "Id,ContactName,UserId,Organisation,Telephone,Email,ContactStatusId,ContactNotes")] ContactsModels contactsModels)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace Trialmanager.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Edit([Bind(Include = "Id,ContactName,Organisation,Telephone,Email,ContactStatusId,ContactNotes")] ContactsModels contactsModels)
+        public ActionResult Edit([Bind(Include = "Id,ContactName,UserId,Organisation,Telephone,Email,ContactStatusId,ContactNotes")] ContactsModels contactsModels)
         {
             if (ModelState.IsValid)
             {

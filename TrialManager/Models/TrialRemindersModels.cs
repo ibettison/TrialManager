@@ -15,6 +15,7 @@ namespace Trialmanager.Models
         public int TrialId { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DueDate { get; set; }
+        public Boolean Checked { get; set; }
         [ForeignKey("TrialId")]
         public virtual TrialFeasibilityModels ShortName { get; set; }
     }

@@ -97,6 +97,8 @@ namespace Trialmanager.Models
             identity.AddClaim(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider", "Active Directory"));
             identity.AddClaim(new Claim(ClaimTypes.Name, userPrincipal.SamAccountName));
             identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, userPrincipal.SamAccountName));
+            identity.AddClaim(new Claim(ClaimTypes.GivenName, userPrincipal.GivenName));
+            identity.AddClaim(new Claim(ClaimTypes.Surname, userPrincipal.Surname));
             if (!String.IsNullOrEmpty(userPrincipal.EmailAddress))
             {
                 identity.AddClaim(new Claim(ClaimTypes.Email, userPrincipal.EmailAddress));

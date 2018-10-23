@@ -1,4 +1,16 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+@using ClaimTypes = System.IdentityModel.Claims.ClaimTypes
+@{
+    if (User.Identity.IsAuthenticated) {
+        var claimFirstName = ((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.GivenName);
+        var firstName = claimFirstName.Value;
+        var claimSurName = ((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.Surname);
+        var surName = claimSurName.Value;
+        ViewBag.FullName = $"{firstName} {surName}";
+    }
+
+}
+<!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
@@ -7,7 +19,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | Starter</title>
+    <title>Mitochondrial TrialManager</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     @Styles.Render("~/Content/css")

@@ -1,0 +1,74 @@
+﻿@model TrialManager.Models.TrialLateDevelopmentModels
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TrialLateDevelopmentModels</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ShortName.ShortName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShortName.ShortName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClinicalTrialsGovRef)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClinicalTrialsGovRef)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LocalCC)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LocalCC)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SponsorGreenLight)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SponsorGreenLight)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LocalSiteInitiation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LocalSiteInitiation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TargetFpfvDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TargetFpfvDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MultiSiteInitiation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MultiSiteInitiation)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

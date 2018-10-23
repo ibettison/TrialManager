@@ -1,0 +1,69 @@
+﻿@model IEnumerable<TrialManager.Models.TrialLateDevelopmentModels>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ShortName.ShortName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClinicalTrialsGovRef)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LocalCC)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SponsorGreenLight)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LocalSiteInitiation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TargetFpfvDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MultiSiteInitiation)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShortName.ShortName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClinicalTrialsGovRef)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LocalCC)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SponsorGreenLight)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LocalSiteInitiation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TargetFpfvDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MultiSiteInitiation)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

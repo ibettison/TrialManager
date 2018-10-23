@@ -1,0 +1,80 @@
+﻿@model TrialManager.Models.TrialLateDevelopmentModels
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>TrialLateDevelopmentModels</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ShortName.ShortName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShortName.ShortName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClinicalTrialsGovRef)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClinicalTrialsGovRef)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LocalCC)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LocalCC)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SponsorGreenLight)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SponsorGreenLight)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LocalSiteInitiation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LocalSiteInitiation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TargetFpfvDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TargetFpfvDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MultiSiteInitiation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MultiSiteInitiation)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

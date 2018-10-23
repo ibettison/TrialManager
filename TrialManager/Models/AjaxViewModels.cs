@@ -11,6 +11,8 @@ namespace Trialmanager.Models
         public string FieldName { get; set; }
         public string NewValue { get; set; }
         public string Reason { get; set; }
+        public string Controller { get; set; }
+        public int TrialId { get; set; }
         public int Id { get; set; }
     }
 }

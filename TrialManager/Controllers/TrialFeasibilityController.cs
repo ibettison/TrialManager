@@ -9,6 +9,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Trialmanager.Models;
+using TrialManager.Models;
 
 namespace Trialmanager.Controllers
 {
@@ -17,13 +18,20 @@ namespace Trialmanager.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: TrialFeasibility
+        [Authorize(Roles = "NTRF_AUTO_MC_TrialManager_Administrators, NTRF_AUTO_MC_TrialManager_Editors")]
         public ActionResult Index()
         {
-            var trialFeasibilityModels = db.TrialFeasibilityModels.Include(t => t.DiseaseTherapyAreaName).Include(t => t.GrantTypeName).Include(t => t.PhaseName).Include(t => t.TrialTypeName);
-            return View(trialFeasibilityModels.ToList());
+
+            var trialFeasibilityModels = (from fease in db.TrialFeasibilityModels
+                join setup in db.TrialSetupModels on fease.Id equals setup.TrialId
+                select fease).ToList();
+            ViewBag.Trial = trialFeasibilityModels.Count > 0 ? trialFeasibilityModels : null;
+            //db.TrialFeasibilityModels.Include(t => t.DiseaseTherapyAreaName).Include(t => t.GrantTypeName).Include(t => t.PhaseName).Include(t => t.TrialTypeName);
+            return View();
         }
 
         // GET: TrialFeasibility/Details/5
+        [Authorize(Roles = "NTRF_AUTO_MC_TrialManager_Administrators, NTRF_AUTO_MC_TrialManager_Editors")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -39,6 +47,7 @@ namespace Trialmanager.Controllers
         }
 
         // GET: TrialFeasibility/Create
+        [Authorize(Roles = "NTRF_AUTO_MC_TrialManager_Administrators, NTRF_AUTO_MC_TrialManager_Editors")]
         public ActionResult Create()
         {
             ViewBag.Title = "New Trial";
@@ -62,11 +71,12 @@ namespace Trialmanager.Controllers
             ViewBag.Title = "New Trial";
             ViewBag.Small = "Create a New trial";
             ViewBag.Link = "Dashboard";
+
             if (ModelState.IsValid)
             {
                 db.TrialFeasibilityModels.Add(trialFeasibilityModels);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("CreateGroupAccess", new {trialFeasibilityModels.ShortName});
             }
             ViewBag.DiseaseTherapyAreaId = new SelectList(db.DiseaseTherapyAreaModels, "Id", "DiseaseTherapyAreaName", trialFeasibilityModels.DiseaseTherapyAreaId);
             ViewBag.GrantTypeId = new SelectList(db.GrantTypeModels, "Id", "GrantTypeName", trialFeasibilityModels.GrantTypeId);
@@ -75,14 +85,89 @@ namespace Trialmanager.Controllers
             return View(trialFeasibilityModels);
         }
 
+        [Authorize(Roles = "NTRF_AUTO_MC_TrialManager_Administrators, NTRF_AUTO_MC_TrialManager_Editors")]
+        public ActionResult CreateGroupAccess( string shortName)
+        {
+            var groupName = (from s in db.TrialFeasibilityModels
+                where s.ShortName == shortName
+                select s).FirstOrDefault();
+
+            if (groupName != null)
+            {
+                var groupRecord = new TrialGroupModels
+                {
+                    GroupName = groupName.ShortName
+                };
+                if (ModelState.IsValid)
+                {
+                    db.TrialGroupModels.Add(groupRecord);
+                    db.SaveChanges();
+                    int groupId = groupRecord.Id;
+                    var trialRecord = new TrialGroupTrialModels
+                    {
+                        TrialId = groupName.Id,
+                        TrialGroupId = groupId
+                    };
+                    if (ModelState.IsValid)
+                    {
+                        db.TrialGroupTrialModels.Add(trialRecord);
+                        db.SaveChanges();
+                    }
+                    var contactId = (from c in db.ContactsModels
+                                     where c.UserId == User.Identity.Name
+                                     select c).FirstOrDefault();
+                    var contactGroup = new ContactTrialGroupModels
+                    {
+                        TrialGroupId = groupId,
+                        ContactId = contactId.Id,
+                        ReadOnly = false
+                    };
+                    if (ModelState.IsValid)
+                    {
+                        db.ContactTrialGroupModels.Add(contactGroup);
+                        db.SaveChanges();
+                    }
+                }
+                
+            }
+            
+            return RedirectToAction("Index","Home");
+        }
+
+
         // GET: TrialFeasibility/Edit/5
+        [Authorize(Roles = "NTRF_AUTO_MC_TrialManager_Administrators, NTRF_AUTO_MC_TrialManager_Editors")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            
+            //check to see if the trial is availble to the user for editing
+            var trialAccess = (from tgt in db.TrialGroupTrialModels
+                join tg in db.TrialGroupModels on tgt.TrialGroupId equals tg.Id
+                where tgt.TrialId == id
+                select tgt).ToList();
+
+            var accessGranted = false;
+            foreach (var groupId in trialAccess)
+            {
+                var contactFound = (from ct in db.ContactTrialGroupModels
+                    where groupId.TrialGroupId == ct.TrialGroupId && ct.ContactName.UserId == User.Identity.Name
+                    select ct).FirstOrDefault();
+
+                if (contactFound != null)
+                {
+                    accessGranted = true;
+                }
+
+            }
+
+            if (!accessGranted)
+            {
+                return RedirectToAction("NotAuthorised");
+            }
+
             TrialFeasibilityModels trialFeasibilityModels = db.TrialFeasibilityModels.Find(id);
            // TrialRecordsModels trialRecordsModels = db.TrialRecordsModels.Find(id);
             if (trialFeasibilityModels == null)
@@ -108,6 +193,11 @@ namespace Trialmanager.Controllers
                 where p.TrialId == id
                 select p).ToList();
             ViewBag.progress = progress.Count > 0 ? progress : null;
+
+            var setupComplete = (from sc in db.TrialSetupCompleteModels
+                where sc.TrialId == id
+                select sc).ToList();
+            ViewBag.setupComplete = setupComplete.Count > 0 ? setupComplete : null;
 
             ViewBag.User = User.Identity.Name;
             ViewBag.Id = id;
@@ -143,20 +233,48 @@ namespace Trialmanager.Controllers
             return View(trialFeasibilityModels);
         }
 
+        public ActionResult NotAuthorised()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult AjaxEdit(AjaxViewModels model)
         {
-            TrialFeasibilityModels fModel = db.TrialFeasibilityModels.Find(model.Id);
             var fn = model.FieldName;
             var nv = model.NewValue;
-            if (fModel != null)
+            switch (model.Controller)
             {
-                var getVar = fModel.GetType().GetProperty(fn);
-                if (getVar != null)
-                {
-                    getVar.SetValue(fModel, nv);
-                }
+                case "TrialFeasibility":
+                    TrialFeasibilityModels fModel = db.TrialFeasibilityModels.Find(model.Id);
+                    
+                    if (fModel != null)
+                    {
+                        var getVar = fModel.GetType().GetProperty(fn);
+                        if (getVar != null)
+                        {
+                            getVar.SetValue(fModel, nv);
+                        }
+                    }
+                    db.Entry(fModel).State = EntityState.Modified;
+                    break;
+                case "TrialSetup":
+                    var sModel = (from s in db.TrialSetupModels
+                                  where s.TrialId == model.TrialId
+                                  select s).FirstOrDefault();
+                    if (sModel != null)
+                    {
+                        var getVar = sModel.GetType().GetProperty(fn);
+                        if (getVar != null)
+                        {
+                            getVar.SetValue(sModel, nv);
+                        }
+                    }
+                    db.Entry(sModel).State = EntityState.Modified;
+                    break;
             }
+            
+            
             if (ModelState.IsValid)
             {
                 var record = new TrialRecordsModels
@@ -170,7 +288,6 @@ namespace Trialmanager.Controllers
                     WhoChanged = User.Identity.Name
                 };
                 db.TrialRecordsModels.Add(record);
-                db.Entry(fModel).State = EntityState.Modified;
                 db.SaveChanges();
             }
             return RedirectToAction("ListAddedRecords", new {model.Id} );
@@ -198,6 +315,31 @@ namespace Trialmanager.Controllers
                 };
                 db.TrialContactsModels.Add(newContact);
                 db.SaveChanges();
+                var trial = (from t in db.TrialFeasibilityModels
+                    where t.Id == model.TrialId
+                    select t).FirstOrDefault();
+                if (trial == null) throw new ArgumentNullException(nameof(trial));
+                //create a link to the trial group for the new contact
+                var trialGroup = (from g in db.TrialGroupModels
+                    where g.GroupName == trial.ShortName
+                    select g).FirstOrDefault();
+                if (trialGroup == null) throw new ArgumentNullException(nameof(trialGroup));
+                //check if access already exists as it's lowest access would be Read Only
+                var checkGroup = (from cg in db.ContactTrialGroupModels
+                    where cg.ContactId == model.ContactId && cg.TrialGroupId == trialGroup.Id
+                    select cg).FirstOrDefault();
+                if (checkGroup == null)
+                {
+                    var addToGroup = new ContactTrialGroupModels
+                    {
+                        ContactId = model.ContactId,
+                        TrialGroupId = trialGroup.Id,
+                        ReadOnly = true
+                    };
+                    db.ContactTrialGroupModels.Add(addToGroup);
+                    db.SaveChanges();
+                }
+                
             }
             return RedirectToAction("ShowUpdatedContacts", new {Id=model.TrialId});
         }
@@ -281,7 +423,10 @@ namespace Trialmanager.Controllers
             {
                 ViewBag.setupId = setupId.Id;
             }
-            
+            var setupComplete = (from sc in db.TrialSetupCompleteModels
+                                 where sc.TrialId == id
+                                 select sc).ToList();
+            ViewBag.setupComplete = setupComplete.Count > 0 ? setupComplete : null;
             if (trialSetupModels == null)
             {
                 ViewBag.Id = id;
@@ -291,7 +436,15 @@ namespace Trialmanager.Controllers
                 ViewBag.GrantTypeId = new SelectList(db.GrantTypeModels, "Id", "GrantTypeName");
                 ViewBag.PhaseId = new SelectList(db.PhaseModels, "Id", "PhaseName");
                 ViewBag.TrialTypeId = new SelectList(db.TrialTypeModels, "Id", "TrialTypeName");
-                return PartialView("SetupNewRecord", trialSetupModels);
+                if (User.IsInRole("NTRF_AUTO_MC_TrialManager_Membership"))
+                {
+                    return PartialView("SetupNewView", trialSetupModels);
+                }
+                else
+                {
+                    return PartialView("SetupNewRecord", trialSetupModels);
+                }
+                
             }
             TrialFeasibilityModels trialFeasibilityModels = db.TrialFeasibilityModels.Find(id);
             ViewBag.TrialLocationId = new SelectList(db.TrialLocationModels, "Id", "Location", trialSetupModels.TrialLocationId);
@@ -299,7 +452,43 @@ namespace Trialmanager.Controllers
             ViewBag.GrantTypeId = new SelectList(db.GrantTypeModels, "Id", "GrantTypeName", trialFeasibilityModels.GrantTypeId);
             ViewBag.PhaseId = new SelectList(db.PhaseModels, "Id", "PhaseName", trialFeasibilityModels.PhaseId);
             ViewBag.TrialTypeId = new SelectList(db.TrialTypeModels, "Id", "TrialTypeName", trialFeasibilityModels.TrialTypeId);
-            return PartialView("SetupEditRecord",trialSetupModels);
+            if (User.IsInRole("NTRF_AUTO_MC_TrialManager_Membership"))
+            {
+                return PartialView("SetupEditView", trialSetupModels);
+            }
+            return PartialView("SetupEditRecord", trialSetupModels);
+        }
+
+        public ActionResult ShowLateDevelopment(int? id)
+        {
+            var trialLateDevelopmentModels = (from ts in db.TrialLateDevelopmentModels
+                                    where ts.TrialId == id
+                                    select ts).FirstOrDefault();
+            var trialLateDevId = (from s in db.TrialLateDevelopmentModels
+                           where s.TrialId == id
+                           select s).FirstOrDefault();
+            if (trialLateDevId != null)
+            {
+                ViewBag.lateDevId = trialLateDevId.Id;
+            }
+
+            if (trialLateDevelopmentModels == null)
+            {
+                ViewBag.Id = id;
+                ViewBag.TrialLocationId = new SelectList(db.TrialLocationModels, "Id", "Location");
+                ViewBag.DiseaseTherapyAreaId = new SelectList(db.DiseaseTherapyAreaModels, "Id",
+                    "DiseaseTherapyAreaName");
+                ViewBag.GrantTypeId = new SelectList(db.GrantTypeModels, "Id", "GrantTypeName");
+                ViewBag.PhaseId = new SelectList(db.PhaseModels, "Id", "PhaseName");
+                ViewBag.TrialTypeId = new SelectList(db.TrialTypeModels, "Id", "TrialTypeName");
+                return PartialView("LateDevNewRecord", trialLateDevelopmentModels);
+            }
+            TrialFeasibilityModels trialFeasibilityModels = db.TrialFeasibilityModels.Find(id);
+            ViewBag.DiseaseTherapyAreaId = new SelectList(db.DiseaseTherapyAreaModels, "Id", "DiseaseTherapyAreaName", trialFeasibilityModels.DiseaseTherapyAreaId);
+            ViewBag.GrantTypeId = new SelectList(db.GrantTypeModels, "Id", "GrantTypeName", trialFeasibilityModels.GrantTypeId);
+            ViewBag.PhaseId = new SelectList(db.PhaseModels, "Id", "PhaseName", trialFeasibilityModels.PhaseId);
+            ViewBag.TrialTypeId = new SelectList(db.TrialTypeModels, "Id", "TrialTypeName", trialFeasibilityModels.TrialTypeId);
+            return PartialView("LateDevEditRecord", trialLateDevelopmentModels);
         }
 
         public ActionResult ShowDocuments(int? id)
@@ -378,7 +567,30 @@ namespace Trialmanager.Controllers
                 db.SaveChanges();
             }
 
-            return RedirectToAction("Edit", new { Id = model.TrialId });
+            return RedirectToAction("DisplayProgress", new { Id = model.TrialId });
+        }
+
+        public ActionResult DisplayProgress()
+        {
+            return PartialView("ShowProgressView");
+        }
+        public ActionResult AddProgressSetup(TrialSetupCompleteModels model)
+        {
+
+            if (ModelState.IsValid)
+            {
+                var newSetupComplete = new TrialSetupCompleteModels()
+                {
+                    Reason = model.Reason,
+                    DateTime = DateTime.Now,
+                    Completed = model.Completed,
+                    TrialId = model.TrialId
+                };
+                db.TrialSetupCompleteModels.Add(newSetupComplete);
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("DisplayProgress", new { Id = model.TrialId });
         }
         // GET: TrialFeasibility/Delete/5
         public ActionResult Delete(int? id)
@@ -393,6 +605,101 @@ namespace Trialmanager.Controllers
                 return HttpNotFound();
             }
             return View(trialFeasibilityModels);
+        }
+
+        [Authorize(Roles = "NTRF_AUTO_MC_TrialManager_Administrators, NTRF_AUTO_MC_TrialManager_Editors, NTRF_AUTO_MC_TrialManager_Membership")]
+        public ActionResult ViewTrial(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            //check to see if the trial is availble to the user for editing
+            var trialAccess = (from tgt in db.TrialGroupTrialModels
+                               join tg in db.TrialGroupModels on tgt.TrialGroupId equals tg.Id
+                               where tgt.TrialId == id
+                               select tgt).ToList();
+
+            var accessGranted = false;
+            foreach (var groupId in trialAccess)
+            {
+                var contactFound = (from ct in db.ContactTrialGroupModels
+                                    where groupId.TrialGroupId == ct.TrialGroupId && ct.ContactName.UserId == User.Identity.Name
+                                    select ct).FirstOrDefault();
+
+                if (contactFound != null)
+                {
+                    accessGranted = true;
+                }
+
+            }
+
+            if (!accessGranted)
+            {
+                return RedirectToAction("NotAuthorised");
+            }
+
+            TrialFeasibilityModels trialFeasibilityModels = db.TrialFeasibilityModels.Find(id);
+            // TrialRecordsModels trialRecordsModels = db.TrialRecordsModels.Find(id);
+            if (trialFeasibilityModels == null)
+            {
+                return HttpNotFound();
+            }
+            var contactsRole = (from c in db.TrialContactsModels
+                                where c.TrialId == id
+                                select c).ToList();
+            ViewBag.contactsRole = contactsRole.Count > 0 ? contactsRole : null;
+
+            var notes = (from c in db.NotesModels
+                         where c.TrialId == id
+                         select c).ToList();
+            ViewBag.notifications = notes.Count > 0 ? notes : null;
+
+            var reminders = (from r in db.TrialRemindersModels
+                             where r.TrialId == id
+                             select r).ToList();
+            ViewBag.reminders = reminders.Count > 0 ? reminders : null;
+
+            var progress = (from p in db.TrialStartedModels
+                            where p.TrialId == id
+                            select p).ToList();
+            ViewBag.progress = progress.Count > 0 ? progress : null;
+
+            var setupComplete = (from sc in db.TrialSetupCompleteModels
+                                 where sc.TrialId == id
+                                 select sc).ToList();
+            ViewBag.setupComplete = setupComplete.Count > 0 ? setupComplete : null;
+
+            ViewBag.User = User.Identity.Name;
+            ViewBag.Id = id;
+            ViewBag.DiseaseTherapyAreaId = new SelectList(db.DiseaseTherapyAreaModels, "Id", "DiseaseTherapyAreaName", trialFeasibilityModels.DiseaseTherapyAreaId);
+            ViewBag.GrantTypeId = new SelectList(db.GrantTypeModels, "Id", "GrantTypeName", trialFeasibilityModels.GrantTypeId);
+            ViewBag.PhaseId = new SelectList(db.PhaseModels, "Id", "PhaseName", trialFeasibilityModels.PhaseId);
+            ViewBag.TrialTypeId = new SelectList(db.TrialTypeModels, "Id", "TrialTypeName", trialFeasibilityModels.TrialTypeId);
+
+            ViewBag.Contacts = db.ContactsModels;
+            ViewBag.Roles = db.RolesModels;
+            ViewBag.DocumentTypes = db.DocumentTypesModels;
+
+            return View(trialFeasibilityModels);
+        }
+
+        [HttpPost]
+        public ActionResult ChangeReminderStatus(TrialRemindersModels model)
+        {
+            var remStat = db.TrialRemindersModels.Find(model.Id);
+            if (remStat == null) return RedirectToAction("Edit", new {id = model.TrialId});
+            remStat.Checked = !remStat.Checked;
+            db.Entry(remStat).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("ShowReminderStatus");
+            
+        }
+
+        
+        public ActionResult ShowReminderStatus()
+        {
+            return PartialView("ShowReminderStatusView");
         }
 
         // POST: TrialFeasibility/Delete/5

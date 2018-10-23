@@ -16,6 +16,9 @@ namespace Trialmanager.Models
         [DisplayName("Contact Name")]
         public string ContactName { get; set; }
 
+        [DisplayName("User Id")]
+        public string UserId { get; set; }
+
         [DisplayName("Organisation")]
         public string Organisation { get; set; }
 
