@@ -1,0 +1,87 @@
+﻿@model IEnumerable<TrialManager.Models.TrialActiveModels>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ShortName.ShortName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StatusName.StatusName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TargetFPFV)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActualFPFV)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CurrentRecruitment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EstimatedLPLV)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActualLPLV)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EOSNotificationDue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EOSNotificationSubmitted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SiteCloseDown)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShortName.ShortName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StatusName.StatusName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TargetFPFV)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActualFPFV)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CurrentRecruitment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EstimatedLPLV)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActualLPLV)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EOSNotificationDue)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EOSNotificationSubmitted)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SiteCloseDown)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

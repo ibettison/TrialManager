@@ -1,0 +1,151 @@
+﻿@using System.Web.UI.WebControls
+@model TrialManager.Models.TrialCloseDownModels
+
+@{
+    ViewBag.Title = "Active";
+}
+
+<h2>Close Down</h2>
+
+<div class="box box-solid box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">Close Down Record</h3>
+        <div class="box-tools pull-right">
+            <!-- Buttons, labels, and many other things can be placed here! -->
+            <!-- Here is a label for example -->
+            <span class="label label-default">Add record...</span>
+        </div>
+        <!-- /.box-tools -->
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <div class="col-md-12">
+            @using (Html.BeginForm("Create", "TrialActive", FormMethod.Post)) 
+            {
+                @Html.AntiForgeryToken()
+    
+                <div class="form-horizontal">
+                    <h4>In Close Down</h4>
+                    <hr />
+                    <div id="alertMessageLate" class="alert alert-warning alert-dismissible" style="display: none;">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+                        <h4><i class="icon fa fa-warning"></i>Alert!</h4>
+                        This form has been populated by cookies, saved the last time a Trial was entered. Select delete at the bottom of the form to remove the field entries and start a fresh
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            @Html.EditorFor(model => model.ClinicalStudyReportDue, new { htmlAttributes = new { @class = "form-control pull-right datepicker", PlaceHolder = "Clinical Study Report Due Date", autocomplete = "off" } })
+                            @Html.ValidationMessageFor(model => model.ClinicalStudyReportDue, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            @Html.EditorFor(model => model.ClinicalStudyReportSubmitted, new { htmlAttributes = new { @class = "form-control pull-right datepicker", PlaceHolder = "clinical Study report Submission Date", autocomplete = "off" } })
+                            @Html.ValidationMessageFor(model => model.ClinicalStudyReportSubmitted, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            @Html.EditorFor(model => model.EudraCTUploadDue, new { htmlAttributes = new { @class = "form-control datepicker", Placeholder = "EudraCT Upload Due Date", autocomplete = "off" } })
+                            @Html.ValidationMessageFor(model => model.EudraCTUploadDue, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            @Html.EditorFor(model => model.EudraCTUpload, new { htmlAttributes = new { @class = "form-control datepicker", PlaceHolder = "EudraCT Uploaded", autocomplete = "off" } })
+                            @Html.ValidationMessageFor(model => model.EudraCTUpload, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            @Html.EditorFor(model => model.Archiving, new { htmlAttributes = new { @class = "form-control datepicker", PlaceHolder = "Date of Archiving", autocomplete = "off" } })
+                            @Html.ValidationMessageFor(model => model.Archiving, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                @Html.EditorFor(model => model.ArchivingPeriod, new { htmlAttributes = new { @class = "form-control pull-right datepicker", PlaceHolder = "Archiving Period", autocomplete = "off" } })
+                                @Html.ValidationMessageFor(model => model.ArchivingPeriod, "", new { @class = "text-danger" })
+                            </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            @Html.EditorFor(model => model.Destruction, new { htmlAttributes = new { @class = "form-control pull-right datepicker", PlaceHolder = "Desctruction Date", autocomplete = "off" } })
+                            @Html.ValidationMessageFor(model => model.Destruction, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+                    
+                    <input type="hidden" name="TrialId" value="@ViewBag.Id" />
+                    
+                    <div class="form-group">
+                            <input type="submit" value="Create" class="btn btn-default btn-block btn-flat" />
+                    </div>
+                </div>
+            }
+
+        </div>
+        <!-- /.box-body -->
+    </div>
+</div>
+<!-- /.box -->
+<div class="modal fade in" id="modal-savedLate" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                Cookie Saved
+            </div>
+            <div class="modal-body">
+                Your data has been saved to a cookie and will be available the next time you access this page.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade in" id="modal-deletedLate" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                Cookie Deleted
+            </div>
+            <div class="modal-body">
+                Your data has been deleted and will no longer be presented to you on this page.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

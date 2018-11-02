@@ -350,8 +350,8 @@ $.extend($.validator, {
 			$(this.currentForm)
 				.validateDelegate(":text, [type='password'], [type='file'], select, textarea, " +
 					"[type='number'], [type='search'] ,[type='tel'], [type='url'], " +
-					"[type='email'], [type='datetime'], [type='date'], [type='month'], " +
-					"[type='week'], [type='time'], [type='datetime-local'], " +
+					"[type='email'], [type='DateTime'], [type='date'], [type='month'], " +
+					"[type='week'], [type='time'], [type='DateTime-local'], " +
 					"[type='range'], [type='color'] ",
 					"focusin focusout keyup", delegate)
 				.validateDelegate("[type='radio'], [type='checkbox'], select, option", "click", delegate);

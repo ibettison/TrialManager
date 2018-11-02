@@ -11,12 +11,12 @@ namespace Trialmanager.Models
     {
         [Key]
         public int Id { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public  DateTime?  StartDate { get; set; }
+        public  DateTime?  EndDate { get; set; }
         public int ContactId { get; set; }
 
         [ForeignKey("ContactId")]
         public virtual ContactsModels ContactName { get; set; }
-        public DateTime RenewalDate { get; set; }
+        public  DateTime?  RenewalDate { get; set; }
     }
 }

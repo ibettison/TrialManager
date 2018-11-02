@@ -366,7 +366,7 @@ Optional extensions on the jquery.inputmask base
             separator: '-',
             alias: "yyyy/mm/dd"
         },
-        'datetime': {
+        ' DateTime': {
             mask: "1/2/y h:s",
             placeholder: "dd/mm/yyyy hh:mm",
             alias: "dd/mm/yyyy",
@@ -448,22 +448,22 @@ Optional extensions on the jquery.inputmask base
             insertMode: false,
             autoUnmask: false
         },
-        'datetime12': {
+        'DateTime12': {
             mask: "1/2/y h:s t\\m",
             placeholder: "dd/mm/yyyy hh:mm xm",
-            alias: "datetime",
+            alias: "DateTime",
             hourFormat: "12"
         },
         'hh:mm t': {
             mask: "h:s t\\m",
             placeholder: "hh:mm xm",
-            alias: "datetime",
+            alias: "DateTime",
             hourFormat: "12"
         },
         'h:s t': {
             mask: "h:s t\\m",
             placeholder: "hh:mm xm",
-            alias: "datetime",
+            alias: "DateTime",
             hourFormat: "12"
         },
         'hh:mm:ss': {

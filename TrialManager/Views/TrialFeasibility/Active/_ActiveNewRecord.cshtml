@@ -1,0 +1,164 @@
+﻿@using System.Web.UI.WebControls
+@model TrialManager.Models.TrialActiveModels
+
+@{
+    ViewBag.Title = "Active";
+}
+
+<h2>Active Studies</h2>
+
+<div class="box box-solid box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">New Active Record</h3>
+        <div class="box-tools pull-right">
+            <!-- Buttons, labels, and many other things can be placed here! -->
+            <!-- Here is a label for example -->
+            <span class="label label-default">Add record...</span>
+        </div>
+        <!-- /.box-tools -->
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <div class="col-md-12">
+            @using (Html.BeginForm("Create", "TrialActive", FormMethod.Post)) 
+            {
+                @Html.AntiForgeryToken()
+    
+                <div class="form-horizontal">
+                    <h4>Active Studies</h4>
+                    <hr />
+                    <div id="alertMessageLate" class="alert alert-warning alert-dismissible" style="display: none;">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+                        <h4><i class="icon fa fa-warning"></i>Alert!</h4>
+                        This form has been populated by cookies, saved the last time a Trial was entered. Select delete at the bottom of the form to remove the field entries and start a fresh
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="col-md-2">
+                            @Html.LabelFor(model => model.StatusId)
+                        </div>
+                        <div class="col-md-10">
+                            @Html.DropDownList("StatusId", null, htmlAttributes: new { @class = "form-control", PlaceHolder = "Status" })
+                            @Html.ValidationMessageFor(model => model.StatusId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            @Html.EditorFor(model => model.TargetFPFV, new { htmlAttributes = new { @class = "form-control pull-right datepicker", PlaceHolder = "Target FPFV Date", autocomplete = "off" } })
+                            @Html.ValidationMessageFor(model => model.TargetFPFV, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            @Html.EditorFor(model => model.ActualFPFV, new { htmlAttributes = new { @class = "form-control datepicker", Placeholder = "Actual FPFV Date", autocomplete = "off" } })
+                            @Html.ValidationMessageFor(model => model.ActualFPFV, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+                    
+                    <div class="form-group">
+                            @Html.EditorFor(model => model.CurrentRecruitment, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Current Recruitment", autocomplete = "off" } })
+                            @Html.ValidationMessageFor(model => model.CurrentRecruitment, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            @Html.EditorFor(model => model.EstimatedLPLV, new { htmlAttributes = new { @class = "form-control datepicker", PlaceHolder = "Estimated LPLV Date", autocomplete = "off" } })
+                            @Html.ValidationMessageFor(model => model.EstimatedLPLV, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                @Html.EditorFor(model => model.ActualLPLV, new { htmlAttributes = new { @class = "form-control pull-right datepicker", PlaceHolder = "Actual LPLV Date", autocomplete = "off" } })
+                                @Html.ValidationMessageFor(model => model.ActualLPLV, "", new { @class = "text-danger" })
+                            </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            @Html.EditorFor(model => model.EOSNotificationDue, new { htmlAttributes = new { @class = "form-control pull-right datepicker", PlaceHolder = "End of Study Notification Due Date", autocomplete = "off" } })
+                            @Html.ValidationMessageFor(model => model.EOSNotificationDue, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            @Html.EditorFor(model => model.EOSNotificationSubmitted, new { htmlAttributes = new { @class = "form-control pull-right datepicker", PlaceHolder = "End of Study Notification Submitted Date", autocomplete = "off" } })
+                            @Html.ValidationMessageFor(model => model.EOSNotificationSubmitted, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            @Html.EditorFor(model => model.SiteCloseDown, new { htmlAttributes = new { @class = "form-control pull-right datepicker", PlaceHolder = "Site Close Down Date", autocomplete = "off" } })
+                            @Html.ValidationMessageFor(model => model.SiteCloseDown, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="TrialId" value="@ViewBag.Id" />
+                    
+                    <div class="form-group">
+                            <input type="submit" value="Create" class="btn btn-default btn-block btn-flat" />
+                    </div>
+                </div>
+            }
+
+        </div>
+        <!-- /.box-body -->
+    </div>
+</div>
+<!-- /.box -->
+<div class="modal fade in" id="modal-savedLate" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                Cookie Saved
+            </div>
+            <div class="modal-body">
+                Your data has been saved to a cookie and will be available the next time you access this page.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade in" id="modal-deletedLate" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                Cookie Deleted
+            </div>
+            <div class="modal-body">
+                Your data has been deleted and will no longer be presented to you on this page.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

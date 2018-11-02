@@ -1,0 +1,104 @@
+﻿@model TrialManager.Models.TrialActiveModels
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>TrialActiveModels</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ShortName.ShortName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShortName.ShortName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StatusName.StatusName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StatusName.StatusName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TargetFPFV)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TargetFPFV)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ActualFPFV)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActualFPFV)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentRecruitment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentRecruitment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EstimatedLPLV)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EstimatedLPLV)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ActualLPLV)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActualLPLV)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EOSNotificationDue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EOSNotificationDue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EOSNotificationSubmitted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EOSNotificationSubmitted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SiteCloseDown)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SiteCloseDown)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

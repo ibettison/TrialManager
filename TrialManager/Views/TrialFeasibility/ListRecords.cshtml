@@ -1,59 +1,70 @@
-﻿@model IEnumerable<Trialmanager.Models.TrialRecordsModels>
-
+﻿
 @{
     Layout = null;
 }
+@if (ViewBag.changed == null)
+{
+    <p>No changes have been applied to this Trial.</p>
+}
+else
+{
+    <table id="changeList" class="table table-bordered table-striped">
+        <thead>
+        <tr>
 
-    <table class="table">
-        <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ShortName.ShortName)
+                ShortName
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DateTime)
+                Date/Time
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.WhoChanged)
+                Who changed
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FieldName)
+                FieldName
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.OriginalValue)
+                Original value
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NewValue)
+                New value
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ReasonForChange)
+                Reason for change
             </th>
-            <th></th>
         </tr>
-    
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShortName.ShortName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.WhoChanged)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FieldName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OriginalValue)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NewValue)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReasonForChange)
-            </td>
-        </tr>
-    }
-    
+        </thead>
+        <tbody>
+        @foreach (var item in ViewBag.changed)
+        {
+            <tr>
+                <td>
+                    @item.ShortName.ShortName
+                </td>
+                <td>
+                    @item.DateTime
+                </td>
+                <td>
+                    @item.WhoChanged
+                </td>
+                <td>
+                    @item.FieldName
+                </td>
+                <td>
+                    @item.OriginalValue
+                </td>
+                <td>
+                    @item.NewValue
+                </td>
+                <td>
+                    @item.ReasonForChange
+                </td>
+            </tr>
+        }
+        </tbody>
     </table>
+}
+<script type="text/javascript">
+    $("#changeList").DataTable();
+</script>

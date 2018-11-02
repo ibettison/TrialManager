@@ -44,8 +44,9 @@ namespace Trialmanager.Models
         [DisplayName("Funding Stream")]
         public string FundingStream { get; set; }
 
-        [DisplayName("Grant deadlaine")]
-        public DateTime GrantDeadlineDate { get; set; }
+        [DisplayName("Grant deadline")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime? GrantDeadlineDate { get; set; }
 
         [DisplayName("University Consultancy Agreement")]
         public bool UniConsultancyAgreement { get; set; }

@@ -15,7 +15,7 @@ namespace TrialManager.Models
         public string Completed { get; set; }
         public int TrialId { get; set; }
         public string Reason { get; set; }
-        public DateTime DateTime { get; set; }
+        public DateTime  DateTime  { get; set; }
 
         [ForeignKey("TrialId")]
         public virtual TrialFeasibilityModels ShortName { get; set; }

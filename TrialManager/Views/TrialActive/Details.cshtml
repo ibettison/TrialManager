@@ -1,0 +1,98 @@
+﻿@model TrialManager.Models.TrialActiveModels
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TrialActiveModels</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ShortName.ShortName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShortName.ShortName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StatusName.StatusName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StatusName.StatusName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TargetFPFV)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TargetFPFV)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ActualFPFV)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActualFPFV)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentRecruitment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentRecruitment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EstimatedLPLV)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EstimatedLPLV)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ActualLPLV)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActualLPLV)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EOSNotificationDue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EOSNotificationDue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EOSNotificationSubmitted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EOSNotificationSubmitted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SiteCloseDown)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SiteCloseDown)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

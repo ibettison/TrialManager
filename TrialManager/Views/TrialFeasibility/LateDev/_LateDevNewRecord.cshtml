@@ -1,0 +1,120 @@
+﻿@using System.Web.UI.WebControls
+@model TrialManager.Models.TrialLateDevelopmentModels
+
+@{
+    ViewBag.Title = "Late Development";
+}
+
+<h2>Late Development</h2>
+
+<div class="box box-solid box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">New Late Development Record</h3>
+        <div class="box-tools pull-right">
+            <!-- Buttons, labels, and many other things can be placed here! -->
+            <!-- Here is a label for example -->
+            <span class="label label-default">Add record...</span>
+        </div>
+        <!-- /.box-tools -->
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <div class="col-md-12">
+            @using (Html.BeginForm("Create", "TrialLateDevelopment", FormMethod.Post)) 
+            {
+                @Html.AntiForgeryToken()
+    
+                <div class="form-horizontal">
+                    <h4>Late Development</h4>
+                    <hr />
+                    <div id="alertMessageLate" class="alert alert-warning alert-dismissible" style="display: none;">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+                        <h4><i class="icon fa fa-warning"></i>Alert!</h4>
+                        This form has been populated by cookies, saved the last time a Trial was entered. Select delete at the bottom of the form to remove the field entries and start a fresh
+                    </div>
+                    <div class="form-group">
+                            @Html.EditorFor(model => model.ClinicalTrialsGovRef, new { htmlAttributes = new { @class = "form-control pull-right", PlaceHolder = "Clinical Trials.Gov Reference", autocomplete = "off" } })
+                            @Html.ValidationMessageFor(model => model.ClinicalTrialsGovRef, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            @Html.EditorFor(model => model.LocalCC, new { htmlAttributes = new { @class = "form-control datepicker", Placeholder = "Local R&D C&C", autocomplete = "off" } })
+                            @Html.ValidationMessageFor(model => model.LocalCC, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            @Html.EditorFor(model => model.SponsorGreenLight, new { htmlAttributes = new { @class = "form-control datepicker", PlaceHolder = "Sponsor Green Light", autocomplete = "off" } })
+                            @Html.ValidationMessageFor(model => model.SponsorGreenLight, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            @Html.EditorFor(model => model.SiteInitiationVisit, new { htmlAttributes = new { @class = "form-control pull-right datepicker", PlaceHolder = "Site Initiation Visit", autocomplete = "off" } })
+                            @Html.ValidationMessageFor(model => model.SiteInitiationVisit, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            @Html.EditorFor(model => model.LocalSiteActivationDate, new { htmlAttributes = new { @class = "form-control pull-right datepicker", PlaceHolder = "Local Site Activation", autocomplete = "off" } })
+                            @Html.ValidationMessageFor(model => model.LocalSiteActivationDate, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+
+                    <input type="hidden" name="TrialId" value="@ViewBag.Id" />
+                    
+                    <div class="form-group">
+                            <input type="submit" value="Create" class="btn btn-default btn-block btn-flat" />
+                    </div>
+                </div>
+            }
+
+        </div>
+        <!-- /.box-body -->
+    </div>
+</div>
+<!-- /.box -->
+<div class="modal fade in" id="modal-savedLate" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                Cookie Saved
+            </div>
+            <div class="modal-body">
+                Your data has been saved to a cookie and will be available the next time you access this page.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade in" id="modal-deletedLate" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                Cookie Deleted
+            </div>
+            <div class="modal-body">
+                Your data has been deleted and will no longer be presented to you on this page.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

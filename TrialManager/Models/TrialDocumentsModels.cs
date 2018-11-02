@@ -14,7 +14,7 @@ namespace Trialmanager.Models
         [Key]
         public int Id { get; set; }
 
-        public DateTime DateTime { get; set; }
+        public DateTime  DateTime  { get; set; }
         public string UploadedBy { get; set; }
         public string DocumentLink { get; set; }
         public string DocumentFileName { get; set; }

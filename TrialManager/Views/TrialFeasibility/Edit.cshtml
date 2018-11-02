@@ -50,7 +50,10 @@
                                 <a href="#tab3" data-toggle="tab">Late Development</a>
                             </li>
                             <li>
-                                <a href="#tab5" data-toggle="tab">Follow Up</a>
+                                <a href="#tab4" data-toggle="tab">Active Studies</a>
+                            </li>
+                            <li>
+                                <a href="#tab5" data-toggle="tab">Close Down</a>
                             </li>
                             <li>
                                 <a href="#tab6" data-toggle="tab">Documents</a>
@@ -84,90 +87,141 @@
                                                     <hr />
                                                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                                     @Html.HiddenFor(model => model.Id)
+                                                    <div class="col-md-2">
+                                                        @Html.LabelFor(model => model.ShortName)
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                @Html.EditorFor(model => model.ShortName, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Enter Trial Short Name", disabled = "disabled" } })
+                                                                <div class="input-group-addon feasibility">
+                                                                    <a href="#" data-toggle="modal" data-target="#modal-default1">
+                                                                        <i class="fa fa-edit"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            @Html.ValidationMessageFor(model => model.ShortName, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
 
-                                                    <div class="form-group">
-                                                        <div class="input-group">
-                                                            @Html.EditorFor(model => model.ShortName, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Enter Trial Short Name", disabled = "disabled" } })
-                                                            <div class="input-group-addon feasibility">
-                                                                <a href="#" data-toggle="modal" data-target="#modal-default1">
-                                                                    <i class="fa fa-edit"></i>
-                                                                </a>
+                                                    <div class="col-md-2">
+                                                        @Html.LabelFor(model => model.TrialTitle)
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <div class="form-group">
+                                                            @Html.TextAreaFor(model => model.TrialTitle, new { @class = "form-control", Rows = 4, PlaceHolder = "Full Trial title" })
+                                                            @Html.ValidationMessageFor(model => model.TrialTitle, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-2">
+                                                        @Html.LabelFor(model => model.ApplicationReference)
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                @Html.EditorFor(model => model.ApplicationReference, new { htmlAttributes = new { @class = "form-control", title = "Application Reference", disabled = "disabled" } })
+                                                                <div class="input-group-addon feasibility">
+                                                                    <a href="#" data-toggle="modal" data-target="#modal-default1">
+                                                                        <i class="fa fa-edit"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            @Html.ValidationMessageFor(model => model.ApplicationReference, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="col-md-2">
+                                                        @Html.LabelFor(model => model.BhNumber)
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                @Html.EditorFor(model => model.BhNumber, new { htmlAttributes = new { @class = "form-control", Title = "BH Number", disabled = "disabled" } })
+                                                                <div class="input-group-addon feasibility">
+                                                                    <a href="#" data-toggle="modal" data-target="#modal-default1">
+                                                                        <i class="fa fa-edit"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            @Html.ValidationMessageFor(model => model.BhNumber, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="col-md-2">
+                                                        @Html.LabelFor(model => model.TrialTypeId)
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                @Html.DropDownList("TrialTypeId", null, htmlAttributes: new { @class = "form-control", Title = "Trial types", disabled = "disabled" })
+                                                                <div class="input-group-addon feasibility">
+                                                                    <a href="#" data-toggle="modal" data-target="#modal-default1">
+                                                                        <i class="fa fa-edit"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            @Html.ValidationMessageFor(model => model.TrialTypeId, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="col-md-2">
+                                                        @Html.LabelFor(model => model.Commercial)
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <div class="form-group">
+                                                            <div class="checkbox">
+                                                                @Html.RadioButtonFor(model => model.Commercial, "Commercial") Commercial
+                                                                @Html.RadioButtonFor(model => model.Commercial, "Non-Commercial") Non-Commercial
+                                                                @Html.ValidationMessageFor(model => model.Commercial, "", new { @class = "text-danger" })
                                                             </div>
                                                         </div>
-                                                        @Html.ValidationMessageFor(model => model.ShortName, "", new { @class = "text-danger" })
                                                     </div>
-                                                    <div class="form-group">
-                                                        @Html.TextAreaFor(model => model.TrialTitle, new { @class = "form-control", Rows = 4, PlaceHolder = "Full Trial title" })
-                                                        @Html.ValidationMessageFor(model => model.TrialTitle, "", new { @class = "text-danger" })
+
+
+                                                    <div class="col-md-2">
+                                                        @Html.LabelFor(model => model.PhaseId)
                                                     </div>
-                                                    <div class="form-group">
-                                                        <div class="input-group">
-                                                            @Html.EditorFor(model => model.ApplicationReference, new { htmlAttributes = new { @class = "form-control", title = "Application Reference", disabled = "disabled" } })
-                                                            <div class="input-group-addon feasibility">
-                                                                <a href="#" data-toggle="modal" data-target="#modal-default1">
-                                                                    <i class="fa fa-edit"></i>
-                                                                </a>
+                                                    <div class="col-md-10">
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                @Html.DropDownList("PhaseId", null, htmlAttributes: new { @class = "form-control", disabled = "disabled" })
+                                                                <div class="input-group-addon feasibility">
+                                                                    <a href="#" data-toggle="modal" data-target="#modal-default1">
+                                                                        <i class="fa fa-edit"></i>
+                                                                    </a>
+                                                                </div>
                                                             </div>
+                                                            @Html.ValidationMessageFor(model => model.PhaseId, "", new { @class = "text-danger" })
                                                         </div>
-                                                        @Html.ValidationMessageFor(model => model.ApplicationReference, "", new { @class = "text-danger" })
                                                     </div>
 
-                                                    <div class="form-group">
-                                                        <div class="input-group">
-                                                            @Html.EditorFor(model => model.BhNumber, new { htmlAttributes = new { @class = "form-control", Title = "BH Number", disabled = "disabled" } })
-                                                            <div class="input-group-addon feasibility">
-                                                                <a href="#" data-toggle="modal" data-target="#modal-default1">
-                                                                    <i class="fa fa-edit"></i>
-                                                                </a>
+
+                                                    <div class="col-md-2">
+                                                        @Html.LabelFor(model => model.SampleSize)
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                @Html.EditorFor(model => model.SampleSize, new { htmlAttributes = new { @class = "form-control", title = "Sample Size", disabled = "disabled" } })
+                                                                <div class="input-group-addon feasibility">
+                                                                    <a href="#" data-toggle="modal" data-target="#modal-default1">
+                                                                        <i class="fa fa-edit"></i>
+                                                                    </a>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        @Html.ValidationMessageFor(model => model.BhNumber, "", new { @class = "text-danger" })
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <div class="input-group">
-                                                            @Html.DropDownList("TrialTypeId", null, htmlAttributes: new { @class = "form-control", Title = "Trial types", disabled = "disabled" })
-                                                            <div class="input-group-addon feasibility">
-                                                                <a href="#" data-toggle="modal" data-target="#modal-default1">
-                                                                    <i class="fa fa-edit"></i>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                        @Html.ValidationMessageFor(model => model.TrialTypeId, "", new { @class = "text-danger" })
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <div class="checkbox">
-                                                            @Html.RadioButtonFor(model => model.Commercial, "Commercial") Commercial
-                                                            @Html.RadioButtonFor(model => model.Commercial, "Non-Commercial") Non-Commercial
-                                                            @Html.ValidationMessageFor(model => model.Commercial, "", new { @class = "text-danger" })
+                                                            @Html.ValidationMessageFor(model => model.SampleSize, "", new { @class = "text-danger" })
                                                         </div>
                                                     </div>
 
-                                                    <div class="form-group">
-                                                        <div class="input-group">
-                                                            @Html.DropDownList("PhaseId", null, htmlAttributes: new { @class = "form-control", disabled = "disabled" })
-                                                            <div class="input-group-addon feasibility">
-                                                                <a href="#" data-toggle="modal" data-target="#modal-default1">
-                                                                    <i class="fa fa-edit"></i>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                        @Html.ValidationMessageFor(model => model.PhaseId, "", new { @class = "text-danger" })
-                                                    </div>
 
-                                                    <div class="form-group">
-                                                        <div class="input-group">
-                                                            @Html.EditorFor(model => model.SampleSize, new { htmlAttributes = new { @class = "form-control", title = "Sample Size", disabled = "disabled" } })
-                                                            <div class="input-group-addon feasibility">
-                                                                <a href="#" data-toggle="modal" data-target="#modal-default1">
-                                                                    <i class="fa fa-edit"></i>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                        @Html.ValidationMessageFor(model => model.SampleSize, "", new { @class = "text-danger" })
-                                                    </div>
-
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.GrantTypeId)
+                                                </div>
+                                                <div class="col-md-10">
                                                     <div class="form-group">
                                                         <div class="input-group">
                                                             @Html.DropDownList("GrantTypeId", null, htmlAttributes: new { @class = "form-control", disabled = "disabled" })
@@ -179,7 +233,13 @@
                                                         </div>
                                                         @Html.ValidationMessageFor(model => model.GrantTypeId, "", new { @class = "text-danger" })
                                                     </div>
+                                                </div>
 
+
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.FundingStream)
+                                                </div>
+                                                <div class="col-md-10">
                                                     <div class="form-group">
                                                         <div class="input-group">
                                                             @Html.EditorFor(model => model.FundingStream, new { htmlAttributes = new { @class = "form-control", Title = "Funding Stream", disabled = "disabled" } })
@@ -191,7 +251,13 @@
                                                         </div>
                                                         @Html.ValidationMessageFor(model => model.FundingStream, "", new { @class = "text-danger" })
                                                     </div>
+                                                </div>
 
+
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.GrantDeadlineDate)
+                                                </div>
+                                                <div class="col-md-10">
                                                     <div class="form-group">
                                                         <div class="input-group">
                                                             @Html.EditorFor(model => model.GrantDeadlineDate, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
@@ -203,7 +269,13 @@
                                                         </div>
                                                         @Html.ValidationMessageFor(model => model.GrantDeadlineDate, "", new { @class = "text-danger" })
                                                     </div>
+                                                </div>
 
+
+                                                <div class="col-md-2">
+                                                    @Html.Label("Agreements")
+                                                </div>
+                                                <div class="col-md-10">
                                                     <div class="form-group">
                                                         <div class="checkbox">
                                                             @Html.CheckBoxFor(model => model.UniConsultancyAgreement) Uni Consultancy Agreement
@@ -217,7 +289,13 @@
                                                             @Html.ValidationMessageFor(model => model.NhsConsultancyAgreement, "", new { @class = "text-danger" })
                                                         </div>
                                                     </div>
+                                                </div>
 
+
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.DiseaseTherapyAreaId)
+                                                </div>
+                                                <div class="col-md-10">
                                                     <div class="form-group">
                                                         <div class="input-group">
                                                             @Html.DropDownList("DiseaseTherapyAreaId", null, htmlAttributes: new { @class = "form-control", disabled = "disabled" })
@@ -229,6 +307,7 @@
                                                         </div>
                                                         @Html.ValidationMessageFor(model => model.DiseaseTherapyAreaId, "", new { @class = "text-danger" })
                                                     </div>
+                                                </div>
                                                 </div>
                                             }
                                         </div>
@@ -316,10 +395,10 @@
                                 <p>@{ Html.RenderAction("ShowLateDevelopment", new { Id = ViewBag.Id }); }</p>
                             </div>
                             <div class="tab-pane" id="tab4">
-                                <p>tab4</p>
+                                <p>@{ Html.RenderAction("ShowActive", new { Id = ViewBag.Id }); }</p>
                             </div>
                             <div class="tab-pane" id="tab5">
-                                <p>tab4</p>
+                                <p>@{ Html.RenderAction("ShowCloseDown", new { Id = ViewBag.Id }); }</p>
                             </div>
                         <div class="tab-pane" id="tab6">
                             <div id="ListOfDocuments">
@@ -399,9 +478,10 @@
                                 </div>
                             </section>
                         </div>
-                            <div class="tab-pane" id="tab7">
-                                <p>@{ Html.RenderAction("listAddedRecords", new {Id = ViewBag.Id}); }</p>
-                            </div>
+                        <div class="tab-pane" id="tab7">
+@*                            updated via JQuery function below.*@
+@*                            <p>@{ Html.RenderAction("ListAddedRecords", new {Id = ViewBag.Id}); }</p>*@
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -432,7 +512,7 @@
                                             <thead>
                                             <tr>
                                                 <th>Contact Name</th>
-                                                <th class="hidden-md hidden-xs">Organisation</th>
+                                                <th class="hidden-xs hidden-md-lg">Organisation</th>
                                                 <th>Email</th>
                                                 <th>Telephone</th>
                                                 <th class="hidden-xs">Trial Role</th>
@@ -443,7 +523,7 @@
                                         {
                                                 <tr>
                                                     <td><a href="/Contacts/Edit/@contact.ContactName.Id">@contact.ContactName.ContactName</a></td>
-                                                    <td class="hidden-md hidden-xs">@contact.ContactName.Organisation</td>
+                                                    <td class="hidden-xs hidden-md-lg">@contact.ContactName.Organisation</td>
                                                     <td style="text-align: center;"><a href="mailto:@contact.ContactName.Email" title="@contact.ContactName.Email"><i class="fa fa-envelope-o"></i></a></td>
                                                     <td>@contact.ContactName.Telephone</td>
                                                     <td class="hidden-xs">@contact.RoleName.RoleName</td>
@@ -509,7 +589,7 @@
                                             @foreach (var note in ViewBag.notifications)
                                             {
                                                 <tr>
-                                                    <td>@note.DateTime</td>
+                                                    <td>@note.DateTime.ToString("yyyy-MM-dd hh:mm:ss")</td>
                                                     <td>@note.Who</td>
                                                     <td>@note.Message</td>
                                                 </tr>
@@ -648,6 +728,13 @@
             break;
         case getClass.indexOf('setup') >= 0:
             controller = "TrialSetup";
+            break;
+        case getClass.indexOf('lateDev') >= 0:
+            controller = "TrialLateDevelopment";
+            break;
+        case getClass.indexOf('active') >= 0:
+            controller = "TrialActive";
+            break;
         }
         if (times >= 2) {
             if (!$('#reason').val()) {
@@ -699,6 +786,10 @@
         success: function(data) {
             $("#tab7").html(data);
         }
+    });
+
+    $('#ContactSel').select2({
+        placeholder: 'Select an option'
     });
 
     $("#AddContact").click(function() {
@@ -804,7 +895,6 @@
             $('#listDocs').DataTable();
             $('#contacts').DataTable();
             $('#notifications').DataTable();
-
         });
         $("#cookieSaveSetup").click(function() {
             Cookies.set('projectIdentifier', $('#ProjectIdentifier').val(), { expires: 10 });

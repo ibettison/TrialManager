@@ -62,5 +62,12 @@ namespace Trialmanager.Models
         public DbSet<ContactTrialGroupModels> ContactTrialGroupModels { get; set; }
 
         public DbSet<TrialGroupTrialModels> TrialGroupTrialModels { get; set; }
+        public DbSet<RecentTrialsModels> RecentTrialsModels { get; set; }
+
+        public System.Data.Entity.DbSet<TrialManager.Models.ActiveStatusModels> ActiveStatusModels { get; set; }
+
+        public System.Data.Entity.DbSet<TrialManager.Models.TrialActiveModels> TrialActiveModels { get; set; }
+
+        public System.Data.Entity.DbSet<TrialManager.Models.TrialCloseDownModels> TrialCloseDownModels { get; set; }
     }
 }

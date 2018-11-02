@@ -12,7 +12,7 @@ else
         <thead>
         <tr>
             <th>Contact Name</th>
-            <th>Organisation</th>
+            <th class="hidden-md">Organisation</th>
             <th>Email Address</th>
             <th>Telephone</th>
             <th>Trial Role</th>
@@ -23,7 +23,7 @@ else
             {
                 <tr>
                     <td><a href="/Contacts/Edit/@contact.ContactName.Id">@contact.ContactName.ContactName</a></td>
-                    <td>@contact.ContactName.Organisation</td>
+                    <td class="hidden-md">@contact.ContactName.Organisation</td>
                     <td><a href="mailto:@contact.ContactName.Email">@contact.ContactName.Email</a></td>
                     <td>@contact.ContactName.Telephone</td>
                     <td>@contact.RoleName.RoleName</td>

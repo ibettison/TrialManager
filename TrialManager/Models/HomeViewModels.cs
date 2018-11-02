@@ -10,7 +10,7 @@ namespace TrialManager.Models
     {
         public string ShortName { get; set; }
         public string TrialTypeName { get; set; }
-        public string Commercial { get; set; }
+        public string Stage { get; set; }
         public string ProjectId { get; set; }
         public string ResearchId { get; set; }
         public string CI { get; set; }

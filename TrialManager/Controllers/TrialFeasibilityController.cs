@@ -6,9 +6,11 @@ using System.Data.Entity.Infrastructure;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 using Trialmanager.Models;
+using TrialManager.Classes;
 using TrialManager.Models;
 
 namespace Trialmanager.Controllers
@@ -137,9 +139,9 @@ namespace Trialmanager.Controllers
 
         // GET: TrialFeasibility/Edit/5
         [Authorize(Roles = "NTRF_AUTO_MC_TrialManager_Administrators, NTRF_AUTO_MC_TrialManager_Editors")]
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -189,6 +191,11 @@ namespace Trialmanager.Controllers
                          select r).ToList();
             ViewBag.reminders = reminders.Count > 0 ? reminders : null;
 
+            var changedRecords = (from c in db.TrialRecordsModels
+                where c.TrialId == id
+                select c).ToList();
+            ViewBag.changed = changedRecords.Count > 0 ? changedRecords : null;
+
             var progress = (from p in db.TrialStartedModels
                 where p.TrialId == id
                 select p).ToList();
@@ -209,6 +216,32 @@ namespace Trialmanager.Controllers
             ViewBag.Contacts = db.ContactsModels;
             ViewBag.Roles = db.RolesModels;
             ViewBag.DocumentTypes = db.DocumentTypesModels;
+
+            //before displaying the Trial lets save it to the recent Trials table
+            var recentTrials = (from r in db.RecentTrialsModels
+                                where r.TrialId == id && User.Identity.Name == r.UserId
+                                select r).FirstOrDefault();
+            if (recentTrials != null)
+            {
+                //need to Update the date of access
+                recentTrials.LastAccessed = DateTime.Now;
+                recentTrials.Access = "Edit";
+                db.Entry(recentTrials).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            else
+            {
+                //need to create a new record as this is the first access of this trial.
+                var recentTrialsModels = new RecentTrialsModels
+                {
+                    TrialId = id,
+                    LastAccessed = DateTime.Now,
+                    UserId = User.Identity.Name,
+                    Access = "Edit"
+                };
+                db.RecentTrialsModels.Add(recentTrialsModels);
+                db.SaveChanges();
+            }
 
             return View(trialFeasibilityModels);
         }
@@ -253,7 +286,22 @@ namespace Trialmanager.Controllers
                         var getVar = fModel.GetType().GetProperty(fn);
                         if (getVar != null)
                         {
-                            getVar.SetValue(fModel, nv);
+                            if (getVar.PropertyType.Name == "Int32")
+                            {
+                                getVar.SetValue(fModel, Convert.ToInt32(nv));
+                            }
+                            else
+                            {
+                                var property = getVar.PropertyType.GenericTypeArguments.FirstOrDefault();
+                                if (property != null && property.Name == "DateTime")
+                                {
+                                    getVar.SetValue(fModel, Convert.ToDateTime(nv));
+                                }
+                                else
+                                {
+                                    getVar.SetValue(fModel, Convert.ToString(nv));
+                                }
+                            }
                         }
                     }
                     db.Entry(fModel).State = EntityState.Modified;
@@ -267,14 +315,92 @@ namespace Trialmanager.Controllers
                         var getVar = sModel.GetType().GetProperty(fn);
                         if (getVar != null)
                         {
-                            getVar.SetValue(sModel, nv);
+                            if (getVar.PropertyType.Name == "Int32")
+                            {
+                                getVar.SetValue(sModel, Convert.ToInt32(nv));
+                            }
+                            else
+                            {
+                                var property = getVar.PropertyType.GenericTypeArguments.FirstOrDefault();
+                                if (property != null && property.Name == "DateTime")
+                                {
+                                    getVar.SetValue(sModel, Convert.ToDateTime(nv));
+                                }
+                                else
+                                {
+                                    getVar.SetValue(sModel, Convert.ToString(nv));
+                                }
+                            }
                         }
                     }
                     db.Entry(sModel).State = EntityState.Modified;
                     break;
+                case "TrialLateDevelopment":
+                    var lModel = (from s in db.TrialLateDevelopmentModels
+                                  where s.TrialId == model.TrialId
+                                  select s).FirstOrDefault();
+                    if (lModel != null)
+                    {
+                        var getVar = lModel.GetType().GetProperty(fn);
+                        if (getVar != null)
+                        {
+                            if (getVar.PropertyType.Name == "Int32")
+                            {
+                                getVar.SetValue(lModel, Convert.ToInt32(nv));
+                            }
+                            else
+                            {
+                                var property = getVar.PropertyType.GenericTypeArguments.FirstOrDefault();
+
+                                if (property != null && property.Name == "DateTime")
+                                {
+                                    getVar.SetValue(lModel, Convert.ToDateTime(nv));
+                                }
+                                else
+                                {
+                                    getVar.SetValue(lModel, Convert.ToString(nv));
+                                }
+                                
+                            }
+
+                        }
+                    }
+                    db.Entry(lModel).State = EntityState.Modified;
+                    break;
+                case "TrialActive":
+                    var aModel = (from a in db.TrialActiveModels
+                                  where a.TrialId == model.TrialId
+                                  select a).FirstOrDefault();
+                    if (aModel != null)
+                    {
+                        var getVar = aModel.GetType().GetProperty(fn);
+                        if (getVar != null)
+                        {
+                            if (getVar.PropertyType.Name == "Int32")
+                            {
+                                getVar.SetValue(aModel, Convert.ToInt32(nv));
+                            }
+                            else
+                            {
+                                var property = getVar.PropertyType.GenericTypeArguments.FirstOrDefault();
+
+                                if (property != null && property.Name == "DateTime")
+                                {
+                                    getVar.SetValue(aModel, Convert.ToDateTime(nv));
+                                }
+                                else
+                                {
+                                    getVar.SetValue(aModel, Convert.ToString(nv));
+                                }
+                            }
+                        }
+                    }
+                    db.Entry(aModel).State = EntityState.Modified;
+                    break;
             }
-            
-            
+            Claim claimFirstName;
+            Claim claimSurName;
+            var name = GetFullName(out claimFirstName, out claimSurName);
             if (ModelState.IsValid)
             {
                 var record = new TrialRecordsModels
@@ -285,7 +411,7 @@ namespace Trialmanager.Controllers
                     NewValue = model.NewValue,
                     ReasonForChange = model.Reason,
                     TrialId = model.Id,
-                    WhoChanged = User.Identity.Name
+                    WhoChanged = name
                 };
                 db.TrialRecordsModels.Add(record);
                 db.SaveChanges();
@@ -293,12 +419,24 @@ namespace Trialmanager.Controllers
             return RedirectToAction("ListAddedRecords", new {model.Id} );
         }
 
+        private string GetFullName(out Claim claimFirstName, out Claim claimSurName)
+        {
+            claimFirstName = ((ClaimsIdentity) User.Identity).FindFirst(ClaimTypes.GivenName);
+            var firstName = claimFirstName.Value;
+            claimSurName = ((ClaimsIdentity) User.Identity).FindFirst(ClaimTypes.Surname);
+            var surName = claimSurName.Value;
+            var name = $"{firstName} {surName}";
+            return name;
+        }
+
         public ActionResult ListAddedRecords(int? id)
         {
-            var model = (from r in db.TrialRecordsModels
-                where r.TrialId == id
-                select r).ToList();
-            return PartialView("ListRecords", model);
+            var changedRecords = (from c in db.TrialRecordsModels
+                                  where c.TrialId == id
+                                  select c).ToList();
+            ViewBag.changed = changedRecords.Count > 0 ? changedRecords : null;
+
+            return PartialView("ListRecords");
         }
 
         [HttpPost]
@@ -359,12 +497,14 @@ namespace Trialmanager.Controllers
         [HttpPost]
         public ActionResult ListNotes(NotesModels model)
         {
-
+            Claim claimFirstName;
+            Claim claimSurName;
+            var name = GetFullName(out claimFirstName, out claimSurName);
             if (ModelState.IsValid)
             {
                 var newNote = new NotesModels
                 {
-                    Who = model.Who,
+                    Who = name,
                     Message = model.Message,
                     DateTime = DateTime.Now,
                     TrialId = model.TrialId
@@ -427,6 +567,10 @@ namespace Trialmanager.Controllers
                                  where sc.TrialId == id
                                  select sc).ToList();
             ViewBag.setupComplete = setupComplete.Count > 0 ? setupComplete : null;
+            //check to see what access the user has for this Trial.
+            var checkAccess = new CheckTrialAccess();
+            var accessValue = checkAccess.GetAccess(User.Identity.Name, id);
+
             if (trialSetupModels == null)
             {
                 ViewBag.Id = id;
@@ -436,13 +580,13 @@ namespace Trialmanager.Controllers
                 ViewBag.GrantTypeId = new SelectList(db.GrantTypeModels, "Id", "GrantTypeName");
                 ViewBag.PhaseId = new SelectList(db.PhaseModels, "Id", "PhaseName");
                 ViewBag.TrialTypeId = new SelectList(db.TrialTypeModels, "Id", "TrialTypeName");
-                if (User.IsInRole("NTRF_AUTO_MC_TrialManager_Membership"))
+                if (accessValue == "View")
                 {
-                    return PartialView("SetupNewView", trialSetupModels);
+                    return PartialView("Setup/_SetupNewView", trialSetupModels);
                 }
-                else
+                if(accessValue == "Edit")
                 {
-                    return PartialView("SetupNewRecord", trialSetupModels);
+                    return PartialView("Setup/_SetupNewRecord", trialSetupModels);
                 }
                 
             }
@@ -452,11 +596,15 @@ namespace Trialmanager.Controllers
             ViewBag.GrantTypeId = new SelectList(db.GrantTypeModels, "Id", "GrantTypeName", trialFeasibilityModels.GrantTypeId);
             ViewBag.PhaseId = new SelectList(db.PhaseModels, "Id", "PhaseName", trialFeasibilityModels.PhaseId);
             ViewBag.TrialTypeId = new SelectList(db.TrialTypeModels, "Id", "TrialTypeName", trialFeasibilityModels.TrialTypeId);
-            if (User.IsInRole("NTRF_AUTO_MC_TrialManager_Membership"))
+            if (accessValue == "View")
             {
-                return PartialView("SetupEditView", trialSetupModels);
+                return PartialView("Setup/_SetupEditView", trialSetupModels);
             }
-            return PartialView("SetupEditRecord", trialSetupModels);
+            if (accessValue == "Edit")
+            {
+               return PartialView("Setup/_SetupEditRecord", trialSetupModels); 
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
         public ActionResult ShowLateDevelopment(int? id)
@@ -472,6 +620,10 @@ namespace Trialmanager.Controllers
                 ViewBag.lateDevId = trialLateDevId.Id;
             }
 
+            //check to see what access the user has for this Trial.
+            var checkAccess = new CheckTrialAccess();
+            var accessValue = checkAccess.GetAccess(User.Identity.Name, id);
+
             if (trialLateDevelopmentModels == null)
             {
                 ViewBag.Id = id;
@@ -481,14 +633,100 @@ namespace Trialmanager.Controllers
                 ViewBag.GrantTypeId = new SelectList(db.GrantTypeModels, "Id", "GrantTypeName");
                 ViewBag.PhaseId = new SelectList(db.PhaseModels, "Id", "PhaseName");
                 ViewBag.TrialTypeId = new SelectList(db.TrialTypeModels, "Id", "TrialTypeName");
-                return PartialView("LateDevNewRecord", trialLateDevelopmentModels);
+                if (accessValue == "View")
+                {
+                    return PartialView("LateDev/_LateDevNewView", trialLateDevelopmentModels);
+                }
+                if (accessValue == "Edit")
+                {
+                    return PartialView("LateDev/_LateDevNewRecord", trialLateDevelopmentModels);
+                }
+                
             }
             TrialFeasibilityModels trialFeasibilityModels = db.TrialFeasibilityModels.Find(id);
             ViewBag.DiseaseTherapyAreaId = new SelectList(db.DiseaseTherapyAreaModels, "Id", "DiseaseTherapyAreaName", trialFeasibilityModels.DiseaseTherapyAreaId);
             ViewBag.GrantTypeId = new SelectList(db.GrantTypeModels, "Id", "GrantTypeName", trialFeasibilityModels.GrantTypeId);
             ViewBag.PhaseId = new SelectList(db.PhaseModels, "Id", "PhaseName", trialFeasibilityModels.PhaseId);
             ViewBag.TrialTypeId = new SelectList(db.TrialTypeModels, "Id", "TrialTypeName", trialFeasibilityModels.TrialTypeId);
-            return PartialView("LateDevEditRecord", trialLateDevelopmentModels);
+            if (accessValue == "View")
+            {
+                return PartialView("LateDev/_LateDevEditView", trialLateDevelopmentModels);
+            }
+            if (accessValue == "Edit")
+            {
+                return PartialView("LateDev/_LateDevEditRecord", trialLateDevelopmentModels);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
+
+        public ActionResult ShowActive(int? id)
+        {
+            var trialActiveModels = (from a in db.TrialActiveModels
+                where a.TrialId == id
+                select a).FirstOrDefault();
+
+            //check to see what access the user has for this Trial.
+            var checkAccess = new CheckTrialAccess();
+            var accessValue = checkAccess.GetAccess(User.Identity.Name, id);
+            if (trialActiveModels == null)
+            {
+                ViewBag.Id = id;
+                ViewBag.StatusId = new SelectList(db.ActiveStatusModels, "Id", "StatusName");
+                if (accessValue == "View")
+                {
+                    return PartialView("Active/_ActiveNewView");
+                }
+                if (accessValue == "Edit")
+                {
+                    return PartialView("Active/_ActiveNewRecord");
+                }
+
+            }
+            ViewBag.Id = id;
+            ViewBag.StatusId = new SelectList(db.ActiveStatusModels, "Id", "StatusName", trialActiveModels.StatusId);
+            if (accessValue == "View")
+            {
+                return PartialView("Active/_ActiveEditView", trialActiveModels);
+            }
+            if (accessValue == "Edit")
+            {
+                return PartialView("Active/_ActiveEditRecord", trialActiveModels);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
+
+        public ActionResult ShowCloseDown(int? id)
+        {
+            var trialCloseDownModels = (from a in db.TrialCloseDownModels
+                                     where a.TrialId == id
+                                     select a).FirstOrDefault();
+
+            //check to see what access the user has for this Trial.
+            var checkAccess = new CheckTrialAccess();
+            var accessValue = checkAccess.GetAccess(User.Identity.Name, id);
+            if (trialCloseDownModels == null)
+            {
+                ViewBag.Id = id;
+                if (accessValue == "View")
+                {
+                    return PartialView("Closed/_ClosedNewView");
+                }
+                if (accessValue == "Edit")
+                {
+                    return PartialView("Closed/_ClosedNewRecord");
+                }
+
+            }
+            ViewBag.Id = id;
+            if (accessValue == "View")
+            {
+                return PartialView("Closed/_ClosedEditView", trialCloseDownModels);
+            }
+            if (accessValue == "Edit")
+            {
+                return PartialView("Closed/_ClosedEditRecord", trialCloseDownModels);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
         public ActionResult ShowDocuments(int? id)
@@ -520,7 +758,7 @@ namespace Trialmanager.Controllers
                     }
                     var newDoc = new TrialDocumentsModels()
                         {
-                            DateTime= DateTime.Now,
+                            DateTime = DateTime.Now,
                             UploadedBy = User.Identity.Name,
                             TrialId = model.TrialId,
                             DocumentFileName = model.DocumentFileName,
@@ -608,9 +846,9 @@ namespace Trialmanager.Controllers
         }
 
         [Authorize(Roles = "NTRF_AUTO_MC_TrialManager_Administrators, NTRF_AUTO_MC_TrialManager_Editors, NTRF_AUTO_MC_TrialManager_Membership")]
-        public ActionResult ViewTrial(int? id)
+        public ActionResult ViewTrial(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -660,6 +898,11 @@ namespace Trialmanager.Controllers
                              select r).ToList();
             ViewBag.reminders = reminders.Count > 0 ? reminders : null;
 
+            var changedRecords = (from c in db.TrialRecordsModels
+                                  where c.TrialId == id
+                                  select c).ToList();
+            ViewBag.changed = changedRecords.Count > 0 ? changedRecords : null;
+
             var progress = (from p in db.TrialStartedModels
                             where p.TrialId == id
                             select p).ToList();
@@ -680,7 +923,31 @@ namespace Trialmanager.Controllers
             ViewBag.Contacts = db.ContactsModels;
             ViewBag.Roles = db.RolesModels;
             ViewBag.DocumentTypes = db.DocumentTypesModels;
-
+            //before displaying the Trial lets save it to the recent Trials table
+            var recentTrials = (from r in db.RecentTrialsModels
+                where r.TrialId == id && User.Identity.Name == r.UserId
+                select r).FirstOrDefault();
+            if (recentTrials != null)
+            {
+                //need to Update the date of access
+                recentTrials.LastAccessed = DateTime.Now;
+                recentTrials.Access = "View";
+                db.Entry(recentTrials).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            else
+            {
+                var recentTrialsModels = new RecentTrialsModels
+                {
+                    TrialId = id,
+                    LastAccessed = DateTime.Now,
+                    UserId = User.Identity.Name,
+                    Access = "View"
+                };
+                db.RecentTrialsModels.Add(recentTrialsModels);
+                db.SaveChanges();
+            }
+            
             return View(trialFeasibilityModels);
         }
 

@@ -50,13 +50,13 @@ namespace TrialManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,TrialId,ClinicalTrialsGovRef,LocalCC,SponsorGreenLight,LocalSiteInitiation,TargetFpfvDate,MultiSiteInitiation")] TrialLateDevelopmentModels trialLateDevelopmentModels)
+        public ActionResult Create([Bind(Include = "Id,TrialId,ClinicalTrialsGovRef,LocalCC,SponsorGreenLight,SiteInitiationVisit,LocalSiteActivationDate")] TrialLateDevelopmentModels trialLateDevelopmentModels)
         {
             if (ModelState.IsValid)
             {
                 db.TrialLateDevelopmentModels.Add(trialLateDevelopmentModels);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit", "TrialFeasibility", new { Id = trialLateDevelopmentModels.TrialId });
             }
 
             ViewBag.TrialId = new SelectList(db.TrialFeasibilityModels, "Id", "ShortName", trialLateDevelopmentModels.TrialId);

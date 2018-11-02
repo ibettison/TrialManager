@@ -1,0 +1,225 @@
+﻿@using System.Web.UI.WebControls
+@model Trialmanager.Models.TrialSetupModels
+<div class="box box-solid box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">Create Trial Setup</h3>
+        <div class="box-tools pull-right">
+            <!-- Buttons, labels, and many other things can be placed here! -->
+            <!-- Here is a label for example -->
+            <span class="label label-default">New Setup...</span>
+        </div>
+        <!-- /.box-tools -->
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <div class="col-md-12">
+        @using (Html.BeginForm("Create", "TrialSetup", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>Setup</h4>
+                <hr/>
+                <div id="alertMessageSetup" class="alert alert-warning alert-dismissible" style="display: none;">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+                    <h4><i class="icon fa fa-warning"></i>Alert!</h4>
+                    This form has been populated by cookies, saved the last time a Trial was entered. Select delete at the bottom of the form to remove the field entries and start a fresh
+                </div>
+                @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.ProjectIdentifier, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Project identifier" } })
+                        @Html.ValidationMessageFor(model => model.ProjectIdentifier, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.ResearchDevelopmentId, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "R&D Identifier" } })
+                        @Html.ValidationMessageFor(model => model.ResearchDevelopmentId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.GrantFunderRef, new {htmlAttributes = new {@class = "form-control", PlaceHolder = "Grant Funder Reference"}})
+                        @Html.ValidationMessageFor(model => model.GrantFunderRef, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.SponsorRef, new {htmlAttributes = new {@class = "form-control", PlaceHolder = "Sponsor Reference"}})
+                        @Html.ValidationMessageFor(model => model.SponsorRef, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.RecRef, new {htmlAttributes = new {@class = "form-control", PlaceHolder = "REC Reference"}})
+                        @Html.ValidationMessageFor(model => model.RecRef, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.EudractRef, new {htmlAttributes = new {@class = "form-control", PlaceHolder = "Eudract Reference"}})
+                        @Html.ValidationMessageFor(model => model.EudractRef, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.IrasId, new {htmlAttributes = new {@class = "form-control", PlaceHolder = "IRAS Id"}})
+                        @Html.ValidationMessageFor(model => model.IrasId, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.RecruitmentTarget, new {htmlAttributes = new {@class = "form-control", PlaceHolder = "Recruitment Target"}})
+                        @Html.ValidationMessageFor(model => model.RecruitmentTarget, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+
+
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.TrialLocationId)
+                </div>
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            @Html.DropDownList("TrialLocationId", null, htmlAttributes: new {@class = "form-control", PlaceHolder = "Trial Location Id"})
+                            @Html.ValidationMessageFor(model => model.TrialLocationId, "", new {@class = "text-danger"})
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            @Html.EditorFor(model => model.ApprovalDate, new { htmlAttributes = new { @class = "form-control datepicker", PlaceHolder = "Local Approval Date", autocomplete = "off" } })
+                            @Html.ValidationMessageFor(model => model.ApprovalDate, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            @Html.EditorFor(model => model.SiteName, new { htmlAttributes = new { @class = "form-control datepicker", PlaceHolder = "Site Name", autocomplete = "off" } })
+                            @Html.ValidationMessageFor(model => model.SiteName, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            @Html.EditorFor(model => model.RecDate, new {htmlAttributes = new {@class = "form-control datepicker", PlaceHolder = "REC Approval Date", autocomplete = "off"}})
+                            @Html.ValidationMessageFor(model => model.RecDate, "", new {@class = "text-danger"})
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            @Html.EditorFor(model => model.HraDate, new {htmlAttributes = new {@class = "form-control datepicker", PlaceHolder = "HRA Approval Date", autocomplete = "off"}})
+                            @Html.ValidationMessageFor(model => model.HraDate, "", new {@class = "text-danger"})
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            @Html.EditorFor(model => model.CtaDate, new {htmlAttributes = new {@class = "form-control datepicker", PlaceHolder = "CTA Date", autocomplete = "off"}})
+                            @Html.ValidationMessageFor(model => model.CtaDate, "", new {@class = "text-danger"})
+                        </div>
+
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            @Html.EditorFor(model => model.FunderMileStoneReport, new { htmlAttributes = new { @class = "form-control datepicker", PlaceHolder = "Funder Milestone Report Submission", autocomplete = "off" } })
+                            @Html.ValidationMessageFor(model => model.FunderMileStoneReport, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+                </div>
+
+                <input type="hidden" name="TrialId" value="@ViewBag.Id"/>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <input type="submit" value="New Trial Setup" class="btn btn-default btn-block"/>
+                    </div>
+                </div>
+            </div>
+        }
+        </div>
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer">
+        <!--Use this to keep the data last typed in a cookie so that it can be saved properly later-->
+        <p>Save what you have typed in to the form to enter later!</p>
+        <a class="btn btn-app" id="cookieSaveSetup" data-toggle="modal" data-target="#modal-savedSetup"><i class="fa fa-save"></i>Keep</a>  <a class="btn btn-app" id="cookieDeleteSetup"  data-toggle="modal" data-target="#modal-deletedSetup"><i class="fa fa-close"></i>Delete</a>
+    </div>
+    <!-- box-footer -->
+</div>
+<!-- /.box -->
+<div class="modal fade in" id="modal-savedSetup" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                Cookie Saved
+            </div>
+            <div class="modal-body">
+                Your data has been saved to a cookie and will be available the next time you access this page.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade in" id="modal-deletedSetup" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                Cookie Deleted
+            </div>
+            <div class="modal-body">
+                Your data has been deleted and will no longer be presented to you on this page.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div> 

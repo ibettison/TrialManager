@@ -13,7 +13,7 @@ namespace Trialmanager.Models
         [Key]
         public int Id { get; set; }
         public string Who { get; set; }
-        public DateTime DateTime { get; set; }
+        public DateTime  DateTime  { get; set; }
         public int TrialId { get; set; }
         public string Message { get; set; }
         [ForeignKey("TrialId")]

@@ -49,7 +49,7 @@ namespace Trialmanager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Started,TrialId,Reason,DateTime")] TrialStartedModels trialStartedModels)
+        public ActionResult Create([Bind(Include = "Id,Started,TrialId,Reason, DateTime")] TrialStartedModels trialStartedModels)
         {
             if (ModelState.IsValid)
             {

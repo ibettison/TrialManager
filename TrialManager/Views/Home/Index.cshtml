@@ -1,4 +1,5 @@
 ﻿@using Microsoft.Ajax.Utilities
+@using TrialManager.Migrations
 @model  IEnumerable<TrialManager.Models.HomeViewModels>
 @{
     ViewBag.Title = "Dashboard";
@@ -34,7 +35,7 @@
                         <div class="icon">
                             <i class="fa fa-inbox"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More Info<i class="fa fa-arrow-right"></i></a>
+                        <a href="#" id="SelectFeasibility" class="small-box-footer"><i class="fa fa-search"></i> All Trials in Feasibility</a>
                     </div>
                 </div>
                 <div class="col-lg-3 col-xs-6">
@@ -46,7 +47,7 @@
                         <div class="icon">
                             <i class="fa fa-hourglass-2"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More Info<i class="fa fa-arrow-right"></i></a>
+                        <a href="#" id="SelectSetup" class="small-box-footer"><i class="fa fa-search"></i> All Trials in Setup </a>
                     </div>
                 </div>
                 <div class="col-lg-3 col-xs-6">
@@ -58,7 +59,7 @@
                         <div class="icon">
                             <i class="fa fa-puzzle-piece"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More Info<i class="fa fa-arrow-right"></i></a>
+                        <a href="#" id="SelectLate" class="small-box-footer"><i class="fa fa-search"></i> All Trials in Late Development </a>
                     </div>
                 </div>
                 <div class="col-lg-3 col-xs-6">
@@ -70,7 +71,7 @@
                         <div class="icon">
                             <i class="fa fa-thumbs-up"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More Info<i class="fa fa-arrow-right"></i></a>
+                        <a href="#" id="SelectLive" class="small-box-footer"><i class="fa fa-search"></i> All Live Trials </a>
                     </div>
                 </div>
             </div>
@@ -78,34 +79,28 @@
                 <div class="col-lg-2 hidden-md">
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Recent trials</h3>
+                            <h3 class="box-title">Recent trials (Quick Links)</h3>
+                            <h5 class="bg-aqua-active">Trials accessed in the last 3 weeks.</h5>
                             <!-- /.box-tools -->
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <h5>This Week</h5>
-                            <a href="#">IntegRatE Well</a><BR />
-                            <a href="#">TakEAChance</a><BR />
-                            <a href="#">ANAppleADay</a><BR />
-                            <a href="#">Zim4Tea</a><BR />
-                            <a href="#">JacobsLadder</a><BR />
-                            <a href="#">PuFFTheDragon</a><BR />
-                            <a href="#">WhackYRaCES</a><BR />
-                            <a href="#">BoomBoom</a><BR />
-                            <a href="#">ChittyChittyBangBang</a><BR />
-                            <hr />
-                            <h5>Last Week</h5>
-                            <a href="#">IntegRatE Well</a><BR />
-                            <a href="#">TakEAChance</a><BR />
-                            <a href="#">ANAppleADay</a><BR />
-                            <a href="#">Zim4Tea</a><BR />
-                            <hr />
-                            <h5>Over two Weeks</h5>
-                            <a href="#">JacobsLadder</a><BR />
-                            <a href="#">PuFFTheDragon</a><BR />
-                            <a href="#">WhackYRaCES</a><BR />
-                            <a href="#">BoomBoom</a><BR />
-                            <a href="#">ChittyChittyBangBang</a><BR />
+                            
+                            @foreach (var rec in ViewBag.recent)
+                            {
+                                DateTime now =  DateTime.Parse(DateTime.Now.ToShortDateString());
+                                DateTime lastAccessd = DateTime.Parse(rec.LastAccessed.ToShortDateString());
+                                var dateDiff = now.Subtract(lastAccessd).Days;
+                                if(rec.Access == "Edit")
+                                {
+                                    @Html.ActionLink((string)rec.ShortName.ShortName, "Edit", new { id = @rec.TrialId }, new { title = $"Last accessed {@dateDiff} day(s) ago"})<BR/>
+                                }
+                                else
+                                {
+                                    @Html.ActionLink((string)rec.ShortName.ShortName, "ViewTrial", new { id = @rec.TrialId} , new {title = $"Last accessed {@dateDiff} day(s) ago"})<BR/>
+                                }
+                                
+                            }
                         </div>
                     </div>
                 </div>
@@ -124,7 +119,7 @@
                                 <tr>
                                     <th>Trial Name</th>
                                     <th class="hidden-xs">Trial Type</th>
-                                    <th class="hidden-md hidden-xs">Status</th>
+                                    <th class="hidden-md hidden-xs">Stage</th>
                                     <th class="hidden-xs">Project</th>
                                     <th>R&D Number</th>
                                     <th class="hidden-xs">Chief investigator</th>
@@ -161,7 +156,7 @@
                                             @Html.DisplayFor(modelItem => item.TrialTypeName)
                                         </td>
                                         <td class="hidden-md hidden-xs">
-                                            @Html.DisplayFor(modelItem => item.Commercial)
+                                            @Html.DisplayFor(modelItem => item.Stage)
                                         </td>
                                         <td class="hidden-xs">
                                             @Html.DisplayFor(modelItem => item.ProjectId)
@@ -252,8 +247,33 @@ else
     <script>
         $(document).ready(function () {
             $('#example').DataTable();
-        });
 
+        });
+        var table = $('#example').DataTable();
+        $("#SelectFeasibility").click(function () {
+            table.search("Feasibility").draw();
+        });
+        $("#SelectSetup").click(function () {
+            table.search("In Setup").draw();
+        });
+        $("#SelectLate").click(function () {
+            table.search("Late Development").draw();
+        });
+        $("#SelectLive").click(function () {
+            table.search("Live").draw();
+        });
+        // Setup DataTable Defaults
+        $.extend($.fn.dataTable.defaults, {
+            fnInitComplete: function (oSettings, json) {
+
+                // Add "Clear Filter" button to Filter
+                var btnClear = $('<button class="btnClearDataTableFilter">CLEAR</button>');
+                btnClear.appendTo($('#' + oSettings.sTableId).parents('.dataTables_wrapper').find('.dataTables_filter'));
+                $('#' + oSettings.sTableId + '_wrapper .btnClearDataTableFilter').click(function () {
+                    $('#' + oSettings.sTableId).dataTable().fnFilter('');
+                });
+            }
+        });
     </script>
 }
 

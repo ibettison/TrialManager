@@ -6,7 +6,7 @@
 @model TrialFeasibilityModels
 
 @{
-    ViewBag.Today = DateTime.Today;
+    ViewBag.Today =  DateTime.Today;
 }
 <!DOCTYPE html>
 
@@ -50,7 +50,10 @@
                                 <a href="#tab3" data-toggle="tab">Late Development</a>
                             </li>
                             <li>
-                                <a href="#tab5" data-toggle="tab">Follow Up</a>
+                                <a href="#tab4" data-toggle="tab">Active Studies</a>
+                            </li>
+                            <li>
+                                <a href="#tab5" data-toggle="tab">Close Down</a>
                             </li>
                             <li>
                                 <a href="#tab6" data-toggle="tab">Documents</a>
@@ -218,19 +221,79 @@
                                 <p>@{ Html.RenderAction("ShowLateDevelopment", new { Id = ViewBag.Id }); }</p>
                             </div>
                             <div class="tab-pane" id="tab4">
-                                <p>tab4</p>
+                                <p>@{ Html.RenderAction("ShowActive", new { Id = ViewBag.Id }); }</p>
                             </div>
                             <div class="tab-pane" id="tab5">
-                                <p>tab4</p>
+                                <p>@{ Html.RenderAction("ShowCloseDown", new { Id = ViewBag.Id }); }</p>
                             </div>
                         <div class="tab-pane" id="tab6">
                             <div id="ListOfDocuments">
                                 <p>@{ Html.RenderAction("ShowDocuments", new { Id = ViewBag.Id }); }</p>
                             </div>
                         </div>
-                            <div class="tab-pane" id="tab7">
-                                <p>@{ Html.RenderAction("listAddedRecords", new {Id = ViewBag.Id}); }</p>
-                            </div>
+                        <div class="tab-pane" id="tab7">
+                            @if(ViewBag.changed == null){
+                            <p>No changes have been applied to this Trial.</p>
+                            }else{
+
+                            <table id="changeList" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+
+                                    <th>
+                                        ShortName
+                                    </th>
+                                    <th>
+                                        Date/Time
+                                    </th>
+                                    <th>
+                                        Who changed
+                                    </th>
+                                    <th>
+                                        FieldName
+                                    </th>
+                                    <th>
+                                        Original value
+                                    </th>
+                                    <th>
+                                        New value
+                                    </th>
+                                    <th>
+                                        Reason for change
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach (var item in ViewBag.changed)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.ShortName.ShortName
+                                        </td>
+                                        <td>
+                                            @item.DateTime
+                                        </td>
+                                        <td>
+                                            @item.WhoChanged
+                                        </td>
+                                        <td>
+                                            @item.FieldName
+                                        </td>
+                                        <td>
+                                            @item.OriginalValue
+                                        </td>
+                                        <td>
+                                            @item.NewValue
+                                        </td>
+                                        <td>
+                                            @item.ReasonForChange
+                                        </td>
+                                    </tr>
+                                }
+                                </tbody>
+                            </table>
+                            }
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -567,6 +630,7 @@
             $('#listDocs').DataTable();
             $('#contacts').DataTable();
             $('#notifications').DataTable();
+            $('changeList').DataTable();
 
         });
         $("#cookieSaveSetup").click(function() {

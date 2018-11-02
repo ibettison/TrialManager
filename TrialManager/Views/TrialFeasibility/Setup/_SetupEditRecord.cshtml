@@ -1,0 +1,371 @@
+﻿@model Trialmanager.Models.TrialSetupModels
+
+                <div class="box box-solid box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Edit Setup</h3>
+                        <div class="box-tools pull-right">
+                            <!-- Buttons, labels, and many other things can be placed here! -->
+                            <!-- Here is a label for example -->
+                            <span class="label label-default">Editing Setup...</span>
+                        </div>
+                        <!-- /.box-tools -->
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="col-md-12">
+                        @using (Html.BeginForm("Edit", "TrialSetup", new {id = ViewBag.setupId}, FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="form-horizontal">
+                                <h4>Trial Setup</h4>
+                                <hr/>
+                                @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                                @Html.HiddenFor(model => model.Id)
+
+
+                                <div class="col-md-2">
+                                    @Html.LabelFor(model => model.ProjectIdentifier)
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            @Html.EditorFor(model => model.ProjectIdentifier, new { htmlAttributes = new { @class = "form-control", title = "Project Identifier", disabled = "disabled" } })
+                                            <div class="input-group-addon setup">
+                                                <a href="#">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                            </div>
+                                            @Html.ValidationMessageFor(model => model.ProjectIdentifier, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-2">
+                                    @Html.LabelFor(model => model.ResearchDevelopmentId)
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            @Html.EditorFor(model => model.ResearchDevelopmentId, new { htmlAttributes = new { @class = "form-control", title = "RD Identifier", disabled = "disabled" } })
+                                            <div class="input-group-addon setup">
+                                                <a href="#">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                            </div>
+                                            @Html.ValidationMessageFor(model => model.ResearchDevelopmentId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-2">
+                                    @Html.LabelFor(model => model.GrantFunderRef)
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            @Html.EditorFor(model => model.GrantFunderRef, new {htmlAttributes = new {@class = "form-control", title="Grant funder reference", disabled = "disabled"}})
+                                            <div class="input-group-addon setup">
+                                                <a href="#">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                            </div>
+                                            @Html.ValidationMessageFor(model => model.GrantFunderRef, "", new {@class = "text-danger"})
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-2">
+                                    @Html.LabelFor(model => model.SponsorRef)
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            @Html.EditorFor(model => model.SponsorRef, new {htmlAttributes = new {@class = "form-control", Title = "Sponsor Reference", disabled = "disabled" } })
+                                            <div class="input-group-addon setup">
+                                                <a href="#">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                            </div>
+                                            @Html.ValidationMessageFor(model => model.SponsorRef, "", new {@class = "text-danger"})
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-2">
+                                    @Html.LabelFor(model => model.RecRef)
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            @Html.EditorFor(model => model.RecRef, new {htmlAttributes = new {@class = "form-control", Title = "REC Reference", disabled = "disabled" } })
+                                            <div class="input-group-addon setup">
+                                                <a href="#">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                            </div>
+                                            @Html.ValidationMessageFor(model => model.RecRef, "", new {@class = "text-danger"})
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-2">
+                                    @Html.LabelFor(model => model.EudractRef)
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            @Html.EditorFor(model => model.EudractRef, new {htmlAttributes = new {@class = "form-control", Title = "EUDract Reference", disabled = "disabled" } })
+                                            <div class="input-group-addon setup">
+                                                <a href="#">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                            </div>
+                                            @Html.ValidationMessageFor(model => model.EudractRef, "", new {@class = "text-danger"})
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-2">
+                                    @Html.LabelFor(model => model.IrasId)
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            @Html.EditorFor(model => model.IrasId, new {htmlAttributes = new {@class = "form-control", Title="IRAS Id", disabled="disabled"}})
+                                            <div class="input-group-addon setup">
+                                                <a href="#">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                            </div>
+                                            @Html.ValidationMessageFor(model => model.IrasId, "", new {@class = "text-danger"})
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            <div class="col-md-2">
+                                @Html.LabelFor(model => model.RecruitmentTarget)
+                            </div>
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        @Html.EditorFor(model => model.RecruitmentTarget, new { htmlAttributes = new { @class = "form-control", Title = "Recruitment target", disabled = "disabled" } })
+                                        <div class="input-group-addon setup">
+                                            <a href="#">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.RecruitmentTarget, "", new {@class = "text-danger"})
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-2">
+                                @Html.LabelFor(model => model.Location)
+                            </div>
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        @Html.DropDownList("TrialLocationId", null, htmlAttributes: new {@class = "form-control", Title = "Trial Location", disabled = "disabled" })
+                                        <div class="input-group-addon setup">
+                                            <a href="#">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.TrialLocationId, "", new {@class = "text-danger"})
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-2">
+                                @Html.LabelFor(model => model.ApprovalDate)
+                            </div>
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        @Html.EditorFor(model => model.ApprovalDate, new { htmlAttributes = new { @class = "form-control datepicker", Title = "Local Approval Date", disabled = "disabled" } })
+                                        <div class="input-group-addon setup">
+                                            <a href="#">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.ApprovalDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                                
+                                <div class="col-md-2">
+                                    @Html.LabelFor(model => model.SiteName)
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            @Html.EditorFor(model => model.SiteName, new { htmlAttributes = new { @class = "form-control", Title = "Site Name", disabled = "disabled" } })
+                                            <div class="input-group-addon setup">
+                                                <a href="#">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                            </div>
+                                            @Html.ValidationMessageFor(model => model.SiteName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                            <div class="col-md-2">
+                                @Html.LabelFor(model => model.RecDate)
+                            </div>
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        @Html.EditorFor(model => model.RecDate, new {htmlAttributes = new {@class = "form-control datepicker", Title = "REC Date", disabled = "disabled" } })
+                                        <div class="input-group-addon setup">
+                                            <a href="#">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.RecDate, "", new {@class = "text-danger"})
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-2">
+                                @Html.LabelFor(model => model.HraDate)
+                            </div>
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        @Html.EditorFor(model => model.HraDate, new {htmlAttributes = new {@class = "form-control datepicker", Title = "HRA Date", disabled = "disabled" } })
+                                        <div class="input-group-addon setup">
+                                            <a href="#">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.HraDate, "", new {@class = "text-danger"})
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-2">
+                                @Html.LabelFor(model => model.CtaDate)
+                            </div>
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        @Html.EditorFor(model => model.CtaDate, new {htmlAttributes = new {@class = "form-control datepicker", Title = "CTA Date", disabled = "disabled" } })
+                                        <div class="input-group-addon setup">
+                                            <a href="#">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.CtaDate, "", new {@class = "text-danger"})
+                                    </div>
+                                </div>
+                            </div>
+                            
+                                <div class="col-md-2">
+                                    @Html.LabelFor(model => model.FunderMileStoneReport)
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            @Html.EditorFor(model => model.FunderMileStoneReport, new { htmlAttributes = new { @class = "form-control datepicker", Title = "Funder Milestone Report Submission Date", disabled = "disabled" } })
+                                            <div class="input-group-addon setup">
+                                                <a href="#">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                            </div>
+                                            @Html.ValidationMessageFor(model => model.FunderMileStoneReport, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                            <input type="hidden" name="TrialId" value="@ViewBag.Id"/>
+                               
+                            </div>
+                        }
+                    </div>
+                        <!-- /.box-body -->
+                        </div>
+                </div>
+<!-- /.box -->
+                @if (ViewBag.setupComplete == null)
+                {
+                    <div class="box-footer">
+                        <div id="EnterProgressSetup">
+                            <div class="input-group">
+                                <div class="col-md-12">
+                                    <label class="input-group">Trial Setup</label>
+                                </div>
+                                <div class="checkbox">
+                                    @Html.RadioButton("StartedTrial", "Yes") Setup completed
+                                    @Html.RadioButton("StartedTrial", "No") Setup didn't complete
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label class="label">Reason Trial did not complete</label>
+                                </div>
+                                @Html.TextArea("Reason", new { @class = "form-control", Rows = 4, PlaceHolder = "Enter the reason the Trial did not complete setup" })
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-default btn-block" id="saveSetup">Save Trial Progress</button>
+                            </div>
+                        </div>
+                        <div id="ProgressSetup"></div>
+                    </div>
+                                    <!-- box-footer -->
+                }
+                else
+                {
+                    foreach (var item in ViewBag.setupComplete)
+                    {
+                        <div class="box-footer">
+                            <!--Use this to keep the data last typed in a cookie so that it can be saved properly later-->
+                            <div class="input-group">
+                                <div class="col-md-12">
+                                    <label class="input-group">Trial Setup</label>
+                                </div>
+                                <div class="checkbox">
+                                    @if (item.Completed == "Yes")
+                                    {
+                                        @Html.RadioButton("StartedTrial", "Yes", new { @checked = "checked" })
+                                        @Html.Label("Setup Completed")
+                                        @Html.RadioButton("StartedTrial", "No")
+                                        @Html.Label("Setup didn't Complete ")
+                                    }
+                                    else
+                                    {
+                                        @Html.RadioButton("StartedTrial", "Yes")
+                                        @Html.Label("Setup completed")
+                                        @Html.RadioButton("StartedTrial", "No", new { @checked = "checked" })
+                                        @Html.Label("Setup didn't Complete")
+                                    }
+
+
+                                </div>
+                            </div>
+                            @if (item.Completed == "No")
+                            {
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label class="label">Reason Setup did not Complete</label>
+                                    </div>
+                                    <textarea class="form-control" rows="4">@item.Reason</textarea>
+                                </div>
+                            }
+
+                        </div>
+                                    <!-- box-footer -->
+                    }
+
+                }
+                   

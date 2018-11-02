@@ -47,7 +47,7 @@ namespace TrialManager
                       "~/admin-lte/css/skins/skin-blue.css",
                       "~/admin-lte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css",
                       "~/Content/datatables.css",
-                      "~/Content/css/select2.css",
+                      "~/Content/select2.css",
                       "~/admin-lte/css/alt/AdminLTE-select2.css",
                       "~/Content/all.css"));
         }

@@ -1,0 +1,140 @@
+﻿@model TrialManager.Models.TrialActiveModels
+
+@{
+    ViewBag.Title = "Active Record";
+}
+
+<h2>Late Development</h2>
+
+<div class="box box-solid box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">Edit Active Record</h3>
+        <div class="box-tools pull-right">
+            <!-- Buttons, labels, and many other things can be placed here! -->
+            <!-- Here is a label for example -->
+            <span class="label label-default">Editing Active...</span>
+        </div>
+        <!-- /.box-tools -->
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <div class="col-md-12">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <h4>Active Studies</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Id)
+
+                    <div class="form-group">
+
+                        <div class="col-md-2">
+                            @Html.LabelFor(model => model.StatusId)
+                        </div>
+                        <div class="col-md-10">
+                            @Html.DropDownList("StatusId", null, htmlAttributes: new { @class = "form-control", disabled = "disabled" })
+                            @Html.ValidationMessageFor(model => model.TargetFPFV, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+
+                        <div class="col-md-2">
+                            @Html.LabelFor(model => model.TargetFPFV)
+                        </div>
+                        <div class="col-md-10">
+                                @Html.EditorFor(model => model.TargetFPFV, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                @Html.ValidationMessageFor(model => model.TargetFPFV, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+                        <div class="col-md-2">
+                            @Html.LabelFor(model => model.ActualFPFV)
+                        </div>
+                        <div class="col-md-10">
+                                @Html.EditorFor(model => model.ActualFPFV, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                @Html.ValidationMessageFor(model => model.ActualFPFV, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+                        <div class="col-md-2">
+                            @Html.LabelFor(model => model.CurrentRecruitment)
+                        </div>
+                        <div class="col-md-10">
+                                @Html.EditorFor(model => model.CurrentRecruitment, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                @Html.ValidationMessageFor(model => model.CurrentRecruitment, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+                        <div class="col-md-2">
+                            @Html.LabelFor(model => model.EstimatedLPLV)
+                        </div>
+                        <div class="col-md-10">
+                                @Html.EditorFor(model => model.EstimatedLPLV, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                @Html.ValidationMessageFor(model => model.EstimatedLPLV, "", new { @class = "text-danger", disabled = "disabled" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+                        <div class="col-md-2">
+                            @Html.LabelFor(model => model.ActualLPLV)
+                        </div>
+                        <div class="col-md-10">
+                                @Html.EditorFor(model => model.ActualLPLV, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                @Html.ValidationMessageFor(model => model.ActualLPLV, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        <div class="col-md-2">
+                            @Html.LabelFor(model => model.EOSNotificationDue)
+                        </div>
+                        <div class="col-md-10">
+                                @Html.EditorFor(model => model.EOSNotificationDue, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                @Html.ValidationMessageFor(model => model.EOSNotificationDue, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+                        <div class="col-md-2">
+                            @Html.LabelFor(model => model.EOSNotificationSubmitted)
+                        </div>
+                        <div class="col-md-10">
+                                @Html.EditorFor(model => model.EOSNotificationSubmitted, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                @Html.ValidationMessageFor(model => model.EOSNotificationSubmitted, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+                        <div class="col-md-2">
+                            @Html.LabelFor(model => model.SiteCloseDown)
+                        </div>
+                        <div class="col-md-10">
+                                @Html.EditorFor(model => model.SiteCloseDown, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                @Html.ValidationMessageFor(model => model.SiteCloseDown, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </div>
+            }
+
+        </div>
+        <!-- /.box-body -->
+    </div>
+</div>
+<!-- /.box -->
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

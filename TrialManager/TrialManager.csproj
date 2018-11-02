@@ -195,7 +195,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\Startup.cs" />
+    <Compile Include="Classes\CheckTrialAccess.cs" />
     <Compile Include="Controllers\AccessTypesController.cs" />
+    <Compile Include="Controllers\ActiveStatusController.cs" />
     <Compile Include="Controllers\ContactsController.cs" />
     <Compile Include="Controllers\ContactStatusController.cs" />
     <Compile Include="Controllers\ContactTrialGroupController.cs" />
@@ -206,6 +208,8 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PhaseController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\TrialActiveController.cs" />
+    <Compile Include="Controllers\TrialCloseDownController.cs" />
     <Compile Include="Controllers\TrialContactsController.cs" />
     <Compile Include="Controllers\TrialDocumentsController.cs" />
     <Compile Include="Controllers\TrialFeasibilityController.cs" />
@@ -221,80 +225,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201810021658271_initialSetup.cs" />
-    <Compile Include="Migrations\201810021658271_initialSetup.Designer.cs">
-      <DependentUpon>201810021658271_initialSetup.cs</DependentUpon>
+    <Compile Include="Migrations\201811011657420_changeDatesTobeBlank.cs" />
+    <Compile Include="Migrations\201811011657420_changeDatesTobeBlank.Designer.cs">
+      <DependentUpon>201811011657420_changeDatesTobeBlank.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201810041311452_LateDevelopment.cs" />
-    <Compile Include="Migrations\201810041311452_LateDevelopment.Designer.cs">
-      <DependentUpon>201810041311452_LateDevelopment.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810041317335_LateDev1.cs" />
-    <Compile Include="Migrations\201810041317335_LateDev1.Designer.cs">
-      <DependentUpon>201810041317335_LateDev1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810081351181_setupComplete.cs" />
-    <Compile Include="Migrations\201810081351181_setupComplete.Designer.cs">
-      <DependentUpon>201810081351181_setupComplete.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810081353367_setupComplete1.cs" />
-    <Compile Include="Migrations\201810081353367_setupComplete1.Designer.cs">
-      <DependentUpon>201810081353367_setupComplete1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810100843421_contacUserId.cs" />
-    <Compile Include="Migrations\201810100843421_contacUserId.Designer.cs">
-      <DependentUpon>201810100843421_contacUserId.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810101041410_GroupAccess.cs" />
-    <Compile Include="Migrations\201810101041410_GroupAccess.Designer.cs">
-      <DependentUpon>201810101041410_GroupAccess.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810101045291_GroupAccess1.cs" />
-    <Compile Include="Migrations\201810101045291_GroupAccess1.Designer.cs">
-      <DependentUpon>201810101045291_GroupAccess1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810101318107_Groups.cs" />
-    <Compile Include="Migrations\201810101318107_Groups.Designer.cs">
-      <DependentUpon>201810101318107_Groups.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810101323159_Groups1.cs" />
-    <Compile Include="Migrations\201810101323159_Groups1.Designer.cs">
-      <DependentUpon>201810101323159_Groups1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810101324570_Groups2.cs" />
-    <Compile Include="Migrations\201810101324570_Groups2.Designer.cs">
-      <DependentUpon>201810101324570_Groups2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810101332367_groups3.cs" />
-    <Compile Include="Migrations\201810101332367_groups3.Designer.cs">
-      <DependentUpon>201810101332367_groups3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810101346065_groups4.cs" />
-    <Compile Include="Migrations\201810101346065_groups4.Designer.cs">
-      <DependentUpon>201810101346065_groups4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810101400091_groups12.cs" />
-    <Compile Include="Migrations\201810101400091_groups12.Designer.cs">
-      <DependentUpon>201810101400091_groups12.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810101448023_groups13.cs" />
-    <Compile Include="Migrations\201810101448023_groups13.Designer.cs">
-      <DependentUpon>201810101448023_groups13.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810101455468_groups14.cs" />
-    <Compile Include="Migrations\201810101455468_groups14.Designer.cs">
-      <DependentUpon>201810101455468_groups14.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810120856339_contactGroup.cs" />
-    <Compile Include="Migrations\201810120856339_contactGroup.Designer.cs">
-      <DependentUpon>201810120856339_contactGroup.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810221456502_reminderChecked.cs" />
-    <Compile Include="Migrations\201810221456502_reminderChecked.Designer.cs">
-      <DependentUpon>201810221456502_reminderChecked.cs</DependentUpon>
+    <Compile Include="Migrations\201811020949550_changeDatesTobeBlank1.cs" />
+    <Compile Include="Migrations\201811020949550_changeDatesTobeBlank1.Designer.cs">
+      <DependentUpon>201811020949550_changeDatesTobeBlank1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccessTypesModels.cs" />
+    <Compile Include="Models\ActiveStatusModels.cs" />
     <Compile Include="Models\AdAuthenticationService.cs" />
     <Compile Include="Models\AjaxViewModels.cs" />
     <Compile Include="Models\ContactsModels.cs" />
@@ -309,9 +250,12 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\NotesModels.cs" />
     <Compile Include="Models\PhaseModels.cs" />
+    <Compile Include="Models\RecentTrialsModels.cs" />
     <Compile Include="Models\ResearchPassportModels.cs" />
     <Compile Include="Models\RolesModels.cs" />
     <Compile Include="Models\StaffPassportModels.cs" />
+    <Compile Include="Models\TrialActiveModels.cs" />
+    <Compile Include="Models\TrialCloseDownModels.cs" />
     <Compile Include="Models\TrialContactsModels.cs" />
     <Compile Include="Models\TrialDocumentsModels.cs" />
     <Compile Include="Models\TrialFeasibilityModels.cs" />
@@ -648,6 +592,8 @@
     <Content Include="Content\polaris\polaris.png" />
     <Content Include="Content\reminder-hand-writing.jpg" />
     <Content Include="Content\Research_microscope.jpg" />
+    <Content Include="Content\select2.css" />
+    <Content Include="Content\select2.min.css" />
     <Content Include="Content\square\aero%402x.png" />
     <Content Include="Content\square\aero.css" />
     <Content Include="Content\square\aero.png" />
@@ -747,6 +693,8 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\select2.full.js" />
+    <Content Include="Scripts\select2.full.min.js" />
     <Content Include="Scripts\tether.js" />
     <Content Include="Scripts\tether.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -839,8 +787,8 @@
     <Content Include="Views\TrialFeasibility\Edit.cshtml" />
     <Content Include="Views\TrialFeasibility\Index.cshtml" />
     <Content Include="Views\TrialFeasibility\ListRecords.cshtml" />
-    <Content Include="Views\TrialFeasibility\SetupEditRecord.cshtml" />
-    <Content Include="Views\TrialFeasibility\SetupNewRecord.cshtml" />
+    <Content Include="Views\TrialFeasibility\Setup\_SetupEditRecord.cshtml" />
+    <Content Include="Views\TrialFeasibility\Setup\_SetupNewRecord.cshtml" />
     <Content Include="Views\TrialFeasibility\_ListContacts.cshtml" />
     <Content Include="Views\TrialFeasibility\_ListDocuments.cshtml" />
     <Content Include="Views\TrialFeasibility\_ListNotes.cshtml" />
@@ -883,8 +831,8 @@
     <Content Include="Views\TrialLateDevelopment\Details.cshtml" />
     <Content Include="Views\TrialLateDevelopment\Edit.cshtml" />
     <Content Include="Views\TrialLateDevelopment\Index.cshtml" />
-    <Content Include="Views\TrialFeasibility\LateDevEditRecord.cshtml" />
-    <Content Include="Views\TrialFeasibility\LateDevNewrecord.cshtml" />
+    <Content Include="Views\TrialFeasibility\Active\_ActiveEditRecord.cshtml" />
+    <Content Include="Views\TrialFeasibility\Active\_ActiveNewRecord.cshtml" />
     <Content Include="Views\TrialGroup\Create.cshtml" />
     <Content Include="Views\TrialGroup\Delete.cshtml" />
     <Content Include="Views\TrialGroup\Details.cshtml" />
@@ -902,73 +850,47 @@
     <Content Include="Views\TrialGroupTrial\Index.cshtml" />
     <Content Include="Views\TrialFeasibility\_NotAuthorised.cshtml" />
     <Content Include="Views\TrialFeasibility\ViewTrial.cshtml" />
-    <Content Include="Views\TrialFeasibility\SetupEditView.cshtml" />
-    <Content Include="Views\TrialFeasibility\SetupNewView.cshtml" />
+    <Content Include="Views\TrialFeasibility\Setup\_SetupEditView.cshtml" />
+    <Content Include="Views\TrialFeasibility\Setup\_SetupNewView.cshtml" />
     <Content Include="Views\TrialFeasibility\ShowProgressView.cshtml" />
     <Content Include="Views\TrialFeasibility\ShowReminderStatusView.cshtml" />
+    <Content Include="Views\TrialFeasibility\Active\_ActiveEditView.cshtml" />
+    <Content Include="Views\TrialFeasibility\Active\_ActiveNewView.cshtml" />
+    <Content Include="Views\ActiveStatus\Create.cshtml" />
+    <Content Include="Views\ActiveStatus\Delete.cshtml" />
+    <Content Include="Views\ActiveStatus\Details.cshtml" />
+    <Content Include="Views\ActiveStatus\Edit.cshtml" />
+    <Content Include="Views\ActiveStatus\Index.cshtml" />
+    <Content Include="Views\TrialActive\Create.cshtml" />
+    <Content Include="Views\TrialActive\Delete.cshtml" />
+    <Content Include="Views\TrialActive\Details.cshtml" />
+    <Content Include="Views\TrialActive\Edit.cshtml" />
+    <Content Include="Views\TrialActive\Index.cshtml" />
+    <Content Include="Views\TrialCloseDown\Create.cshtml" />
+    <Content Include="Views\TrialCloseDown\Delete.cshtml" />
+    <Content Include="Views\TrialCloseDown\Details.cshtml" />
+    <Content Include="Views\TrialCloseDown\Edit.cshtml" />
+    <Content Include="Views\TrialCloseDown\Index.cshtml" />
+    <Content Include="Views\TrialFeasibility\LateDev\_LateDevEditRecord.cshtml" />
+    <Content Include="Views\TrialFeasibility\LateDev\_LateDevEditView.cshtml" />
+    <Content Include="Views\TrialFeasibility\LateDev\_LateDevNewRecord.cshtml" />
+    <Content Include="Views\TrialFeasibility\LateDev\_LateDevNewView.cshtml" />
+    <Content Include="Views\TrialFeasibility\Closed\_ClosedEditRecord.cshtml" />
+    <Content Include="Views\TrialFeasibility\Closed\_ClosedEditView.cshtml" />
+    <Content Include="Views\TrialFeasibility\Closed\_ClosedNewRecord.cshtml" />
+    <Content Include="Views\TrialFeasibility\Closed\_ClosedNewView.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Classes\" />
+    <EmbeddedResource Include="Migrations\201811011657420_changeDatesTobeBlank.resx">
+      <DependentUpon>201811011657420_changeDatesTobeBlank.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811020949550_changeDatesTobeBlank1.resx">
+      <DependentUpon>201811020949550_changeDatesTobeBlank1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201810021658271_initialSetup.resx">
-      <DependentUpon>201810021658271_initialSetup.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810041311452_LateDevelopment.resx">
-      <DependentUpon>201810041311452_LateDevelopment.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810041317335_LateDev1.resx">
-      <DependentUpon>201810041317335_LateDev1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810081351181_setupComplete.resx">
-      <DependentUpon>201810081351181_setupComplete.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810081353367_setupComplete1.resx">
-      <DependentUpon>201810081353367_setupComplete1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810100843421_contacUserId.resx">
-      <DependentUpon>201810100843421_contacUserId.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810101041410_GroupAccess.resx">
-      <DependentUpon>201810101041410_GroupAccess.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810101045291_GroupAccess1.resx">
-      <DependentUpon>201810101045291_GroupAccess1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810101318107_Groups.resx">
-      <DependentUpon>201810101318107_Groups.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810101323159_Groups1.resx">
-      <DependentUpon>201810101323159_Groups1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810101324570_Groups2.resx">
-      <DependentUpon>201810101324570_Groups2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810101332367_groups3.resx">
-      <DependentUpon>201810101332367_groups3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810101346065_groups4.resx">
-      <DependentUpon>201810101346065_groups4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810101400091_groups12.resx">
-      <DependentUpon>201810101400091_groups12.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810101448023_groups13.resx">
-      <DependentUpon>201810101448023_groups13.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810101455468_groups14.resx">
-      <DependentUpon>201810101455468_groups14.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810120856339_contactGroup.resx">
-      <DependentUpon>201810120856339_contactGroup.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810221456502_reminderChecked.resx">
-      <DependentUpon>201810221456502_reminderChecked.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
