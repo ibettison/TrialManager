@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -19,22 +20,10 @@ namespace Trialmanager.Controllers
         // GET: AccessTypes
         public ActionResult Index()
         {
-            return View(_db.AccessTypesModels.ToList());
-        }
-
-        // GET: AccessTypes/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            AccessTypesModels accessTypesModels = _db.AccessTypesModels.Find(id);
-            if (accessTypesModels == null)
-            {
-                return HttpNotFound();
-            }
-            return View(accessTypesModels);
+            var accessTypesList = (from a in _db.AccessTypesModels
+                where a.Deleted == null
+                select a).ToList();
+            return View(accessTypesList);
         }
 
         // GET: AccessTypes/Create
@@ -91,28 +80,13 @@ namespace Trialmanager.Controllers
             return View(accessTypesModels);
         }
 
-        // GET: AccessTypes/Delete/5
-        public ActionResult Delete(int? id)
+        [HttpPost]
+        public ActionResult DeleteAccessTypes(AccessTypesModels Model)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            var id = Model.Id;
             AccessTypesModels accessTypesModels = _db.AccessTypesModels.Find(id);
-            if (accessTypesModels == null)
-            {
-                return HttpNotFound();
-            }
-            return View(accessTypesModels);
-        }
-
-        // POST: AccessTypes/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            AccessTypesModels accessTypesModels = _db.AccessTypesModels.Find(id);
-            _db.AccessTypesModels.Remove(accessTypesModels);
+            accessTypesModels.Deleted = DateTime.Now;
+            _db.AccessTypesModels.AddOrUpdate(accessTypesModels);
             _db.SaveChanges();
             return RedirectToAction("Index");
         }

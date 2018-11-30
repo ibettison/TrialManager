@@ -102,16 +102,16 @@
                                 <div class="checkbox">
                                     @if (item.Completed == "Yes")
                                     {
-                                        @Html.RadioButton("StartedTrial", "Yes", new { @checked = "checked" })
+                                        @Html.CheckBox("StartedTrial", new { @checked = "checked" })
                                         @Html.Label("Setup Completed")
-                                        @Html.RadioButton("StartedTrial", "No")
+                                        @Html.CheckBox("StartedTrial", "No")
                                         @Html.Label("Setup didn't Complete ")
                                     }
                                     else
                                     {
-                                        @Html.RadioButton("StartedTrial", "Yes")
+                                        @Html.CheckBox("StartedTrial", "Yes")
                                         @Html.Label("Setup completed")
-                                        @Html.RadioButton("StartedTrial", "No", new { @checked = "checked" })
+                                        @Html.CheckBox("StartedTrial", new { @checked = "checked" })
                                         @Html.Label("Setup didn't Complete")
                                     }
 

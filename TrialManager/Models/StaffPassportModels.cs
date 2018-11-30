@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
@@ -10,9 +12,25 @@ namespace Trialmanager.Models
     {
         public int Id { get; set; }
         public int ContactId { get; set; }
+        [DisplayName("Contract Type")]
         public int ContractTypeId { get; set; }
+        [Required]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [DisplayName("Contract End Date")]
         public DateTime ContractEndDate { get; set; }
+        [Required]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [DisplayName("Passport Expiry")]
+        public DateTime ResearchPassportExpiry { get; set; }
+        [Required]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [DisplayName("Passport Renewal")]
+        public DateTime ResearchPassportRenewal { get; set; }
+        [DisplayName("Access type")]
         public int TypeofAccessId { get; set; }
+        [Required]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [DisplayName("Access Expiry")]
         public DateTime AccessExpiryDate { get; set; }
 
         [ForeignKey("ContactId")]
@@ -20,6 +38,7 @@ namespace Trialmanager.Models
         [ForeignKey("TypeofAccessId")]
         public virtual AccessTypesModels AccessName { get; set; }
         [ForeignKey("ContractTypeId")]
+        [DisplayName("Contract Type")]
         public virtual ContractTypesModels ContractTypeName { get; set; }
     }
 }

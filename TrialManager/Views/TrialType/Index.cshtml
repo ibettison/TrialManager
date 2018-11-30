@@ -1,14 +1,10 @@
 ﻿@model IEnumerable<Trialmanager.Models.TrialTypeModels>
 
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
+@{
+    ViewBag.Title = "Trial Type";
+    ViewBag.Small = "List";
+    ViewBag.link = "DashBoard";
+}
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -58,9 +54,8 @@
                                             @Html.DisplayFor(modelItem => item.TrialTypeName)
                                         </td>
                                         <td>
-                                            @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
-                                            @Html.ActionLink("Details", "Details", new {id = item.Id}) |
-                                            @Html.ActionLink("Delete", "Delete", new {id = item.Id})
+                                            <a href="/TrialType/Edit/@item.Id"><i class="fa fa-edit"></i></a> |
+                                            <a href="#"><i id="@item.Id" class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 }
@@ -75,5 +70,59 @@
         </div>
     </section>
 </div>
-</body>
-</html>
+@*<a href="/ContractTypes/Edit/@item.Id"><i class="fa fa-edit"></i></a> |*@
+@*<a href="#"><i id="@item.Id" class="fa fa-trash"></i></a>*@
+<div class="modal modal-danger fade" id="modal-Types">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">Confirm Deletion</h4>
+            </div>
+            <div class="modal-body">
+                <p>Do you wish to completely remove this Trial Type?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-outline" id="TypesDelete" data-dismiss="modal">Confirm Delete</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@section scripts
+{
+    <script>
+        var RemPostData = 0;
+
+        $(".fa-trash").click(function() {
+            RemPostData = $(this).attr('id');
+            $('#modal-Types').modal('toggle');
+        });
+
+        $('#modal-Types').on('hide.bs.modal',
+            function(e) {
+                var clickedId = $(document.activeElement);
+                if (clickedId.attr('id') === 'TypesDelete') {
+                    var postData = {
+                        Id: RemPostData
+                    }
+
+                    $.ajax({
+                        url: '/TrialType/DeleteType',
+                        type: 'POST',
+                        data: postData,
+                        success: function(data) {
+                            location.reload();
+                        }
+                    });
+                } else {
+                    $('#modal-Types').hide();
+                }
+            });
+    </script>
+}

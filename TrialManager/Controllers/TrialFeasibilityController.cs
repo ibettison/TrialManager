@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Migrations;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls.Expressions;
 using Trialmanager.Models;
 using TrialManager.Classes;
 using TrialManager.Models;
@@ -55,10 +57,10 @@ namespace Trialmanager.Controllers
             ViewBag.Title = "New Trial";
             ViewBag.Small = "Create a New trial";
             ViewBag.Link = "Dashboard";
-            ViewBag.DiseaseTherapyAreaId = new SelectList(db.DiseaseTherapyAreaModels, "Id", "DiseaseTherapyAreaName");
-            ViewBag.GrantTypeId = new SelectList(db.GrantTypeModels, "Id", "GrantTypeName");
-            ViewBag.PhaseId = new SelectList(db.PhaseModels, "Id", "PhaseName");
-            ViewBag.TrialTypeId = new SelectList(db.TrialTypeModels, "Id", "TrialTypeName");
+            ViewBag.DiseaseTherapyAreaId = new SelectList(db.DiseaseTherapyAreaModels.Where(t => t.Deleted == null), "Id", "DiseaseTherapyAreaName");
+            ViewBag.GrantTypeId = new SelectList(db.GrantTypeModels.Where(g => g.Deleted == null), "Id", "GrantTypeName");
+            ViewBag.PhaseId = new SelectList(db.PhaseModels.Where(p => p.Deleted == null), "Id", "PhaseName");
+            ViewBag.TrialTypeId = new SelectList(db.TrialTypeModels.Where(t => t.Deleted == null), "Id", "TrialTypeName");
             return View();
         }
 
@@ -76,14 +78,15 @@ namespace Trialmanager.Controllers
 
             if (ModelState.IsValid)
             {
+                
                 db.TrialFeasibilityModels.Add(trialFeasibilityModels);
                 db.SaveChanges();
-                return RedirectToAction("CreateGroupAccess", new {trialFeasibilityModels.ShortName});
+               return RedirectToAction("CreateGroupAccess", new {trialFeasibilityModels.ShortName});
             }
-            ViewBag.DiseaseTherapyAreaId = new SelectList(db.DiseaseTherapyAreaModels, "Id", "DiseaseTherapyAreaName", trialFeasibilityModels.DiseaseTherapyAreaId);
-            ViewBag.GrantTypeId = new SelectList(db.GrantTypeModels, "Id", "GrantTypeName", trialFeasibilityModels.GrantTypeId);
-            ViewBag.PhaseId = new SelectList(db.PhaseModels, "Id", "PhaseName", trialFeasibilityModels.PhaseId);
-            ViewBag.TrialTypeId = new SelectList(db.TrialTypeModels, "Id", "TrialTypeName", trialFeasibilityModels.TrialTypeId);
+            ViewBag.DiseaseTherapyAreaId = new SelectList(db.DiseaseTherapyAreaModels.Where(t => t.Deleted == null), "Id", "DiseaseTherapyAreaName", trialFeasibilityModels.DiseaseTherapyAreaId);
+            ViewBag.GrantTypeId = new SelectList(db.GrantTypeModels.Where(g => g.Deleted == null), "Id", "GrantTypeName", trialFeasibilityModels.GrantTypeId);
+            ViewBag.PhaseId = new SelectList(db.PhaseModels.Where(p => p.Deleted == null), "Id", "PhaseName", trialFeasibilityModels.PhaseId);
+            ViewBag.TrialTypeId = new SelectList(db.TrialTypeModels.Where(t => t.Deleted == null), "Id", "TrialTypeName", trialFeasibilityModels.TrialTypeId);
             return View(trialFeasibilityModels);
         }
 
@@ -187,8 +190,8 @@ namespace Trialmanager.Controllers
             ViewBag.notifications = notes.Count > 0 ? notes : null;
 
             var reminders = (from r in db.TrialRemindersModels
-                         where r.TrialId == id
-                         select r).ToList();
+                             where r.TrialId == id
+                             select r).Distinct().OrderByDescending(d => d.DueDate).ToList();
             ViewBag.reminders = reminders.Count > 0 ? reminders : null;
 
             var changedRecords = (from c in db.TrialRecordsModels
@@ -208,14 +211,14 @@ namespace Trialmanager.Controllers
 
             ViewBag.User = User.Identity.Name;
             ViewBag.Id = id;
-            ViewBag.DiseaseTherapyAreaId = new SelectList(db.DiseaseTherapyAreaModels, "Id", "DiseaseTherapyAreaName", trialFeasibilityModels.DiseaseTherapyAreaId);
-            ViewBag.GrantTypeId = new SelectList(db.GrantTypeModels, "Id", "GrantTypeName", trialFeasibilityModels.GrantTypeId);
-            ViewBag.PhaseId = new SelectList(db.PhaseModels, "Id", "PhaseName", trialFeasibilityModels.PhaseId);
-            ViewBag.TrialTypeId = new SelectList(db.TrialTypeModels, "Id", "TrialTypeName", trialFeasibilityModels.TrialTypeId);
+            ViewBag.DiseaseTherapyAreaId = new SelectList(db.DiseaseTherapyAreaModels.Where(t => t.Deleted == null), "Id", "DiseaseTherapyAreaName", trialFeasibilityModels.DiseaseTherapyAreaId);
+            ViewBag.GrantTypeId = new SelectList(db.GrantTypeModels.Where(t => t.Deleted == null), "Id", "GrantTypeName", trialFeasibilityModels.GrantTypeId);
+            ViewBag.PhaseId = new SelectList(db.PhaseModels.Where(t => t.Deleted == null), "Id", "PhaseName", trialFeasibilityModels.PhaseId);
+            ViewBag.TrialTypeId = new SelectList(db.TrialTypeModels.Where(t => t.Deleted == null), "Id", "TrialTypeName", trialFeasibilityModels.TrialTypeId);
 
             ViewBag.Contacts = db.ContactsModels;
-            ViewBag.Roles = db.RolesModels;
-            ViewBag.DocumentTypes = db.DocumentTypesModels;
+            ViewBag.Roles = db.RolesModels.Where(t => t.Deleted == null);
+            ViewBag.DocumentTypes = db.DocumentTypesModels.Where(t => t.Deleted == null);
 
             //before displaying the Trial lets save it to the recent Trials table
             var recentTrials = (from r in db.RecentTrialsModels
@@ -259,10 +262,10 @@ namespace Trialmanager.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.DiseaseTherapyAreaId = new SelectList(db.DiseaseTherapyAreaModels, "Id", "DiseaseTherapyAreaName", trialFeasibilityModels.DiseaseTherapyAreaId);
-            ViewBag.GrantTypeId = new SelectList(db.GrantTypeModels, "Id", "GrantTypeName", trialFeasibilityModels.GrantTypeId);
-            ViewBag.PhaseId = new SelectList(db.PhaseModels, "Id", "PhaseName", trialFeasibilityModels.PhaseId);
-            ViewBag.TrialTypeId = new SelectList(db.TrialTypeModels, "Id", "TrialTypeName", trialFeasibilityModels.TrialTypeId);
+            ViewBag.DiseaseTherapyAreaId = new SelectList(db.DiseaseTherapyAreaModels.Where(t => t.Deleted == null), "Id", "DiseaseTherapyAreaName", trialFeasibilityModels.DiseaseTherapyAreaId);
+            ViewBag.GrantTypeId = new SelectList(db.GrantTypeModels.Where(t => t.Deleted == null), "Id", "GrantTypeName", trialFeasibilityModels.GrantTypeId);
+            ViewBag.PhaseId = new SelectList(db.PhaseModels.Where(t => t.Deleted == null), "Id", "PhaseName", trialFeasibilityModels.PhaseId);
+            ViewBag.TrialTypeId = new SelectList(db.TrialTypeModels.Where(t => t.Deleted == null), "Id", "TrialTypeName", trialFeasibilityModels.TrialTypeId);
             return View(trialFeasibilityModels);
         }
 
@@ -397,6 +400,34 @@ namespace Trialmanager.Controllers
                     }
                     db.Entry(aModel).State = EntityState.Modified;
                     break;
+                case "TrialClosed":
+                    TrialCloseDownModels cModel = db.TrialCloseDownModels.Find(model.Id);
+
+                    if (cModel != null)
+                    {
+                        var getVar = cModel.GetType().GetProperty(fn);
+                        if (getVar != null)
+                        {
+                            if (getVar.PropertyType.Name == "Int32")
+                            {
+                                getVar.SetValue(cModel, Convert.ToInt32(nv));
+                            }
+                            else
+                            {
+                                var property = getVar.PropertyType.GenericTypeArguments.FirstOrDefault();
+                                if (property != null && property.Name == "DateTime")
+                                {
+                                    getVar.SetValue(cModel, Convert.ToDateTime(nv));
+                                }
+                                else
+                                {
+                                    getVar.SetValue(cModel, Convert.ToString(nv));
+                                }
+                            }
+                        }
+                    }
+                    db.Entry(cModel).State = EntityState.Modified;
+                    break;
             }
             Claim claimFirstName;
             Claim claimSurName;
@@ -405,7 +436,7 @@ namespace Trialmanager.Controllers
             {
                 var record = new TrialRecordsModels
                 {
-                    DateTime = DateTime.Now,
+                    DateChanged = DateTime.Now,
                     FieldName = model.FieldName,
                     OriginalValue = model.Original,
                     NewValue = model.NewValue,
@@ -490,7 +521,7 @@ namespace Trialmanager.Controllers
 
             ViewBag.contactsRole = contactsRole.Count > 0 ? contactsRole : null;
             ViewBag.Contacts = db.ContactsModels;
-            ViewBag.Roles = db.RolesModels;
+            ViewBag.Roles = db.RolesModels.Where(r => r.Deleted == null);
             return PartialView("_ListContacts");
         }
 
@@ -574,12 +605,12 @@ namespace Trialmanager.Controllers
             if (trialSetupModels == null)
             {
                 ViewBag.Id = id;
-                ViewBag.TrialLocationId = new SelectList(db.TrialLocationModels, "Id", "Location");
-                ViewBag.DiseaseTherapyAreaId = new SelectList(db.DiseaseTherapyAreaModels, "Id",
+                ViewBag.TrialLocationId = new SelectList(db.TrialLocationModels.Where(t => t.Deleted == null), "Id", "Location");
+                ViewBag.DiseaseTherapyAreaId = new SelectList(db.DiseaseTherapyAreaModels.Where(t => t.Deleted == null), "Id",
                     "DiseaseTherapyAreaName");
-                ViewBag.GrantTypeId = new SelectList(db.GrantTypeModels, "Id", "GrantTypeName");
-                ViewBag.PhaseId = new SelectList(db.PhaseModels, "Id", "PhaseName");
-                ViewBag.TrialTypeId = new SelectList(db.TrialTypeModels, "Id", "TrialTypeName");
+                ViewBag.GrantTypeId = new SelectList(db.GrantTypeModels.Where(t => t.Deleted == null), "Id", "GrantTypeName");
+                ViewBag.PhaseId = new SelectList(db.PhaseModels.Where(t => t.Deleted == null), "Id", "PhaseName");
+                ViewBag.TrialTypeId = new SelectList(db.TrialTypeModels.Where(t => t.Deleted == null), "Id", "TrialTypeName");
                 if (accessValue == "View")
                 {
                     return PartialView("Setup/_SetupNewView", trialSetupModels);
@@ -591,11 +622,11 @@ namespace Trialmanager.Controllers
                 
             }
             TrialFeasibilityModels trialFeasibilityModels = db.TrialFeasibilityModels.Find(id);
-            ViewBag.TrialLocationId = new SelectList(db.TrialLocationModels, "Id", "Location", trialSetupModels.TrialLocationId);
-            ViewBag.DiseaseTherapyAreaId = new SelectList(db.DiseaseTherapyAreaModels, "Id", "DiseaseTherapyAreaName", trialFeasibilityModels.DiseaseTherapyAreaId);
-            ViewBag.GrantTypeId = new SelectList(db.GrantTypeModels, "Id", "GrantTypeName", trialFeasibilityModels.GrantTypeId);
-            ViewBag.PhaseId = new SelectList(db.PhaseModels, "Id", "PhaseName", trialFeasibilityModels.PhaseId);
-            ViewBag.TrialTypeId = new SelectList(db.TrialTypeModels, "Id", "TrialTypeName", trialFeasibilityModels.TrialTypeId);
+            ViewBag.TrialLocationId = new SelectList(db.TrialLocationModels.Where(t => t.Deleted == null), "Id", "Location", trialSetupModels.TrialLocationId);
+            ViewBag.DiseaseTherapyAreaId = new SelectList(db.DiseaseTherapyAreaModels.Where(t => t.Deleted == null), "Id", "DiseaseTherapyAreaName", trialFeasibilityModels.DiseaseTherapyAreaId);
+            ViewBag.GrantTypeId = new SelectList(db.GrantTypeModels.Where(t => t.Deleted == null), "Id", "GrantTypeName", trialFeasibilityModels.GrantTypeId);
+            ViewBag.PhaseId = new SelectList(db.PhaseModels.Where(t => t.Deleted == null), "Id", "PhaseName", trialFeasibilityModels.PhaseId);
+            ViewBag.TrialTypeId = new SelectList(db.TrialTypeModels.Where(t => t.Deleted == null), "Id", "TrialTypeName", trialFeasibilityModels.TrialTypeId);
             if (accessValue == "View")
             {
                 return PartialView("Setup/_SetupEditView", trialSetupModels);
@@ -627,12 +658,12 @@ namespace Trialmanager.Controllers
             if (trialLateDevelopmentModels == null)
             {
                 ViewBag.Id = id;
-                ViewBag.TrialLocationId = new SelectList(db.TrialLocationModels, "Id", "Location");
-                ViewBag.DiseaseTherapyAreaId = new SelectList(db.DiseaseTherapyAreaModels, "Id",
+                ViewBag.TrialLocationId = new SelectList(db.TrialLocationModels.Where(t => t.Deleted == null), "Id", "Location");
+                ViewBag.DiseaseTherapyAreaId = new SelectList(db.DiseaseTherapyAreaModels.Where(t => t.Deleted == null), "Id",
                     "DiseaseTherapyAreaName");
-                ViewBag.GrantTypeId = new SelectList(db.GrantTypeModels, "Id", "GrantTypeName");
-                ViewBag.PhaseId = new SelectList(db.PhaseModels, "Id", "PhaseName");
-                ViewBag.TrialTypeId = new SelectList(db.TrialTypeModels, "Id", "TrialTypeName");
+                ViewBag.GrantTypeId = new SelectList(db.GrantTypeModels.Where(t => t.Deleted == null), "Id", "GrantTypeName");
+                ViewBag.PhaseId = new SelectList(db.PhaseModels.Where(t => t.Deleted == null), "Id", "PhaseName");
+                ViewBag.TrialTypeId = new SelectList(db.TrialTypeModels.Where(t => t.Deleted == null), "Id", "TrialTypeName");
                 if (accessValue == "View")
                 {
                     return PartialView("LateDev/_LateDevNewView", trialLateDevelopmentModels);
@@ -644,10 +675,10 @@ namespace Trialmanager.Controllers
                 
             }
             TrialFeasibilityModels trialFeasibilityModels = db.TrialFeasibilityModels.Find(id);
-            ViewBag.DiseaseTherapyAreaId = new SelectList(db.DiseaseTherapyAreaModels, "Id", "DiseaseTherapyAreaName", trialFeasibilityModels.DiseaseTherapyAreaId);
-            ViewBag.GrantTypeId = new SelectList(db.GrantTypeModels, "Id", "GrantTypeName", trialFeasibilityModels.GrantTypeId);
-            ViewBag.PhaseId = new SelectList(db.PhaseModels, "Id", "PhaseName", trialFeasibilityModels.PhaseId);
-            ViewBag.TrialTypeId = new SelectList(db.TrialTypeModels, "Id", "TrialTypeName", trialFeasibilityModels.TrialTypeId);
+            ViewBag.DiseaseTherapyAreaId = new SelectList(db.DiseaseTherapyAreaModels.Where(t => t.Deleted == null), "Id", "DiseaseTherapyAreaName", trialFeasibilityModels.DiseaseTherapyAreaId);
+            ViewBag.GrantTypeId = new SelectList(db.GrantTypeModels.Where(t => t.Deleted == null), "Id", "GrantTypeName", trialFeasibilityModels.GrantTypeId);
+            ViewBag.PhaseId = new SelectList(db.PhaseModels.Where(t => t.Deleted == null), "Id", "PhaseName", trialFeasibilityModels.PhaseId);
+            ViewBag.TrialTypeId = new SelectList(db.TrialTypeModels.Where(t => t.Deleted == null), "Id", "TrialTypeName", trialFeasibilityModels.TrialTypeId);
             if (accessValue == "View")
             {
                 return PartialView("LateDev/_LateDevEditView", trialLateDevelopmentModels);
@@ -736,7 +767,7 @@ namespace Trialmanager.Controllers
                 where td.TrialId == id
                 select td).ToList();
             ViewBag.Documents = trialDocumentsModels.Count > 0 ? trialDocumentsModels:null;
-            ViewBag.DocumentTypes = db.DocumentTypesModels;
+            ViewBag.DocumentTypes = db.DocumentTypesModels.Where(t => t.Deleted == null);
             return PartialView("_ListDocuments");
         }
 
@@ -776,6 +807,46 @@ namespace Trialmanager.Controllers
             return RedirectToAction("Edit", new { Id = model.TrialId });
         }
 
+        public ActionResult ChangeTrialTitle(TrialFeasibilityModels model)
+        {
+            TrialFeasibilityModels trialFeasibilityModels = db.TrialFeasibilityModels.Find(model.Id);
+            if (trialFeasibilityModels != null)
+            {
+                trialFeasibilityModels.TrialTitle = model.TrialTitle;
+                db.TrialFeasibilityModels.AddOrUpdate(trialFeasibilityModels);
+                db.SaveChanges();
+            }
+            
+            return PartialView("ShowProgressView");
+        }
+
+        public ActionResult ChangeCommercial(TrialFeasibilityModels model)
+        {
+            TrialFeasibilityModels trialFeasibilityModels = db.TrialFeasibilityModels.Find(model.Id);
+            if (trialFeasibilityModels != null)
+            {
+                trialFeasibilityModels.Commercial = model.Commercial;
+                db.TrialFeasibilityModels.AddOrUpdate(trialFeasibilityModels);
+                db.SaveChanges();
+            }
+
+            return PartialView("ShowProgressView");
+        }
+
+        public ActionResult ChangeAgreement(TrialFeasibilityModels model)
+        {
+            TrialFeasibilityModels trialFeasibilityModels = db.TrialFeasibilityModels.Find(model.Id);
+            if (trialFeasibilityModels != null)
+            {
+                trialFeasibilityModels.UniConsultancyAgreement = model.UniConsultancyAgreement;
+                trialFeasibilityModels.NhsConsultancyAgreement = model.NhsConsultancyAgreement;
+                db.TrialFeasibilityModels.AddOrUpdate(trialFeasibilityModels);
+                db.SaveChanges();
+            }
+
+            return PartialView("ShowProgressView");
+        }
+
         public ActionResult DownloadFile(string fileName)
         {
             byte[] fileData = System.IO.File.ReadAllBytes(fileName);
@@ -801,8 +872,6 @@ namespace Trialmanager.Controllers
                     Started = model.Started,
                     TrialId = model.TrialId
                 };
-                db.TrialStartedModels.Add(newTrialStart);
-                db.SaveChanges();
             }
 
             return RedirectToAction("DisplayProgress", new { Id = model.TrialId });
@@ -895,7 +964,7 @@ namespace Trialmanager.Controllers
 
             var reminders = (from r in db.TrialRemindersModels
                              where r.TrialId == id
-                             select r).ToList();
+                             select r).Distinct().OrderByDescending(d => d.DueDate).ToList();
             ViewBag.reminders = reminders.Count > 0 ? reminders : null;
 
             var changedRecords = (from c in db.TrialRecordsModels
@@ -915,10 +984,10 @@ namespace Trialmanager.Controllers
 
             ViewBag.User = User.Identity.Name;
             ViewBag.Id = id;
-            ViewBag.DiseaseTherapyAreaId = new SelectList(db.DiseaseTherapyAreaModels, "Id", "DiseaseTherapyAreaName", trialFeasibilityModels.DiseaseTherapyAreaId);
-            ViewBag.GrantTypeId = new SelectList(db.GrantTypeModels, "Id", "GrantTypeName", trialFeasibilityModels.GrantTypeId);
-            ViewBag.PhaseId = new SelectList(db.PhaseModels, "Id", "PhaseName", trialFeasibilityModels.PhaseId);
-            ViewBag.TrialTypeId = new SelectList(db.TrialTypeModels, "Id", "TrialTypeName", trialFeasibilityModels.TrialTypeId);
+            ViewBag.DiseaseTherapyAreaId = new SelectList(db.DiseaseTherapyAreaModels.Where(t => t.Deleted == null), "Id", "DiseaseTherapyAreaName", trialFeasibilityModels.DiseaseTherapyAreaId);
+            ViewBag.GrantTypeId = new SelectList(db.GrantTypeModels.Where(t => t.Deleted == null), "Id", "GrantTypeName", trialFeasibilityModels.GrantTypeId);
+            ViewBag.PhaseId = new SelectList(db.PhaseModels.Where(t => t.Deleted == null), "Id", "PhaseName", trialFeasibilityModels.PhaseId);
+            ViewBag.TrialTypeId = new SelectList(db.TrialTypeModels.Where(t => t.Deleted == null), "Id", "TrialTypeName", trialFeasibilityModels.TrialTypeId);
 
             ViewBag.Contacts = db.ContactsModels;
             ViewBag.Roles = db.RolesModels;
@@ -952,21 +1021,32 @@ namespace Trialmanager.Controllers
         }
 
         [HttpPost]
-        public ActionResult ChangeReminderStatus(TrialRemindersModels model)
+        public ActionResult ChangeReminderStatus(DeleteReminderViewModels model)
         {
             var remStat = db.TrialRemindersModels.Find(model.Id);
             if (remStat == null) return RedirectToAction("Edit", new {id = model.TrialId});
-            remStat.Checked = !remStat.Checked;
-            db.Entry(remStat).State = EntityState.Modified;
-            db.SaveChanges();
-            return RedirectToAction("ShowReminderStatus");
+            if (model.Delete)
+            {
+                db.TrialRemindersModels.Remove(remStat);
+            }
+            else
+            {
+                remStat.Checked = !remStat.Checked;
+                db.Entry(remStat).State = EntityState.Modified;
+            }
             
+            db.SaveChanges();
+            return RedirectToAction("ShowReminderStatus", new {model.TrialId});
         }
 
         
-        public ActionResult ShowReminderStatus()
+        public ActionResult ShowReminderStatus(DeleteReminderViewModels model)
         {
-            return PartialView("ShowReminderStatusView");
+            var reminders = (from r in db.TrialRemindersModels
+                             where r.TrialId == model.TrialId
+                             select r).Distinct().OrderBy(d => d.DueDate).ToList();
+            ViewBag.reminders = reminders.Count > 0 ? reminders : null;
+            return PartialView("_ListReminders");
         }
 
         // POST: TrialFeasibility/Delete/5

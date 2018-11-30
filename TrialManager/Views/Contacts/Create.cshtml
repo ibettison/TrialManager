@@ -1,13 +1,11 @@
 ﻿@model Trialmanager.Models.ContactsModels
 
-<!DOCTYPE html>
+@{
+    ViewBag.Title = "Create";
+    ViewBag.Small = "Contact";
+    ViewBag.link = "DashBoard";
+}
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Create</title>
-</head>
-<body>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -27,112 +25,97 @@
             <div class="col-md-6">
                 <div class="box box-solid box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Add a New Trial</h3>
+                        <h3 class="box-title">New Contact</h3>
                         <div class="box-tools pull-right">
                             <!-- Buttons, labels, and many other things can be placed here! -->
                             <!-- Here is a label for example -->
-                            <span class="label label-default">Creating New Trial...</span>
+                            <span class="label label-default">Creating...</span>
                         </div>
                         <!-- /.box-tools -->
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        @using (Html.BeginForm()) 
+                        @using (Html.BeginForm())
                         {
                             @Html.AntiForgeryToken()
-        
+
                             <div class="form-horizontal">
                                 <h4>Contacts</h4>
-                                Search for User
+
+                                @Html.ValidationSummary(true, "", new {@class = "text-danger"})
                                 <div class="form-group">
-                                    @Html.Label("Name of user", new { @class = "col-md-12" })
+                                    @Html.LabelFor(model => model.ContactName, htmlAttributes: new {@class = "col-md-12"})
                                     <div class="col-md-12">
-                                        @Html.Editor("UserName", new { @class = "form-control", PlaceHolder = "Enter User to search for <first name> <last name>"  })
+                                        @Html.EditorFor(model => model.ContactName, new {htmlAttributes = new {@class = "form-control"}})
+                                        @Html.ValidationMessageFor(model => model.ContactName, "", new {@class = "text-danger"})
                                     </div>
                                 </div>
-                                <button class="btn btn-block" id="search">Search for User</button>
-                                <hr />
-                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.ContactName, htmlAttributes: new { @class = "col-md-12" })
+                                    @Html.LabelFor(model => model.UserId, htmlAttributes: new {@class = "col-md-12"})
                                     <div class="col-md-12">
-                                        @Html.EditorFor(model => model.ContactName, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.ContactName, "", new { @class = "text-danger" })
+                                        @Html.EditorFor(model => model.UserId, new {htmlAttributes = new {@class = "form-control"}})
+                                        @Html.ValidationMessageFor(model => model.UserId, "", new {@class = "text-danger"})
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "col-md-12" })
+                                    @Html.LabelFor(model => model.Organisation, htmlAttributes: new {@class = "col-md-12"})
                                     <div class="col-md-12">
-                                        @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+                                        @Html.EditorFor(model => model.Organisation, new {htmlAttributes = new {@class = "form-control"}})
+                                        @Html.ValidationMessageFor(model => model.Organisation, "", new {@class = "text-danger"})
                                     </div>
                                 </div>
-    
+
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.Organisation, htmlAttributes: new { @class = "col-md-12" })
+                                    @Html.LabelFor(model => model.Telephone, htmlAttributes: new {@class = "col-md-12"})
                                     <div class="col-md-12">
-                                        @Html.EditorFor(model => model.Organisation, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.Organisation, "", new { @class = "text-danger" })
+                                        @Html.EditorFor(model => model.Telephone, new {htmlAttributes = new {@class = "form-control"}})
+                                        @Html.ValidationMessageFor(model => model.Telephone, "", new {@class = "text-danger"})
                                     </div>
                                 </div>
-    
+
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.Telephone, htmlAttributes: new { @class = "col-md-12" })
+                                    @Html.LabelFor(model => model.Email, htmlAttributes: new {@class = "col-md-12"})
                                     <div class="col-md-12">
-                                        @Html.EditorFor(model => model.Telephone, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger" })
+                                        @Html.EditorFor(model => model.Email, new {htmlAttributes = new {@class = "form-control"}})
+                                        @Html.ValidationMessageFor(model => model.Email, "", new {@class = "text-danger"})
                                     </div>
                                 </div>
-    
+
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "col-md-12" })
+                                    @Html.LabelFor(model => model.ContactStatusId, "ContactStatusId", htmlAttributes: new {@class = "col-md-12"})
                                     <div class="col-md-12">
-                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                        @Html.DropDownList("ContactStatusId", null, htmlAttributes: new {@class = "form-control"})
+                                        @Html.ValidationMessageFor(model => model.ContactStatusId, "", new {@class = "text-danger"})
                                     </div>
                                 </div>
-    
+
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.ContactStatusId, "ContactStatusId", htmlAttributes: new { @class = "col-md-12" })
+                                    @Html.LabelFor(model => model.ContactNotes, htmlAttributes: new {@class = "col-md-12"})
                                     <div class="col-md-12">
-                                        @Html.DropDownList("ContactStatusId", null, htmlAttributes: new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.ContactStatusId, "", new { @class = "text-danger" })
+                                        @Html.TextAreaFor(model => model.ContactNotes, new {@class = "form-control", @Rows = 4, PlaceHolder = "Full Trial title"})
+                                        @Html.ValidationMessageFor(model => model.ContactNotes, "", new {@class = "text-danger"})
                                     </div>
                                 </div>
-    
+
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.ContactNotes, htmlAttributes: new { @class = "col-md-12" })
                                     <div class="col-md-12">
-                                        @Html.TextAreaFor(model => model.ContactNotes, new { @class = "textarea form-control", @Rows = 4, PlaceHolder = "Full Trial title" })
-                                        @Html.ValidationMessageFor(model => model.ContactNotes, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-    
-                                <div class="form-group">
-                                    <div class="col-md-offset-2 col-md-10">
-                                        <input type="submit" value="Create" class="btn btn-default" />
+                                        <input type="submit" value="Create" class="btn btn-default btn-block" />
                                     </div>
                                 </div>
                             </div>
                         }
-    
+
                         <div>
                             @Html.ActionLink("Back to List", "Index")
                         </div>
                     </div>
                     <!-- /.box-body -->
-                    <div class="box-footer">
-                        <!--Use this to keep the data last typed in a cookie so that it can be saved properly later-->
-                        <p>Save what you have typed in a cookie if you are distracted!</p>
-                        <a class="btn btn-app"><i class="fa fa-save"></i>Keep</a> <a class="btn btn-app"><i class="fa fa-exclamation"></i>Clear</a> <a class="btn btn-app"><i class="fa fa-close"></i>Delete</a>
-                    </div>
-                    <!-- box-footer -->
                 </div>
                 <!-- /.box -->
             </div>
         </div>
     </section>
 </div>
-</body>
-</html>
+

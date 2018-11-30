@@ -27,16 +27,17 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="/TrialFeasibility/Create"><i class="fa fa-plus"></i><span>Start Trial</span></a></li>
+                    <li><a href="/TrialFeasibility/Create"><i class="fa fa-files-o"></i><span>New Trial</span></a></li>
                     <li class="treeview">
                         <a href="#">
-                            <i class="fa fa-group"></i> <span>Types</span>
+                            <i class="fa fa-object-ungroup"></i> <span>Types</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
                         <ul class="treeview-menu">
                             <li><a href="/TrialType/"><i class="fa fa-plus"></i><span>Trial</span></a></li>
+                            <li><a href="/TrialLocation/"><i class="fa fa-plus"></i><span>Location</span></a></li>
                             <li><a href="/Phase/"><i class="fa fa-plus"></i><span>Phase</span></a></li>
                             <li><a href="/GrantType/"><i class="fa fa-plus"></i><span>Grant</span></a></li>
                             <li><a href="/DiseaseTherapyArea/"><i class="fa fa-plus"></i><span>Disease/Therapy Area</span></a></li>
@@ -54,9 +55,65 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="/Contacts/"><i class="fa fa-plus"></i><span>Add/edit a New Contact</span></a></li>
-                    <li><a href="/Roles/"><i class="fa fa-plus"></i><span>Add Contact role</span></a></li>
-                    <li><a href="/ContactStatus/"><i class="fa fa-plus"></i><span>Add Contact status</span></a></li>
+                    <li><a href="/Contacts/"><i class="fa fa-user-plus"></i><span>Add/edit a Contact</span></a></li>
+                    <li><a href="/Roles/"><i class="fa fa-street-view"></i><span>Add Contact role</span></a></li>
+                    <li><a href="/ContactStatus/"><i class="fa fa-tasks"></i><span>Add Contact status</span></a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    @if (ViewBag.PassportOver  > 0)
+                    {
+                        <i class="fa fa-user"></i> <span class="text-danger">Staff Passport</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    }
+                    else
+                    {
+                        if (ViewBag.PassportNearly > 0)
+                        {
+                            <i class="fa fa-user"></i> <span class="text-success">Staff Passport</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        }
+                        else
+                        {
+                            <i class="fa fa-user"></i> <span>Staff Passport</span>
+                            <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        }
+                    }
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/StaffPassport/"><i class="fa fa-search"></i><span>Passport Overview</span>
+                        <span class="pull-right-container">
+                    @if (ViewBag.PassportNearly > 0)
+                    {
+                        <small class="label pull-right bg-green">@ViewBag.PassportNearly</small>
+                    }
+                    @if (ViewBag.PassportOver > 0)
+                    {
+                        <small class="label pull-right bg-red">@ViewBag.PassportOver</small>
+
+                    }
+                    </span>
+                    </a></li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-object-ungroup"></i> <span>Types</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="/AccessTypes/"><i class="fa fa-plus"></i><span>Access Types</span></a></li>
+                            <li><a href="/ContractTypes/"><i class="fa fa-plus"></i><span>Contract types</span></a></li>
+                        </ul>
+                    </li>
+
                 </ul>
             </li>
             <li class="treeview">
@@ -78,9 +135,9 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="/TrialGroup/">Create New Trial Group</a></li>
-                    <li><a href="/ContactTrialGroup/">Add User to Trial Group</a></li>
-                    <li><a href="/TrialGroupTrial/">Add Trial to Trial Group</a></li>
+                    <li><a href="/TrialGroup/"><i class="fa fa-edit"></i><span>Create New Trial Group</span></a></li>
+                    <li><a href="/ContactTrialGroup/"><i class="fa fa-user-plus"></i><span>Add User to Trial Group</span></a></li>
+                    <li><a href="/TrialGroupTrial/"><i class="fa fa-object-ungroup"></i><span>Add Trial to Trial Group</span></a></li>
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-trash-o"></i> <span>Delete</span>
@@ -89,18 +146,64 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="#"><i class="fa fa-plus"></i><span>Delete Contacts</span></a></li>
-                            <li><a href="#"><i class="fa fa-plus"></i><span>Delete Roles</span></a></li>
-                            <li><a href="#"><i class="fa fa-plus"></i><span>Delete Documents</span></a></li>
+                            <li><a href="#"><i class="fa fa-minus"></i><span>Delete Contacts</span></a></li>
+                            <li><a href="#"><i class="fa fa-minus"></i><span>Delete Roles</span></a></li>
+                            <li><a href="#"><i class="fa fa-minus"></i><span>Delete Documents</span></a></li>
                         </ul>
                     </li>
                 </ul>
 
             </li>
-            
+            <li class="treeview">
+                <a href="#modal-info" data-toggle="modal">
+                    <i class="fa fa-info-circle"></i> <span>About</span>
+                </a>
+           </li>
         </ul>
         <!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->
 </aside>
 
+<div class="modal modal-default fade" id="modal-info">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h3 class="modal-title text-blue">Trial Manager Database Information</h3>
+            </div>
+            <div class="modal-body">
+                
+                <p>Written for the MitoChondrial Team by: <a href="mailto:ian.bettison@ncl.ac.uk" title="Ian Bettison - telephone - x81377">Ian Bettison</a></p>
+                <p>TrialManager is an application that allows for the efficient management of Clinical trials. It provides the means to record 
+                    trial infomation/ upload Documents/Manage Contacts/set reminders and captureimportant dates to enable the easy reporting of events within the Trial. </p>
+                <p>Easy access controls allow for the easy management of user acess to the Trials they are involved with, providing Edit access to the Trial Managers and View access to others that need to see the Trial Information.</p>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4 class="text-blue"><b>Contact details</b></h4>
+
+                        <p class="text-info">4th Floor Cookson Building</p>
+                        <p class="text-info">Medical School</p>
+                        <p class="text-info">Framlington Place</p>
+                        <p class="text-info">Newcastle upon Tyne</p>
+                        <p class="text-info">NE2 4HH</p>
+                        <p class="text-info">Telephone : 0191 208 3084</p>
+                        <p style="Line-height: 32px;"><a href="https://twitter.com/Mitoresearch"><i class="fa fa-twitter fa-3x"></i></a> <a href="https://www.facebook.com/mitoresearch"><i class="fa fa-facebook-official fa-3x"></i></a> <a href="https://www.youtube.com/user/mitoresearchgroup/featured"><i class="fa fa-youtube-square fa-3x"></i></a></p>
+                    </div>
+                    <div class="col-md-8">
+                        <img src="~/Content/Research_microscope.jpg" style="height: auto; width: 100%;"/>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <p>Version 1.0</p>Copyright &copy @DateTime.Now.Year - <a href="http://www.ncl.ac.uk">Newcastle University</a>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

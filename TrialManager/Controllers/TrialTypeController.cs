@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -18,24 +19,10 @@ namespace Trialmanager.Controllers
         // GET: TrialType
         public ActionResult Index()
         {
-            return View(db.TrialTypeModels.ToList());
+            return View(db.TrialTypeModels.Where(t => t.Deleted == null).ToList());
         }
 
-        // GET: TrialType/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            TrialTypeModels trialTypeModels = db.TrialTypeModels.Find(id);
-            if (trialTypeModels == null)
-            {
-                return HttpNotFound();
-            }
-            return View(trialTypeModels);
-        }
-
+       
         // GET: TrialType/Create
         public ActionResult Create()
         {
@@ -90,28 +77,14 @@ namespace Trialmanager.Controllers
             return View(trialTypeModels);
         }
 
-        // GET: TrialType/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            TrialTypeModels trialTypeModels = db.TrialTypeModels.Find(id);
-            if (trialTypeModels == null)
-            {
-                return HttpNotFound();
-            }
-            return View(trialTypeModels);
-        }
-
         // POST: TrialType/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost]
+        public ActionResult DeleteType(TrialTypeModels model)
         {
+            var id = model.Id;
             TrialTypeModels trialTypeModels = db.TrialTypeModels.Find(id);
-            db.TrialTypeModels.Remove(trialTypeModels);
+            trialTypeModels.Deleted = DateTime.Now;
+            db.TrialTypeModels.AddOrUpdate(trialTypeModels);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

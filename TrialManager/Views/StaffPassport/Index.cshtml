@@ -1,0 +1,129 @@
+﻿@using TrialManager.Models
+@model IEnumerable<StaffPassportViewModels>
+
+@{
+    ViewBag.Title = "Staff Passport";
+    ViewBag.Small = "List";
+    ViewBag.link = "Dashboard";
+    ViewBag.Today = DateTime.Today;
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            @ViewBag.Title
+            <small>@ViewBag.Small</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/Home/Index"><i class="fa fa-dashboard"></i>@ViewBag.link</a></li>
+            <li class="active">@ViewBag.Title</li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="box box-solid box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Passport List</h3>
+                        <div class="box-tools pull-right">
+                            <!-- Buttons, labels, and many other things can be placed here! -->
+                            <!-- Here is a label for example -->
+                            <span class="label label-default">Creating New Trial...</span>
+                        </div>
+                        <!-- /.box-tools -->
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <h2>Staff Passport List</h2>
+
+                        <p>
+                            @Html.ActionLink("Create New", "Create")
+                        </p>
+                        <table id="passport" class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ResearchPassportRenewal)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ContactName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TypeofAccess)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AccessExpiryDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ContractType)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ContractEndDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ResearchPassportExpiry)
+                                </th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        
+                                            @if (item.Renewal90 == 1)
+                                            {
+                                                <td class="text-green">
+                                                    @Html.DisplayFor(modelItem => item.ResearchPassportRenewal)
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                if (item.Renewal180 == 1)
+                                                {
+                                                    <td class="text-red">@Html.DisplayFor(modelItem => item.ResearchPassportRenewal)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>@Html.DisplayFor(modelItem => item.ResearchPassportRenewal)</td>
+                                                }
+
+                                            }
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ContactName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TypeofAccess)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.AccessExpiryDate)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ContractType)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ContractEndDate)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ResearchPassportExpiry)
+                                        </td>
+                                        <td>
+                                            <a href="/StaffPassport/Edit/@item.Id"><i class="fa fa-edit"></i></a> |
+                                            <a href="/StaffPassport/Delete/@item.Id"><i class="fa fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+    </section>
+</div>

@@ -56,37 +56,36 @@
                             </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in Model)
-                                {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.ContactStatusName.ContactStatusName)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.ContactName)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.UserId)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Organisation)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Telephone)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Email)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.ContactNotes)
-                                        </td>
-                                        <td>
-                                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                                            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                                        </td>
-                                    </tr>
-                                }
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ContactStatusName.ContactStatusName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ContactName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UserId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Organisation)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Telephone)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ContactNotes)
+                                    </td>
+                                    <td>
+                                        <a href="/Contacts/Edit/@item.Id"><i class="fa fa-edit"></i></a> |
+                                        <a href="#"><i id="@item.Id" class="fa fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                            }
                             </tbody>
                         </table>
                     </div>
@@ -97,9 +96,58 @@
         </div>
     </section>
 </div>
+<div class="modal modal-danger fade" id="modal-Contact">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">Confirm Deletion</h4>
+            </div>
+            <div class="modal-body">
+                <p>Do you wish to completely remove this Contact?</p>
+                <p>Note - this will remove the contact from all of the Trials.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-outline" id="ContactDelete" data-dismiss="modal">Confirm Delete</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
 @section scripts
 {
-    <script>
+<script>
     $('#con').DataTable();
-    </script>
+
+    var RemPostData = 0;
+
+    $(".fa-trash").click(function() {
+        RemPostData = $(this).attr('id');
+        $('#modal-Contact').modal('toggle');
+    });
+
+    $('#modal-Contact').on('hide.bs.modal',
+        function(e) {
+            var clickedId = $(document.activeElement);
+            if (clickedId.attr('id') === 'ContactDelete') {
+                var postData = {
+                    Id: RemPostData
+                };
+                $.ajax({
+                    url: '/Contacts/DeleteContact',
+                    type: 'POST',
+                    data: postData,
+                    success: function(data) {
+                        location.reload();
+                    }
+                });
+            }
+        });
+</script>
 }
+

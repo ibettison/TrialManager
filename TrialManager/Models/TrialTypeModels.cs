@@ -11,6 +11,7 @@ namespace Trialmanager.Models
         [Key]
         public int Id { get; set; }
         public string TrialTypeName { get; set; }
+        public DateTime? Deleted { get; set; }
     }
 
 }

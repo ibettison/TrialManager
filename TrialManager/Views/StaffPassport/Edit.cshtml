@@ -1,0 +1,124 @@
+﻿@model Trialmanager.Models.StaffPassportModels
+
+@{
+    ViewBag.Title = "Edit";
+    ViewBag.Small = "Staff Passport";
+    ViewBag.link = "Dashboard";
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            @ViewBag.Title
+            <small>@ViewBag.Small</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/Home/Index"><i class="fa fa-dashboard"></i>@ViewBag.link</a></li>
+            <li class="active">@ViewBag.Title</li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box box-solid box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Edit Passport Record</h3>
+                        <div class="box-tools pull-right">
+                            <!-- Buttons, labels, and many other things can be placed here! -->
+                            <!-- Here is a label for example -->
+                            <span class="label label-default">Editing Staff Passport...</span>
+                        </div>
+                        <!-- /.box-tools -->
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <h2>Edit Passport</h2>
+
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+    
+                            <div class="form-horizontal">
+                                <h4>StaffPassportModels</h4>
+                                <hr />
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(model => model.Id)
+
+                                <div class="form-group">
+                                    @Html.Label("Staff Name", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.DropDownList("ContactId", null, htmlAttributes: new { @class = "form-control", id = "PassportSel" })
+                                        @Html.ValidationMessageFor(model => model.ContactId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label("Contract Type", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.DropDownList("ContractTypeId", null, htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.ContractTypeId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ContractEndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.ContractEndDate, new { htmlAttributes = new { @class = "form-control datepicker", autocomplete = "off" } })
+                                        @Html.ValidationMessageFor(model => model.ContractEndDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ResearchPassportExpiry, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.ResearchPassportExpiry, new { htmlAttributes = new { @class = "form-control datepicker", autocomplete = "off" } })
+                                        @Html.ValidationMessageFor(model => model.ResearchPassportExpiry, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ResearchPassportRenewal, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.ResearchPassportRenewal, new { htmlAttributes = new { @class = "form-control datepicker", autocomplete = "off" } })
+                                        @Html.ValidationMessageFor(model => model.ResearchPassportRenewal, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label("Access Type", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.DropDownList("TypeofAccessId", null, htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.TypeofAccessId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.AccessExpiryDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.AccessExpiryDate, new { htmlAttributes = new { @class = "form-control datepicker", autocomplete = "off" } })
+                                        @Html.ValidationMessageFor(model => model.AccessExpiryDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Save" class="btn btn-default" />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <div>
+                            @Html.ActionLink("Back to List", "Index")
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+    </section>
+</div>

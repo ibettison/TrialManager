@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -10,6 +11,9 @@ namespace Trialmanager.Models
     {
         [Key]
         public int Id { get; set; }
+        [DisplayName("Contract Type")]
         public string ContractTypeName { get; set; }
+
+        public DateTime? Deleted { get; set; }
     }
 }

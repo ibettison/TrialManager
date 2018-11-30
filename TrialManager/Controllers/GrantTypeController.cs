@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -18,24 +19,10 @@ namespace Trialmanager.Controllers
         // GET: GrantType
         public ActionResult Index()
         {
-            return View(db.GrantTypeModels.ToList());
+            return View(db.GrantTypeModels.Where(g => g.Deleted == null).ToList());
         }
 
-        // GET: GrantType/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            GrantTypeModels grantTypeModels = db.GrantTypeModels.Find(id);
-            if (grantTypeModels == null)
-            {
-                return HttpNotFound();
-            }
-            return View(grantTypeModels);
-        }
-
+        
         // GET: GrantType/Create
         public ActionResult Create()
         {
@@ -89,29 +76,15 @@ namespace Trialmanager.Controllers
             }
             return View(grantTypeModels);
         }
-
-        // GET: GrantType/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            GrantTypeModels grantTypeModels = db.GrantTypeModels.Find(id);
-            if (grantTypeModels == null)
-            {
-                return HttpNotFound();
-            }
-            return View(grantTypeModels);
-        }
-
+        
         // POST: GrantType/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost]
+        public ActionResult DeleteGrant(GrantTypeModels model)
         {
+            var id = model.Id;
             GrantTypeModels grantTypeModels = db.GrantTypeModels.Find(id);
-            db.GrantTypeModels.Remove(grantTypeModels);
+            grantTypeModels.Deleted = DateTime.Now;
+            db.GrantTypeModels.AddOrUpdate(grantTypeModels);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

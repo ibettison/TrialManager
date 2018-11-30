@@ -7,13 +7,13 @@ namespace TrialManager.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class changeDatesTobeBlank : IMigrationMetadata
+    public sealed partial class ToNTRFWeb1 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(changeDatesTobeBlank));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ToNTRFWeb1));
         
         string IMigrationMetadata.Id
         {
-            get { return "201811011657420_changeDatesTobeBlank"; }
+            get { return "201811291415461_ToNTRF-Web1"; }
         }
         
         string IMigrationMetadata.Source

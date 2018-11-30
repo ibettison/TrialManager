@@ -49,7 +49,7 @@ namespace Trialmanager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,DateTime,WhoChanged,OriginalValue,NewValue,FieldName,ReasonForChange,TrialId")] TrialRecordsModels trialRecordsModels)
+        public ActionResult Create([Bind(Include = "Id,DateChanged,WhoChanged,OriginalValue,NewValue,FieldName,ReasonForChange,TrialId")] TrialRecordsModels trialRecordsModels)
         {
             if (ModelState.IsValid)
             {
@@ -83,7 +83,7 @@ namespace Trialmanager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,DateTime,WhoChanged,OriginalValue,NewValue,FieldName,ReasonForChange,TrialId")] TrialRecordsModels trialRecordsModels)
+        public ActionResult Edit([Bind(Include = "Id,DateChanged,WhoChanged,OriginalValue,NewValue,FieldName,ReasonForChange,TrialId")] TrialRecordsModels trialRecordsModels)
         {
             if (ModelState.IsValid)
             {

@@ -14,6 +14,7 @@ namespace TrialManager.Models
         [Key]
         public int Id { get; set; }
         public int TrialId { get; set; }
+        [DisplayName("Trial Status")]
         public int StatusId { get; set; }
         [DisplayName("Target FPFV")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]

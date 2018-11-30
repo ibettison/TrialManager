@@ -14,7 +14,7 @@ namespace Trialmanager.Models
         public int Id { get; set; }
 
         [DisplayName("Date of Change")]
-        public DateTime DateTime { get; set; }
+        public DateTime DateChanged { get; set; }
 
         [DisplayName("Who made the change")]
         public string WhoChanged { get; set; }

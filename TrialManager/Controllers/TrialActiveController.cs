@@ -4,8 +4,10 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 using TrialManager.Models;
 using Trialmanager.Models;
 
@@ -92,7 +94,7 @@ namespace TrialManager.Controllers
             {
                 db.Entry(trialActiveModels).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+               return RedirectToAction("Index");
             }
             ViewBag.TrialId = new SelectList(db.TrialFeasibilityModels, "Id", "ShortName", trialActiveModels.TrialId);
             ViewBag.StatusId = new SelectList(db.ActiveStatusModels, "Id", "StatusName", trialActiveModels.StatusId);

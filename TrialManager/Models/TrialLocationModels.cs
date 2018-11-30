@@ -14,5 +14,7 @@ namespace Trialmanager.Models
 
         [DisplayName("Trial Location")]
         public string Location { get; set; }
+
+        public DateTime? Deleted { get; set; }
     }
 }

@@ -8,9 +8,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Trialmanager.Models;
+using TrialManager.Models;
 
 namespace Trialmanager.Controllers
 {
+    [Authorize(Roles = "NTRF_AUTO_MC_TrialManager_Administrators, NTRF_AUTO_MC_TrialManager_Editors")]
     public class ContactsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -20,21 +22,6 @@ namespace Trialmanager.Controllers
         {
             var contactsModels = db.ContactsModels.Include(c => c.ContactStatusName);
             return View(contactsModels.ToList());
-        }
-
-        // GET: Contacts/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ContactsModels contactsModels = db.ContactsModels.Find(id);
-            if (contactsModels == null)
-            {
-                return HttpNotFound();
-            }
-            return View(contactsModels);
         }
 
         // GET: Contacts/Create
@@ -52,6 +39,30 @@ namespace Trialmanager.Controllers
         [ValidateInput(false)]
         public ActionResult Create([Bind(Include = "Id,ContactName,UserId,Organisation,Telephone,Email,ContactStatusId,ContactNotes")] ContactsModels contactsModels)
         {
+            if (contactsModels.UserId == null)
+            {
+                //lets try to find the userId from the UserName
+                string userName = contactsModels.ContactName;
+                string email = contactsModels.Email.ToLower();
+                email = email.Replace("ncl", "newcastle");
+                using (PrincipalContext ctx = new PrincipalContext(ContextType.Domain, "campus.ncl.ac.uk"))
+                {
+                    PrincipalSearcher search = new PrincipalSearcher();
+                    UserPrincipal user = new UserPrincipal(ctx);
+                    user.Enabled = true;
+                    user.DisplayName = userName;
+                    user.EmailAddress = email;
+                    search.QueryFilter = user;
+                    PrincipalSearchResult<Principal> results = search.FindAll();
+
+                    if(results.Count() == 1)
+                    {
+                        //have definitely found the user and can now save the users ID
+                        contactsModels.UserId = results.FirstOrDefault().SamAccountName;
+                    }
+                }
+            }
+
             if (ModelState.IsValid)
             {
                 db.ContactsModels.Add(contactsModels);
@@ -59,7 +70,7 @@ namespace Trialmanager.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ContactStatusId = new SelectList(db.ContactStatusModels, "Id", "ContactStatusName", contactsModels.ContactStatusId);
+            ViewBag.ContactStatusId = new SelectList(db.ContactStatusModels.Where(s => s.Deleted == null), "Id", "ContactStatusName", contactsModels.ContactStatusId);
             return View(contactsModels);
         }
 
@@ -75,7 +86,7 @@ namespace Trialmanager.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ContactStatusId = new SelectList(db.ContactStatusModels, "Id", "ContactStatusName", contactsModels.ContactStatusId);
+            ViewBag.ContactStatusId = new SelectList(db.ContactStatusModels.Where(s => s.Deleted == null), "Id", "ContactStatusName", contactsModels.ContactStatusId);
             return View(contactsModels);
         }
 
@@ -93,44 +104,12 @@ namespace Trialmanager.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ContactStatusId = new SelectList(db.ContactStatusModels, "Id", "ContactStatusName", contactsModels.ContactStatusId);
+            ViewBag.ContactStatusId = new SelectList(db.ContactStatusModels.Where(s => s.Deleted == null), "Id", "ContactStatusName", contactsModels.ContactStatusId);
             return View(contactsModels);
         }
 
-
-        public List<string> GetUserFromAD(string name) //Get Network Users (AD)
-        {
-            //ArrayList searchUser = new ArrayList();
-            var domainContext = new PrincipalContext(ContextType.Domain);
-            var groupPrincipal = GroupPrincipal.FindByIdentity(domainContext, IdentityType.SamAccountName, "Domain Users");
-            UserPrincipal user = new UserPrincipal(domainContext);
-            user.Enabled = true;
-            user.Name = name + "*";
-
-            PrincipalSearcher pS = new PrincipalSearcher();
-            pS.QueryFilter = user;
-
-            PrincipalSearchResult<Principal> results = pS.FindAll();
-            var list = new List<string>();
-
-            
-            //searchUser.Add(results);
-            foreach (var item in results)
-            {
-                var users = new List<string>();
-                //users.UserLoginName = item.SamAccountName;
-                //users.UserDisplayName = item.DisplayName;
-                //list.Add(users);
-                //searchUser.Add(users);
-            }
-
-            return list;
-
-        }
-
-
-    // GET: Contacts/Delete/5
-    public ActionResult Delete(int? id)
+        // GET: Contacts/Delete/5
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -150,6 +129,38 @@ namespace Trialmanager.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             ContactsModels contactsModels = db.ContactsModels.Find(id);
+            db.ContactsModels.Remove(contactsModels);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult DeleteContact(ContactsModels model)
+        {
+            // if deleting a contact then we need to remove it also from
+            // TrialContactsModels
+            // and ContactTrialGroupModels
+            // Thus removing the contact from all trials but also from
+            // the access table for all trials.
+            var trialContactsModels = (from tc in db.TrialContactsModels
+                where tc.ContactId == model.Id
+                select tc).ToList();
+
+            foreach (var tcm in trialContactsModels)
+            {
+                db.TrialContactsModels.Remove(tcm);
+            }
+
+            var contactTrialGroupModels = (from c in db.ContactTrialGroupModels
+                where c.ContactId == model.Id
+                select c).ToList();
+
+            foreach (var ctg in contactTrialGroupModels)
+            {
+                db.ContactTrialGroupModels.Remove(ctg);
+            }
+
+            ContactsModels contactsModels = db.ContactsModels.Find(model.Id);
             db.ContactsModels.Remove(contactsModels);
             db.SaveChanges();
             return RedirectToAction("Index");

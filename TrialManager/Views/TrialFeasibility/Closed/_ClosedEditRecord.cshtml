@@ -1,18 +1,17 @@
 ﻿@model TrialManager.Models.TrialCloseDownModels
 
 @{
-    ViewBag.Title = "LateDevEditRecord";
+    ViewBag.Title = "LateDev EditRecord";
+    ViewBag.ShortName = Model.ShortName.ShortName;
 }
-
-<h2>Late Development</h2>
 
 <div class="box box-solid box-primary">
     <div class="box-header with-border">
-        <h3 class="box-title">Edit Late Development</h3>
+        <h3 class="box-title">Edit In close Down</h3>
         <div class="box-tools pull-right">
             <!-- Buttons, labels, and many other things can be placed here! -->
             <!-- Here is a label for example -->
-            <span class="label label-default">Editing Late Development...</span>
+            <span class="label label-default">Editing In Close Down...</span>
         </div>
         <!-- /.box-tools -->
     </div>
@@ -24,7 +23,7 @@
                 @Html.AntiForgeryToken()
 
                 <div class="form-horizontal">
-                    <h4>Active Studies</h4>
+                    <h4>In Close Down - <span class="text-blue">@ViewBag.ShortName</span></h4>
                     <hr />
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     @Html.HiddenFor(model => model.Id)
@@ -36,7 +35,7 @@
                         <div class="col-md-10">
                             <div class="input-group">
                                 @Html.EditorFor(model => model.ClinicalStudyReportDue, new { htmlAttributes = new { @class = "form-control datepicker", disabled = "disabled" } })
-                                <div class="input-group-addon active">
+                                <div class="input-group-addon closed">
                                     <a href="#">
                                         <i class="fa fa-edit"></i>
                                     </a>
@@ -54,7 +53,7 @@
                         <div class="col-md-10">
                             <div class="input-group">
                                 @Html.EditorFor(model => model.ClinicalStudyReportSubmitted, new { htmlAttributes = new { @class = "form-control datepicker", disabled = "disabled" } })
-                                <div class="input-group-addon active">
+                                <div class="input-group-addon closed">
                                     <a href="#">
                                         <i class="fa fa-edit"></i>
                                     </a>
@@ -73,7 +72,7 @@
                         <div class="col-md-10">
                             <div class="input-group">
                                 @Html.EditorFor(model => model.EudraCTUploadDue, new { htmlAttributes = new { @class = "form-control datepicker", disabled = "disabled" } })
-                                <div class="input-group-addon active">
+                                <div class="input-group-addon closed">
                                     <a href="#">
                                         <i class="fa fa-edit"></i>
                                     </a>
@@ -91,8 +90,8 @@
                         </div>
                         <div class="col-md-10">
                             <div class="input-group">
-                                @Html.EditorFor(model => model.EudraCTUpload, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
-                                <div class="input-group-addon active">
+                                @Html.EditorFor(model => model.EudraCTUpload, new { htmlAttributes = new { @class = "form-control datepicker", disabled = "disabled" } })
+                                <div class="input-group-addon closed">
                                     <a href="#">
                                         <i class="fa fa-edit"></i>
                                     </a>
@@ -111,7 +110,7 @@
                         <div class="col-md-10">
                             <div class="input-group">
                                 @Html.EditorFor(model => model.Archiving, new { htmlAttributes = new { @class = "form-control datepicker", disabled = "disabled" } })
-                                <div class="input-group-addon active">
+                                <div class="input-group-addon closed">
                                     <a href="#">
                                         <i class="fa fa-edit"></i>
                                     </a>
@@ -129,8 +128,8 @@
                         </div>
                         <div class="col-md-10">
                             <div class="input-group">
-                                @Html.EditorFor(model => model.ArchivingPeriod, new { htmlAttributes = new { @class = "form-control datepicker", disabled = "disabled" } })
-                                <div class="input-group-addon active">
+                                @Html.EditorFor(model => model.ArchivingPeriod, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                <div class="input-group-addon closed">
                                     <a href="#">
                                         <i class="fa fa-edit"></i>
                                     </a>
@@ -148,7 +147,7 @@
                         <div class="col-md-10">
                             <div class="input-group">
                                 @Html.EditorFor(model => model.Destruction, new { htmlAttributes = new { @class = "form-control datepicker", disabled = "disabled" } })
-                                <div class="input-group-addon active">
+                                <div class="input-group-addon closed">
                                     <a href="#">
                                         <i class="fa fa-edit"></i>
                                     </a>

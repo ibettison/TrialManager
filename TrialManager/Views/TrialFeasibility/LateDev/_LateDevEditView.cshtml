@@ -2,17 +2,16 @@
 
 @{
     ViewBag.Title = "Active Record";
+    ViewBag.ShortName = Model.ShortName.ShortName;
 }
-
-<h2>Late Development</h2>
 
 <div class="box box-solid box-primary">
     <div class="box-header with-border">
-        <h3 class="box-title">Edit Active Record</h3>
+        <h3 class="box-title">View Late Development Record</h3>
         <div class="box-tools pull-right">
             <!-- Buttons, labels, and many other things can be placed here! -->
             <!-- Here is a label for example -->
-            <span class="label label-default">Editing Active...</span>
+            <span class="label label-default">View Late...</span>
         </div>
         <!-- /.box-tools -->
     </div>
@@ -24,9 +23,9 @@
                 @Html.AntiForgeryToken()
     
                 <div class="form-horizontal">
-                    <h4>TrialLateDevelopmentModels</h4>
-                    <hr />
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <h4>Late Development - <span class="text-blue">@ViewBag.ShortName</span></h4>
+                    <hr/>
+                    @Html.ValidationSummary(true, "", new {@class = "text-danger"})
                     @Html.HiddenFor(model => model.Id)
 
                     <div class="form-group">
@@ -35,16 +34,8 @@
                             @Html.LabelFor(model => model.ClinicalTrialsGovRef)
                         </div>
                         <div class="col-md-10">
-                            <div class="input-group">
-                                @Html.EditorFor(model => model.ClinicalTrialsGovRef, new { htmlAttributes = new { @class = "form-control", disabled="disabled" } })
-                                <div class="input-group-addon active">
-                                    <a href="#">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                </div>
-
-                                @Html.ValidationMessageFor(model => model.ClinicalTrialsGovRef, "", new { @class = "text-danger" })
-                            </div>
+                            @Html.EditorFor(model => model.ClinicalTrialsGovRef, new {htmlAttributes = new {@class = "form-control", disabled = "disabled"}})
+                            @Html.ValidationMessageFor(model => model.ClinicalTrialsGovRef, "", new {@class = "text-danger"})
                         </div>
                     </div>
 
@@ -54,16 +45,8 @@
                             @Html.LabelFor(model => model.LocalCC)
                         </div>
                         <div class="col-md-10">
-                            <div class="input-group">
-                                @Html.EditorFor(model => model.LocalCC, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
-                                <div class="input-group-addon lateDev">
-                                    <a href="#">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                </div>
-
-                                @Html.ValidationMessageFor(model => model.LocalCC, "", new { @class = "text-danger" })
-                            </div>
+                            @Html.EditorFor(model => model.LocalCC, new {htmlAttributes = new {@class = "form-control", disabled = "disabled"}})
+                            @Html.ValidationMessageFor(model => model.LocalCC, "", new {@class = "text-danger"})
                         </div>
                     </div>
 
@@ -73,16 +56,8 @@
                             @Html.LabelFor(model => model.SponsorGreenLight)
                         </div>
                         <div class="col-md-10">
-                            <div class="input-group">
-                                @Html.EditorFor(model => model.SponsorGreenLight, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
-                                <div class="input-group-addon lateDev">
-                                    <a href="#">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                </div>
-
-                                @Html.ValidationMessageFor(model => model.SponsorGreenLight, "", new { @class = "text-danger", disabled = "disabled" })
-                            </div>
+                            @Html.EditorFor(model => model.SponsorGreenLight, new {htmlAttributes = new {@class = "form-control", disabled = "disabled"}})
+                            @Html.ValidationMessageFor(model => model.SponsorGreenLight, "", new {@class = "text-danger", disabled = "disabled"})
                         </div>
                     </div>
 
@@ -92,35 +67,20 @@
                             @Html.LabelFor(model => model.SiteInitiationVisit)
                         </div>
                         <div class="col-md-10">
-                            <div class="input-group">
-                                @Html.EditorFor(model => model.SiteInitiationVisit, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
-                                <div class="input-group-addon lateDev">
-                                    <a href="#">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                </div>
-
-                                @Html.ValidationMessageFor(model => model.SiteInitiationVisit, "", new { @class = "text-danger" })
-                            </div>
+                            @Html.EditorFor(model => model.SiteInitiationVisit, new {htmlAttributes = new {@class = "form-control", disabled = "disabled"}})
+                            @Html.ValidationMessageFor(model => model.SiteInitiationVisit, "", new {@class = "text-danger"})
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
 
                         <div class="col-md-2">
                             @Html.LabelFor(model => model.LocalSiteActivationDate)
                         </div>
                         <div class="col-md-10">
-                            <div class="input-group">
-                                @Html.EditorFor(model => model.LocalSiteActivationDate, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
-                                <div class="input-group-addon lateDev">
-                                    <a href="#">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                </div>
+                            @Html.EditorFor(model => model.LocalSiteActivationDate, new {htmlAttributes = new {@class = "form-control", disabled = "disabled"}})
 
-                                @Html.ValidationMessageFor(model => model.LocalSiteActivationDate, "", new { @class = "text-danger" })
-                            </div>
+                            @Html.ValidationMessageFor(model => model.LocalSiteActivationDate, "", new {@class = "text-danger"})
                         </div>
                     </div>
                 </div>

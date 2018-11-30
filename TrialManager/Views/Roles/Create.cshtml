@@ -1,13 +1,12 @@
 ﻿@model Trialmanager.Models.RolesModels
 
-<!DOCTYPE html>
+@{
+    ViewBag.Title = "Create";
+    ViewBag.Small = "Role type";
+    ViewBag.link = "DashBoard";
+}
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Create</title>
-</head>
-<body>
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -27,11 +26,11 @@
             <div class="col-md-6">
                 <div class="box box-solid box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Add a New Trial</h3>
+                        <h3 class="box-title">Create Role Type</h3>
                         <div class="box-tools pull-right">
                             <!-- Buttons, labels, and many other things can be placed here! -->
                             <!-- Here is a label for example -->
-                            <span class="label label-default">Creating New Trial...</span>
+                            <span class="label label-default">Creating...</span>
                         </div>
                         <!-- /.box-tools -->
                     </div>
@@ -42,7 +41,6 @@
                             @Html.AntiForgeryToken()
         
                             <div class="form-horizontal">
-                                <h4>RolesModels</h4>
                                 <hr />
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                 <div class="form-group">
@@ -66,17 +64,9 @@
                         </div>
                     </div>
                     <!-- /.box-body -->
-                    <div class="box-footer">
-                        <!--Use this to keep the data last typed in a cookie so that it can be saved properly later-->
-                        <p>Save what you have typed in a cookie if you are distracted!</p>
-                        <a class="btn btn-app"><i class="fa fa-save"></i>Keep</a> <a class="btn btn-app"> <a class="btn btn-app"><i class="fa fa-close"></i>Delete</a>
-                    </div>
-                    <!-- box-footer -->
                 </div>
                 <!-- /.box -->
             </div>
         </div>
     </section>
 </div>
-</body>
-</html>

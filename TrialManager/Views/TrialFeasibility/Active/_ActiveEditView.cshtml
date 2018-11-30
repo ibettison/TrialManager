@@ -2,9 +2,9 @@
 
 @{
     ViewBag.Title = "Active Record";
-}
 
-<h2>Late Development</h2>
+    ViewBag.ShortName = Model.ShortName.ShortName;
+}
 
 <div class="box box-solid box-primary">
     <div class="box-header with-border">
@@ -24,7 +24,7 @@
                 @Html.AntiForgeryToken()
 
                 <div class="form-horizontal">
-                    <h4>Active Studies</h4>
+                    <h4>Active - <span class="text-blue">@ViewBag.ShortName</span></h4>
                     <hr />
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     @Html.HiddenFor(model => model.Id)

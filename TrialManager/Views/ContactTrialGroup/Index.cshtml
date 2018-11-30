@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<TrialManager.Models.ContactTrialGroupModels>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Access";
+    ViewBag.Small = "List";
+    ViewBag.link = "DashBoard";
 }
 
 <!-- Content Wrapper. Contains page content -->
@@ -23,38 +25,38 @@
             <div class="col-md-6">
                 <div class="box box-solid box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Add a New Trial</h3>
+                        <h3 class="box-title">Access List</h3>
                         <div class="box-tools pull-right">
                             <!-- Buttons, labels, and many other things can be placed here! -->
                             <!-- Here is a label for example -->
-                            <span class="label label-default">Creating New Trial...</span>
+                            <span class="label label-default">View Access list...</span>
                         </div>
                         <!-- /.box-tools -->
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <h2>Index</h2>
+                        <h2>List</h2>
 
                         <p>
                             @Html.ActionLink("Create New", "Create")
                         </p>
                         <table id="permissions" class="table dataTable table-striped">
                             <thead>
-                                <tr>
+                            <tr>
 
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.ContactName.ContactName)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.GroupName.GroupName)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.ReadOnly)
-                                    </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ContactName.ContactName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.GroupName.GroupName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ReadOnly)
+                                </th>
 
-                                    <th></th>
+                                <th></th>
 
-                                </tr>
+                            </tr>
                             </thead>
 
                             @foreach (var item in Model) {
@@ -71,9 +73,8 @@
                                         </div>
                                     </td>
                                     <td>
-                                        @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                                        @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                                        @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                                        <a href="/ContactTrialGroup/Edit/@item.Id"><i class="fa fa-edit"></i></a> |
+                                        <a href="#"><i id="@item.Id" class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                             }
@@ -88,11 +89,61 @@
         </div>
     </section>
 </div>
+
+<div class="modal modal-danger fade" id="modal-Access">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">Confirm Deletion</h4>
+            </div>
+            <div class="modal-body">
+                <p>Do you wish to completely remove this Access?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-outline" id="AccessDelete" data-dismiss="modal">Confirm Delete</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
 @section scripts
 {
     <script>
         $(document).ready(function() {
             $('#permissions').DataTable();
         });
+        var RemPostData = 0;
+
+        $(".fa-trash").click( function () {
+                RemPostData = $(this).attr('id');
+                    $('#modal-Access').modal('toggle');
+            });
+
+        $('#modal-Access').on('hide.bs.modal',
+            function (e) {
+                var clickedId = $(document.activeElement);
+                var reminderDeletion = false;
+                if (clickedId.attr('id') === 'AccessDelete') {
+                    AccessDeletion = true;
+                }
+                var postData = {
+                    Id: RemPostData,
+                    Delete: AccessDeletion};
+
+                $.ajax({
+                    url: '/ContactTrialGroup/DeleteAccess',
+                    type: 'POST',
+                    data: postData,
+                    success: function(data) {
+                        location.reload();
+                    }
+                });
+            });
     </script>
 }

@@ -23,20 +23,6 @@ namespace TrialManager.Controllers
             return View(contactTrialGroupModels.ToList());
         }
 
-        // GET: ContactTrialGroup/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ContactTrialGroupModels contactTrialGroupModels = db.ContactTrialGroupModels.Find(id);
-            if (contactTrialGroupModels == null)
-            {
-                return HttpNotFound();
-            }
-            return View(contactTrialGroupModels);
-        }
 
         // GET: ContactTrialGroup/Create
         public ActionResult Create()
@@ -100,32 +86,15 @@ namespace TrialManager.Controllers
             return View(contactTrialGroupModels);
         }
 
-        // GET: ContactTrialGroup/Delete/5
-        public ActionResult Delete(int? id)
+        [HttpPost]
+        public ActionResult DeleteAccess(ContactTrialGroupModels Model)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ContactTrialGroupModels contactTrialGroupModels = db.ContactTrialGroupModels.Find(id);
-            if (contactTrialGroupModels == null)
-            {
-                return HttpNotFound();
-            }
-            return View(contactTrialGroupModels);
-        }
-
-        // POST: ContactTrialGroup/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
+            var id = Model.Id;
             ContactTrialGroupModels contactTrialGroupModels = db.ContactTrialGroupModels.Find(id);
             db.ContactTrialGroupModels.Remove(contactTrialGroupModels);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

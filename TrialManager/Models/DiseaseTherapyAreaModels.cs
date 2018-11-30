@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Web;
 
 namespace Trialmanager.Models
@@ -11,5 +12,6 @@ namespace Trialmanager.Models
         [Key]
         public int Id { get; set; }
         public string DiseaseTherapyAreaName { get; set; }
+        public DateTime? Deleted { get; set; }
     }
 }

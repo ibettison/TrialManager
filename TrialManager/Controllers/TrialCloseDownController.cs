@@ -55,7 +55,7 @@ namespace TrialManager.Controllers
             {
                 db.TrialCloseDownModels.Add(trialCloseDownModels);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit", "TrialFeasibility", new {Id = trialCloseDownModels.TrialId});
             }
 
             ViewBag.TrialId = new SelectList(db.TrialFeasibilityModels, "Id", "ShortName", trialCloseDownModels.TrialId);

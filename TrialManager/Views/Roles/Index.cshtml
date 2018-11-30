@@ -1,13 +1,11 @@
 ﻿@model IEnumerable<Trialmanager.Models.RolesModels>
 
-<!DOCTYPE html>
+@{
+    ViewBag.Title = "Role Type";
+    ViewBag.Small = "List";
+    ViewBag.link = "DashBoard";
+}
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -27,11 +25,11 @@
             <div class="col-md-6">
                 <div class="box box-solid box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Add a New Trial</h3>
+                        <h3 class="box-title">Roll type List</h3>
                         <div class="box-tools pull-right">
                             <!-- Buttons, labels, and many other things can be placed here! -->
                             <!-- Here is a label for example -->
-                            <span class="label label-default">Creating New Trial...</span>
+                            <span class="label label-default">Listing...</span>
                         </div>
                         <!-- /.box-tools -->
                     </div>
@@ -54,9 +52,8 @@
                                         @Html.DisplayFor(modelItem => item.RoleName)
                                     </td>
                                     <td>
-                                        @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                                        @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                                        @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                                        <a href="/Roles/Edit/@item.Id"><i class="fa fa-edit"></i></a> |
+                                        <a href="#"><i id="@item.Id" class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                             }
@@ -64,17 +61,66 @@
                         </table>
                     </div>
                     <!-- /.box-body -->
-                    <div class="box-footer">
-                        <!--Use this to keep the data last typed in a cookie so that it can be saved properly later-->
-                        <p>Save what you have typed in a cookie if you are distracted!</p>
-                        <a class="btn btn-app"><i class="fa fa-save"></i>Keep</a> <a class="btn btn-app"><i class="fa fa-exclamation"></i>Clear</a> <a class="btn btn-app"><i class="fa fa-close"></i>Delete</a>
-                    </div>
-                    <!-- box-footer -->
                 </div>
                 <!-- /.box -->
             </div>
         </div>
     </section>
 </div>
-</body>
-</html>
+
+@*<a href="/ContractTypes/Edit/@item.Id"><i class="fa fa-edit"></i></a> |*@
+@*<a href="#"><i id="@item.Id" class="fa fa-trash"></i></a>*@
+<div class="modal modal-danger fade" id="modal-Types">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">Confirm Deletion</h4>
+            </div>
+            <div class="modal-body">
+                <p>Do you wish to completely remove this Role Type?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-outline" id="TypesDelete" data-dismiss="modal">Confirm Delete</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@section scripts
+{
+    <script>
+        var RemPostData = 0;
+
+        $(".fa-trash").click(function() {
+            RemPostData = $(this).attr('id');
+            $('#modal-Types').modal('toggle');
+        });
+
+        $('#modal-Types').on('hide.bs.modal',
+            function(e) {
+                var clickedId = $(document.activeElement);
+                if (clickedId.attr('id') === 'TypesDelete') {
+                    var postData = {
+                        Id: RemPostData
+                    }
+
+                    $.ajax({
+                        url: '/Roles/DeleteRoles',
+                        type: 'POST',
+                        data: postData,
+                        success: function(data) {
+                            location.reload();
+                        }
+                    });
+                } else {
+                    $('#modal-Types').hide();
+                }
+            });
+    </script>
+}

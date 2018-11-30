@@ -98,14 +98,14 @@
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.ContactNotes, htmlAttributes: new { @class = "col-md-12" })
                                     <div class="col-md-12">
-                                        @Html.TextAreaFor(model => model.ContactNotes, new { @class = "textarea form-control", @Rows = 4, PlaceHolder = "Full Trial title" })
+                                        @Html.TextAreaFor(model => model.ContactNotes, new { @class = "form-control", @Rows = 4, PlaceHolder = "Full Trial title" })
                                         @Html.ValidationMessageFor(model => model.ContactNotes, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
     
                                 <div class="form-group">
-                                    <div class="col-md-offset-2 col-md-10">
-                                        <input type="submit" value="Save" class="btn btn-default" />
+                                    <div class="col-md-12">
+                                        <input type="submit" value="Save" class="btn btn-default btn-block" />
                                     </div>
                                 </div>
                             </div>
@@ -116,12 +116,6 @@
                         </div>
                     </div>
                     <!-- /.box-body -->
-                    <div class="box-footer">
-                        <!--Use this to keep the data last typed in a cookie so that it can be saved properly later-->
-                        <p>Save what you have typed in a cookie if you are distracted!</p>
-                        <a class="btn btn-app"><i class="fa fa-save"></i>Keep</a> <a class="btn btn-app"><i class="fa fa-exclamation"></i>Clear</a> <a class="btn btn-app"><i class="fa fa-close"></i>Delete</a>
-                    </div>
-                    <!-- box-footer -->
                 </div>
                 <!-- /.box -->
             </div>

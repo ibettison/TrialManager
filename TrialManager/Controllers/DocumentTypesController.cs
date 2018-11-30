@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -18,22 +19,7 @@ namespace Trialmanager.Controllers
         // GET: DocumentTypes
         public ActionResult Index()
         {
-            return View(db.DocumentTypesModels.ToList());
-        }
-
-        // GET: DocumentTypes/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DocumentTypesModels documentTypesModels = db.DocumentTypesModels.Find(id);
-            if (documentTypesModels == null)
-            {
-                return HttpNotFound();
-            }
-            return View(documentTypesModels);
+            return View(db.DocumentTypesModels.Where(d => d.Deleted == null).ToList());
         }
 
         // GET: DocumentTypes/Create
@@ -89,29 +75,15 @@ namespace Trialmanager.Controllers
             }
             return View(documentTypesModels);
         }
-
-        // GET: DocumentTypes/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DocumentTypesModels documentTypesModels = db.DocumentTypesModels.Find(id);
-            if (documentTypesModels == null)
-            {
-                return HttpNotFound();
-            }
-            return View(documentTypesModels);
-        }
-
+        
         // POST: DocumentTypes/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost]
+        public ActionResult DeleteDoctypes(DocumentTypesModels model)
         {
+            var id = model.Id;
             DocumentTypesModels documentTypesModels = db.DocumentTypesModels.Find(id);
-            db.DocumentTypesModels.Remove(documentTypesModels);
+            documentTypesModels.Deleted = DateTime.Now;
+            db.DocumentTypesModels.AddOrUpdate(documentTypesModels);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -18,22 +19,7 @@ namespace Trialmanager.Controllers
         // GET: DiseaseTherapyArea
         public ActionResult Index()
         {
-            return View(db.DiseaseTherapyAreaModels.ToList());
-        }
-
-        // GET: DiseaseTherapyArea/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DiseaseTherapyAreaModels diseaseTherapyAreaModels = db.DiseaseTherapyAreaModels.Find(id);
-            if (diseaseTherapyAreaModels == null)
-            {
-                return HttpNotFound();
-            }
-            return View(diseaseTherapyAreaModels);
+            return View(db.DiseaseTherapyAreaModels.Where(d => d.Deleted == null).ToList());
         }
 
         // GET: DiseaseTherapyArea/Create
@@ -90,28 +76,14 @@ namespace Trialmanager.Controllers
             return View(diseaseTherapyAreaModels);
         }
 
-        // GET: DiseaseTherapyArea/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DiseaseTherapyAreaModels diseaseTherapyAreaModels = db.DiseaseTherapyAreaModels.Find(id);
-            if (diseaseTherapyAreaModels == null)
-            {
-                return HttpNotFound();
-            }
-            return View(diseaseTherapyAreaModels);
-        }
-
         // POST: DiseaseTherapyArea/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost]
+        public ActionResult DeleteTherapy(DiseaseTherapyAreaModels model)
         {
+            var id = model.Id;
             DiseaseTherapyAreaModels diseaseTherapyAreaModels = db.DiseaseTherapyAreaModels.Find(id);
-            db.DiseaseTherapyAreaModels.Remove(diseaseTherapyAreaModels);
+            diseaseTherapyAreaModels.Deleted = DateTime.Now;
+            db.DiseaseTherapyAreaModels.AddOrUpdate(diseaseTherapyAreaModels);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -8,7 +8,6 @@
         var surName = claimSurName.Value;
         ViewBag.FullName = $"{firstName} {surName}";
     }
-
 }
 <!DOCTYPE html>
 <!--
@@ -22,8 +21,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <title>Mitochondrial TrialManager</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/styles")
+    @Styles.Render("~/admin-lte/css/styles")
+    @Styles.Render("~/admin-lte/plugins/style")
     
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -60,7 +60,7 @@ desired effect
         @Html.Partial("_LayOutHeader")
         @if (User.Identity.IsAuthenticated)
         {
-            @Html.Partial("_layOutSideBar")
+            @Html.Action("DisplayMenu","Home")
         }
         @RenderBody()
         @if (User.Identity.IsAuthenticated)
@@ -160,9 +160,12 @@ desired effect
     <!-- ./wrapper -->
     <!-- REQUIRED JS SCRIPTS -->
 <!-- jQuery 3 -->
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/admin-lte/js")
+    @Scripts.Render("~/Scripts/jquery")
+    @Scripts.Render("~/Scripts/jqueryval")
+    @Scripts.Render("~/Scripts/bootstrap")
+    @Scripts.Render("~/Scripts/modernizr/script")
+    @Scripts.Render("~/admin-lte/js/scripts")
+    @Scripts.Render("~/admin-lte/plugins/scripts")
     @RenderSection("scripts", required: false)
     
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
@@ -171,7 +174,7 @@ user experience. -->
     <script>
      //bootstrap WYSIHTML5 - text editor
         $(".textarea").wysihtml5();
-        $('input[type=checkbox], input[type=radio]').iCheck({
+        $('input[type="checkbox"], input[type="radio"]').iCheck({
             checkboxClass: 'icheckbox_square-blue',
             radioClass: 'iradio_square-blue'
         });
@@ -179,6 +182,11 @@ user experience. -->
             format: 'dd/mm/yyyy',
             autoclose: true
         });
+        $('#passport').DataTable();
+        $('#PassportSel').select2({
+            placeholder: 'Select an option'
+        });
+        $.fn.dataTable.moment("DD/MM/YYYY");
     </script>
 </body>
 </html>

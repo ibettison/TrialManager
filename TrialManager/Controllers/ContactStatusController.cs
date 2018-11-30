@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -18,22 +19,7 @@ namespace Trialmanager.Controllers
         // GET: ContactStatus
         public ActionResult Index()
         {
-            return View(_db.ContactStatusModels.ToList());
-        }
-
-        // GET: ContactStatus/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ContactStatusModels contactStatusModels = _db.ContactStatusModels.Find(id);
-            if (contactStatusModels == null)
-            {
-                return HttpNotFound();
-            }
-            return View(contactStatusModels);
+            return View(_db.ContactStatusModels.Where(s => s.Deleted == null).ToList());
         }
 
         // GET: ContactStatus/Create
@@ -90,28 +76,15 @@ namespace Trialmanager.Controllers
             return View(contactStatusModels);
         }
 
-        // GET: ContactStatus/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ContactStatusModels contactStatusModels = _db.ContactStatusModels.Find(id);
-            if (contactStatusModels == null)
-            {
-                return HttpNotFound();
-            }
-            return View(contactStatusModels);
-        }
 
         // POST: ContactStatus/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost]
+        public ActionResult DeleteContact(ContactStatusModels model)
         {
+            var id = model.Id;
             ContactStatusModels contactStatusModels = _db.ContactStatusModels.Find(id);
-            _db.ContactStatusModels.Remove(contactStatusModels);
+            contactStatusModels.Deleted = DateTime.Now;
+            _db.ContactStatusModels.AddOrUpdate(contactStatusModels);
             _db.SaveChanges();
             return RedirectToAction("Index");
         }

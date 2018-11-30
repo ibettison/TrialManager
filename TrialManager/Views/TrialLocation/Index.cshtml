@@ -1,41 +1,126 @@
 ﻿@model IEnumerable<Trialmanager.Models.TrialLocationModels>
 
 @{
-    Layout = null;
+    ViewBag.Title = "Location";
+    ViewBag.Small = "List";
+    ViewBag.link = "DashBoard";
 }
 
-<!DOCTYPE html>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            @ViewBag.Title
+            <small>@ViewBag.Small</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/Home/Index"><i class="fa fa-dashboard"></i>@ViewBag.link</a></li>
+            <li class="active">@ViewBag.Title</li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box box-solid box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Location List</h3>
+                        <div class="box-tools pull-right">
+                            <!-- Buttons, labels, and many other things can be placed here! -->
+                            <!-- Here is a label for example -->
+                            <span class="label label-default">Creating New Trial...</span>
+                        </div>
+                        <!-- /.box-tools -->
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <p>
+                            @Html.ActionLink("Create New", "Create")
+                        </p>
+                        <table class="table">
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Location)
+                                </th>
+                                <th></th>
+                            </tr>
+    
+                            @foreach (var item in Model) {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Location)
+                                    </td>
+                                    <td>
+                                        <a href="/TrialLocation/Edit/@item.Id"><i class="fa fa-edit"></i></a> |
+                                        <a href="#"><i id="@item.Id" class="fa fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                            }
+    
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+    </section>
+</div>
+@*<a href="/ContractTypes/Edit/@item.Id"><i class="fa fa-edit"></i></a> |*@
+@*<a href="#"><i id="@item.Id" class="fa fa-trash"></i></a>*@
+<div class="modal modal-danger fade" id="modal-Types">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">Confirm Deletion</h4>
+            </div>
+            <div class="modal-body">
+                <p>Do you wish to completely remove this Location?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-outline" id="TypesDelete" data-dismiss="modal">Confirm Delete</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Location)
-            </th>
-            <th></th>
-        </tr>
-    
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Location)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-            </td>
-        </tr>
-    }
-    
-    </table>
-</body>
-</html>
+@section scripts
+{
+    <script>
+        var RemPostData = 0;
+
+        $(".fa-trash").click(function() {
+            RemPostData = $(this).attr('id');
+            $('#modal-Types').modal('toggle');
+        });
+
+        $('#modal-Types').on('hide.bs.modal',
+            function(e) {
+                var clickedId = $(document.activeElement);
+                if (clickedId.attr('id') === 'TypesDelete') {
+                    var postData = {
+                        Id: RemPostData
+                    }
+
+                    $.ajax({
+                        url: '/TrialLocation/DeleteLocation',
+                        type: 'POST',
+                        data: postData,
+                        success: function(data) {
+                            location.reload();
+                        }
+                    });
+                } else {
+                    $('#modal-Types').hide();
+                }
+            });
+    </script>
+}
+

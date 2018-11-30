@@ -34,7 +34,10 @@ namespace TrialManager.Controllers
                 ViewBag.Live = 0;
                 ViewBag.Setup = 0;
                 ViewBag.Late = 0;
+                ViewBag.InCloseDown = 0;
+                ViewBag.Closed = 0;
                 ViewBag.DidNotStart = 0;
+               
                 foreach (var trial in trialFeasibilityModels)
                 {
                     var stage = "";
@@ -60,7 +63,6 @@ namespace TrialManager.Controllers
                     var rdNumber = trialSetupModels != null ? trialSetupModels.ResearchDevelopmentId : "Unassigned";
                     if (trialStartedModels != null && trialStartedModels.Started == "Yes")
                     {
-
                         if (trialSetupModels != null)
                         {
                             //at setup stage
@@ -70,14 +72,64 @@ namespace TrialManager.Controllers
                             var setupComplete = (from s in db.TrialSetupCompleteModels
                                 where s.TrialId == trial.Id && s.Completed == "Yes"
                                 select s).FirstOrDefault();
+                            var trialCloseDown = (from c in db.TrialCloseDownModels
+                                where c.TrialId == trial.Id
+                                select c).FirstOrDefault();
+                            var activeTrial = (from a in db.TrialActiveModels
+                                where a.TrialId == trial.Id
+                                select a).FirstOrDefault(); 
                             if ((setupComplete != null && setupComplete.Completed == "Yes"))
                             {
                                 if (trialLateDevelopmentModels != null)
                                 {
                                     if (trialLateDevelopmentModels.LocalSiteActivationDate != null)
                                     {
-                                        ViewBag.Live++;
-                                        stage = "Live";
+                                        if (activeTrial != null)
+                                        {
+                                            if (trialCloseDown != null)
+                                            {
+                                                if (trialCloseDown.Archiving != null)
+                                                {
+                                                    ViewBag.Closed++;
+                                                    stage = "Closed";
+                                                }
+                                                else
+                                                {
+                                                    if (activeTrial.StatusName.StatusName == "In Close Down")
+                                                    {
+                                                        ViewBag.InCloseDown++;
+                                                        stage = "In Close Down";
+
+                                                    }
+                                                    else
+                                                    {
+                                                        ViewBag.Live++;
+                                                        stage = "Live";
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if (activeTrial.StatusName.StatusName == "In Close Down")
+                                                {
+                                                        ViewBag.InCloseDown++;
+                                                        stage = "In Close Down";
+                                                    
+                                                }
+                                                else
+                                                {
+                                                    ViewBag.Live++;
+                                                    stage = "Live";
+                                                }
+                                            }
+                                            
+                                        }
+                                        else
+                                        {
+                                            ViewBag.Live++;
+                                            stage = "Live";
+                                        }
+                                        
                                     }
                                     else
                                     {
@@ -213,6 +265,36 @@ namespace TrialManager.Controllers
         public ActionResult ViewTrial(int? id)
         {
             return RedirectToAction("ViewTrial", "TrialFeasibility", new { @id = id });
+        }
+
+        [Authorize(
+            Roles =
+                "NTRF_AUTO_MC_TrialManager_Administrators, NTRF_AUTO_MC_TrialManager_Editors,  NTRF_AUTO_MC_TrialManager_Membership"
+        )]
+        public ActionResult DisplayMenu()
+        {
+            ViewBag.PassportOver = 0;
+            ViewBag.PassportNearly = 0;
+            //check if there are any Staff Passports coming up for renewal.
+            var staffPassportModels = db.StaffPassportModels.ToList();
+
+            foreach (var passport in staffPassportModels)
+            {
+                var today = DateTime.Today;
+                var monthsDiff = (passport.ResearchPassportRenewal - today).Days;
+                if (monthsDiff <= 90)
+                {
+                    ViewBag.PassportOver++;
+                }
+                else
+                {
+                    if (monthsDiff <= 180)
+                    {
+                        ViewBag.PassportNearly++;
+                    }
+                }
+            }
+            return PartialView("_layOutSideBar");
         }
     }
 }

@@ -1,0 +1,74 @@
+﻿@model Trialmanager.Models.StaffPassportModels
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>StaffPassportModels</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AccessName.AccessName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AccessName.AccessName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContactName.ContactName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContactName.ContactName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContractTypeName.ContractTypeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContractTypeName.ContractTypeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContractEndDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContractEndDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ResearchPassportExpiry)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ResearchPassportExpiry)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ResearchPassportRenewal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ResearchPassportRenewal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AccessExpiryDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AccessExpiryDate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

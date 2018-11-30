@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -18,22 +19,7 @@ namespace Trialmanager.Controllers
         // GET: Phase
         public ActionResult Index()
         {
-            return View(db.PhaseModels.ToList());
-        }
-
-        // GET: Phase/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            PhaseModels phaseModels = db.PhaseModels.Find(id);
-            if (phaseModels == null)
-            {
-                return HttpNotFound();
-            }
-            return View(phaseModels);
+            return View(db.PhaseModels.Where(p => p.Deleted == null).ToList());
         }
 
         // GET: Phase/Create
@@ -90,28 +76,14 @@ namespace Trialmanager.Controllers
             return View(phaseModels);
         }
 
-        // GET: Phase/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            PhaseModels phaseModels = db.PhaseModels.Find(id);
-            if (phaseModels == null)
-            {
-                return HttpNotFound();
-            }
-            return View(phaseModels);
-        }
-
         // POST: Phase/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost]
+        public ActionResult DeletePhase(PhaseModels model)
         {
+            var id = model.Id;
             PhaseModels phaseModels = db.PhaseModels.Find(id);
-            db.PhaseModels.Remove(phaseModels);
+            phaseModels.Deleted = DateTime.Now;
+            db.PhaseModels.AddOrUpdate(phaseModels);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -14,5 +14,7 @@ namespace Trialmanager.Models
 
         [DisplayName("Contact Status")]
         public string ContactStatusName { get; set; }
+
+        public DateTime? Deleted { get; set; }
     }
 }

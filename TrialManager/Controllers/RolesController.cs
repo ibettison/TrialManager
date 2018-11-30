@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -18,24 +19,10 @@ namespace Trialmanager.Controllers
         // GET: Roles
         public ActionResult Index()
         {
-            return View(db.RolesModels.ToList());
+            return View(db.RolesModels.Where(r => r.Deleted == null).ToList());
         }
 
-        // GET: Roles/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            RolesModels rolesModels = db.RolesModels.Find(id);
-            if (rolesModels == null)
-            {
-                return HttpNotFound();
-            }
-            return View(rolesModels);
-        }
-
+        
         // GET: Roles/Create
         public ActionResult Create()
         {
@@ -90,28 +77,14 @@ namespace Trialmanager.Controllers
             return View(rolesModels);
         }
 
-        // GET: Roles/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            RolesModels rolesModels = db.RolesModels.Find(id);
-            if (rolesModels == null)
-            {
-                return HttpNotFound();
-            }
-            return View(rolesModels);
-        }
-
         // POST: Roles/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost]
+        public ActionResult DeleteRoles(RolesModels model)
         {
+            var id = model.Id;
             RolesModels rolesModels = db.RolesModels.Find(id);
-            db.RolesModels.Remove(rolesModels);
+            rolesModels.Deleted = DateTime.Now;
+            db.RolesModels.AddOrUpdate(rolesModels);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

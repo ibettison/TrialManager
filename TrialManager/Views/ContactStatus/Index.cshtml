@@ -1,17 +1,11 @@
 ﻿@model IEnumerable<Trialmanager.Models.ContactStatusModels>
 
 @{
-    
+    ViewBag.Title = "Contact Status";
+    ViewBag.Small = "List";
+    ViewBag.link = "DashBoard";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
     <p>
         @Html.ActionLink("Create New", "Create")
     </p>
@@ -34,16 +28,19 @@
             <div class="col-md-6">
                 <div class="box box-solid box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Add a New Trial</h3>
+                        <h3 class="box-title">Contact Status list</h3>
                         <div class="box-tools pull-right">
                             <!-- Buttons, labels, and many other things can be placed here! -->
                             <!-- Here is a label for example -->
-                            <span class="label label-default">Creating New Trial...</span>
+                            <span class="label label-default">List...</span>
                         </div>
                         <!-- /.box-tools -->
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
+                        <p>
+                            @Html.ActionLink("Create New", "Create")
+                        </p>
                         <form role="form">
                             <table class="table">
                                 <tr>
@@ -52,35 +49,82 @@
                                     </th>
                                     <th></th>
                                 </tr>
-    
-                                @foreach (var item in Model) {
+
+                                @foreach (var item in Model)
+                                {
                                     <tr>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.ContactStatusName)
                                         </td>
                                         <td>
-                                            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                                            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                                            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                                            <a href="/ContactStatus/Edit/@item.Id"><i class="fa fa-edit"></i></a> |
+                                            <a href="#"><i id="@item.Id" class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 }
-    
+
                             </table>
                         </form>
                     </div>
                     <!-- /.box-body -->
-                    <div class="box-footer">
-                        <!--Use this to keep the data last typed in a cookie so that it can be saved properly later-->
-                        <p>Save what you have typed in a cookie if you are distracted!</p>
-                        <a class="btn btn-app"><i class="fa fa-save"></i>Keep</a> <a class="btn btn-app"><i class="fa fa-exclamation"></i>Clear</a> <a class="btn btn-app"><i class="fa fa-close"></i>Delete</a>
-                    </div>
-                    <!-- box-footer -->
+                   
                 </div>
                 <!-- /.box -->
             </div>
         </div>
     </section>
 </div>
-</body>
-</html>
+
+<div class="modal modal-danger fade" id="modal-Contact">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">Confirm Deletion</h4>
+            </div>
+            <div class="modal-body">
+                <p>Do you wish to completely remove this Contact Status?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-outline" id="ContactDelete" data-dismiss="modal">Confirm Delete</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@section scripts
+{
+    <script>
+    $('#con').DataTable();
+
+    var RemPostData = 0;
+
+    $(".fa-trash").click(function() {
+        RemPostData = $(this).attr('id');
+        $('#modal-Contact').modal('toggle');
+    });
+
+    $('#modal-Contact').on('hide.bs.modal',
+        function(e) {
+            var clickedId = $(document.activeElement);
+            if (clickedId.attr('id') === 'ContactDelete') {
+                var postData = {
+                    Id: RemPostData
+                };
+                $.ajax({
+                    url: '/ContactStatus/DeleteContact',
+                    type: 'POST',
+                    data: postData,
+                    success: function(data) {
+                        location.reload();
+                    }
+                });
+            }
+        });
+    </script>
+}

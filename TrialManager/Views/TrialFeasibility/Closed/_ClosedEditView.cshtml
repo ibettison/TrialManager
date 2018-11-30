@@ -2,9 +2,8 @@
 
 @{
     ViewBag.Title = "Close Down Record";
+    ViewBag.ShortName = Model.ShortName.ShortName;
 }
-
-<h2>Late Development</h2>
 
 <div class="box box-solid box-primary">
     <div class="box-header with-border">
@@ -24,7 +23,7 @@
                 @Html.AntiForgeryToken()
 
                 <div class="form-horizontal">
-                    <h4>In Close Down</h4>
+                    <h4>In close down - <span class="text-blue">@ViewBag.ShortName</span></h4>
                     <hr />
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     @Html.HiddenFor(model => model.Id)

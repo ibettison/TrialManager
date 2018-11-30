@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -11,6 +12,7 @@ using Trialmanager.Models;
 
 namespace TrialManager.Controllers
 {
+    [Authorize(Roles = "NTRF_AUTO_MC_TrialManager_Administrators, NTRF_AUTO_MC_TrialManager_Editors")]
     public class ActiveStatusController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -19,21 +21,6 @@ namespace TrialManager.Controllers
         public ActionResult Index()
         {
             return View(db.ActiveStatusModels.ToList());
-        }
-
-        // GET: ActiveStatus/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ActiveStatusModels activeStatusModels = db.ActiveStatusModels.Find(id);
-            if (activeStatusModels == null)
-            {
-                return HttpNotFound();
-            }
-            return View(activeStatusModels);
         }
 
         // GET: ActiveStatus/Create
@@ -90,28 +77,13 @@ namespace TrialManager.Controllers
             return View(activeStatusModels);
         }
 
-        // GET: ActiveStatus/Delete/5
-        public ActionResult Delete(int? id)
+        [HttpPost]
+        public ActionResult DeleteActive(ActiveStatusModels Model)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            var id = Model.Id;
             ActiveStatusModels activeStatusModels = db.ActiveStatusModels.Find(id);
-            if (activeStatusModels == null)
-            {
-                return HttpNotFound();
-            }
-            return View(activeStatusModels);
-        }
-
-        // POST: ActiveStatus/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            ActiveStatusModels activeStatusModels = db.ActiveStatusModels.Find(id);
-            db.ActiveStatusModels.Remove(activeStatusModels);
+            activeStatusModels.Deleted = DateTime.Now;
+            db.ActiveStatusModels.AddOrUpdate(activeStatusModels);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

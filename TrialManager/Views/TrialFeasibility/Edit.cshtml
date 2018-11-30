@@ -7,6 +7,9 @@
 
 @{
     ViewBag.Today = DateTime.Today;
+    ViewBag.Title = "Trial Management";
+    ViewBag.Small = "Database";
+    ViewBag.Link = "Dashboard";
 }
 <!DOCTYPE html>
 
@@ -35,836 +38,829 @@
         </section>
         <!-- Main content -->
         <section class="content container-fluid">
-            <div class="row">
-                <div class="col-lg-7 col-md-12 col-sm-12">
+        <div class="row">
+        <div class="col-lg-7 col-md-12 col-sm-12">
 
-                    <div class="nav-tabs-custom">
-                        <ul class="nav nav-tabs">
-                            <li class="active">
-                                <a href="#tab1" data-toggle="tab">Feasibility</a>
-                            </li>
-                            <li>
-                                <a href="#tab2" data-toggle="tab">Setup</a>
-                            </li>
-                            <li>
-                                <a href="#tab3" data-toggle="tab">Late Development</a>
-                            </li>
-                            <li>
-                                <a href="#tab4" data-toggle="tab">Active Studies</a>
-                            </li>
-                            <li>
-                                <a href="#tab5" data-toggle="tab">Close Down</a>
-                            </li>
-                            <li>
-                                <a href="#tab6" data-toggle="tab">Documents</a>
-                            </li>
-                            <li>
-                                <a href="#tab7" data-toggle="tab">Trial Records</a>
-                            </li>
-                        </ul>
+        <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="#tab1" data-toggle="tab">Feasibility</a>
+            </li>
+            <li>
+                <a href="#tab2" data-toggle="tab">Setup</a>
+            </li>
+            <li>
+                <a href="#tab3" data-toggle="tab">Late Development</a>
+            </li>
+            <li>
+                <a href="#tab4" data-toggle="tab">Active Studies</a>
+            </li>
+            <li>
+                <a href="#tab5" data-toggle="tab">Close Down</a>
+            </li>
+            <li>
+                <a href="#tab6" data-toggle="tab">Documents</a>
+            </li>
+            <li>
+                <a href="#tab7" data-toggle="tab">Trial Records</a>
+            </li>
+        </ul>
 
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="tab1">
-                                <div class="box box-solid box-primary">
-                                    <div class="box-header with-border">
-                                        <h3 class="box-title">Trial Management</h3>
-                                        <div class="box-tools pull-right">
-                                            <!-- Buttons, labels, and many other things can be placed here! -->
-                                            <!-- Here is a label for example -->
-                                            <span class="label label-default">Edit Trial...</span>
-                                        </div>
-                                        <!-- /.box-tools -->
-                                    </div>
-                                    <!-- /.box-header -->
-                                    <div class="box-body">
-                                        <div class="col-md-12">
-                                            @using (Html.BeginForm())
-                                            {
-                                                @Html.AntiForgeryToken()
-
-                                                <div class="form-horizontal">
-                                                    <h4>Feasibility</h4>
-                                                    <hr />
-                                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                                    @Html.HiddenFor(model => model.Id)
-                                                    <div class="col-md-2">
-                                                        @Html.LabelFor(model => model.ShortName)
-                                                    </div>
-                                                    <div class="col-md-10">
-                                                        <div class="form-group">
-                                                            <div class="input-group">
-                                                                @Html.EditorFor(model => model.ShortName, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Enter Trial Short Name", disabled = "disabled" } })
-                                                                <div class="input-group-addon feasibility">
-                                                                    <a href="#" data-toggle="modal" data-target="#modal-default1">
-                                                                        <i class="fa fa-edit"></i>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            @Html.ValidationMessageFor(model => model.ShortName, "", new { @class = "text-danger" })
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-2">
-                                                        @Html.LabelFor(model => model.TrialTitle)
-                                                    </div>
-                                                    <div class="col-md-10">
-                                                        <div class="form-group">
-                                                            @Html.TextAreaFor(model => model.TrialTitle, new { @class = "form-control", Rows = 4, PlaceHolder = "Full Trial title" })
-                                                            @Html.ValidationMessageFor(model => model.TrialTitle, "", new { @class = "text-danger" })
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-2">
-                                                        @Html.LabelFor(model => model.ApplicationReference)
-                                                    </div>
-                                                    <div class="col-md-10">
-                                                        <div class="form-group">
-                                                            <div class="input-group">
-                                                                @Html.EditorFor(model => model.ApplicationReference, new { htmlAttributes = new { @class = "form-control", title = "Application Reference", disabled = "disabled" } })
-                                                                <div class="input-group-addon feasibility">
-                                                                    <a href="#" data-toggle="modal" data-target="#modal-default1">
-                                                                        <i class="fa fa-edit"></i>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            @Html.ValidationMessageFor(model => model.ApplicationReference, "", new { @class = "text-danger" })
-                                                        </div>
-                                                    </div>
-
-
-                                                    <div class="col-md-2">
-                                                        @Html.LabelFor(model => model.BhNumber)
-                                                    </div>
-                                                    <div class="col-md-10">
-                                                        <div class="form-group">
-                                                            <div class="input-group">
-                                                                @Html.EditorFor(model => model.BhNumber, new { htmlAttributes = new { @class = "form-control", Title = "BH Number", disabled = "disabled" } })
-                                                                <div class="input-group-addon feasibility">
-                                                                    <a href="#" data-toggle="modal" data-target="#modal-default1">
-                                                                        <i class="fa fa-edit"></i>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            @Html.ValidationMessageFor(model => model.BhNumber, "", new { @class = "text-danger" })
-                                                        </div>
-                                                    </div>
-
-
-                                                    <div class="col-md-2">
-                                                        @Html.LabelFor(model => model.TrialTypeId)
-                                                    </div>
-                                                    <div class="col-md-10">
-                                                        <div class="form-group">
-                                                            <div class="input-group">
-                                                                @Html.DropDownList("TrialTypeId", null, htmlAttributes: new { @class = "form-control", Title = "Trial types", disabled = "disabled" })
-                                                                <div class="input-group-addon feasibility">
-                                                                    <a href="#" data-toggle="modal" data-target="#modal-default1">
-                                                                        <i class="fa fa-edit"></i>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            @Html.ValidationMessageFor(model => model.TrialTypeId, "", new { @class = "text-danger" })
-                                                        </div>
-                                                    </div>
-
-
-                                                    <div class="col-md-2">
-                                                        @Html.LabelFor(model => model.Commercial)
-                                                    </div>
-                                                    <div class="col-md-10">
-                                                        <div class="form-group">
-                                                            <div class="checkbox">
-                                                                @Html.RadioButtonFor(model => model.Commercial, "Commercial") Commercial
-                                                                @Html.RadioButtonFor(model => model.Commercial, "Non-Commercial") Non-Commercial
-                                                                @Html.ValidationMessageFor(model => model.Commercial, "", new { @class = "text-danger" })
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-
-                                                    <div class="col-md-2">
-                                                        @Html.LabelFor(model => model.PhaseId)
-                                                    </div>
-                                                    <div class="col-md-10">
-                                                        <div class="form-group">
-                                                            <div class="input-group">
-                                                                @Html.DropDownList("PhaseId", null, htmlAttributes: new { @class = "form-control", disabled = "disabled" })
-                                                                <div class="input-group-addon feasibility">
-                                                                    <a href="#" data-toggle="modal" data-target="#modal-default1">
-                                                                        <i class="fa fa-edit"></i>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            @Html.ValidationMessageFor(model => model.PhaseId, "", new { @class = "text-danger" })
-                                                        </div>
-                                                    </div>
-
-
-                                                    <div class="col-md-2">
-                                                        @Html.LabelFor(model => model.SampleSize)
-                                                    </div>
-                                                    <div class="col-md-10">
-                                                        <div class="form-group">
-                                                            <div class="input-group">
-                                                                @Html.EditorFor(model => model.SampleSize, new { htmlAttributes = new { @class = "form-control", title = "Sample Size", disabled = "disabled" } })
-                                                                <div class="input-group-addon feasibility">
-                                                                    <a href="#" data-toggle="modal" data-target="#modal-default1">
-                                                                        <i class="fa fa-edit"></i>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            @Html.ValidationMessageFor(model => model.SampleSize, "", new { @class = "text-danger" })
-                                                        </div>
-                                                    </div>
-
-
-                                                <div class="col-md-2">
-                                                    @Html.LabelFor(model => model.GrantTypeId)
-                                                </div>
-                                                <div class="col-md-10">
-                                                    <div class="form-group">
-                                                        <div class="input-group">
-                                                            @Html.DropDownList("GrantTypeId", null, htmlAttributes: new { @class = "form-control", disabled = "disabled" })
-                                                            <div class="input-group-addon feasibility">
-                                                                <a href="#" data-toggle="modal" data-target="#modal-default1">
-                                                                    <i class="fa fa-edit"></i>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                        @Html.ValidationMessageFor(model => model.GrantTypeId, "", new { @class = "text-danger" })
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="col-md-2">
-                                                    @Html.LabelFor(model => model.FundingStream)
-                                                </div>
-                                                <div class="col-md-10">
-                                                    <div class="form-group">
-                                                        <div class="input-group">
-                                                            @Html.EditorFor(model => model.FundingStream, new { htmlAttributes = new { @class = "form-control", Title = "Funding Stream", disabled = "disabled" } })
-                                                            <div class="input-group-addon feasibility">
-                                                                <a href="#" data-toggle="modal" data-target="#modal-default1">
-                                                                    <i class="fa fa-edit"></i>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                        @Html.ValidationMessageFor(model => model.FundingStream, "", new { @class = "text-danger" })
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="col-md-2">
-                                                    @Html.LabelFor(model => model.GrantDeadlineDate)
-                                                </div>
-                                                <div class="col-md-10">
-                                                    <div class="form-group">
-                                                        <div class="input-group">
-                                                            @Html.EditorFor(model => model.GrantDeadlineDate, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
-                                                            <div class="input-group-addon feasibility">
-                                                                <a href="#" data-toggle="modal" data-target="#modal-default1">
-                                                                    <i class="fa fa-edit"></i>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                        @Html.ValidationMessageFor(model => model.GrantDeadlineDate, "", new { @class = "text-danger" })
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="col-md-2">
-                                                    @Html.Label("Agreements")
-                                                </div>
-                                                <div class="col-md-10">
-                                                    <div class="form-group">
-                                                        <div class="checkbox">
-                                                            @Html.CheckBoxFor(model => model.UniConsultancyAgreement) Uni Consultancy Agreement
-                                                            @Html.ValidationMessageFor(model => model.UniConsultancyAgreement, "", new { @class = "text-danger" })
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <div class="checkbox">
-                                                            @Html.CheckBoxFor(model => model.NhsConsultancyAgreement) NHS Consultancy Agreement
-                                                            @Html.ValidationMessageFor(model => model.NhsConsultancyAgreement, "", new { @class = "text-danger" })
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="col-md-2">
-                                                    @Html.LabelFor(model => model.DiseaseTherapyAreaId)
-                                                </div>
-                                                <div class="col-md-10">
-                                                    <div class="form-group">
-                                                        <div class="input-group">
-                                                            @Html.DropDownList("DiseaseTherapyAreaId", null, htmlAttributes: new { @class = "form-control", disabled = "disabled" })
-                                                            <div class="input-group-addon">
-                                                                <a href="#">
-                                                                    <i class="fa fa-edit"></i>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                        @Html.ValidationMessageFor(model => model.DiseaseTherapyAreaId, "", new { @class = "text-danger" })
-                                                    </div>
-                                                </div>
-                                                </div>
-                                            }
-                                        </div>
-                                    </div><!-- /.box-body -->
-                                    <!-- /.box -->
-                                </div>
-                                @if (ViewBag.progress == null)
-                                {
-                                    
-                                    <div class="box-footer">
-                                        <div id="EnterProgress">
-                                            <div class="input-group">
-                                                <div class="col-md-12">
-                                                    <label class="input-group">Trial Progress</label>
-                                                </div>
-                                                <div class="checkbox">
-                                                    @Html.RadioButton("StartedTrial", "Yes") Trial Started
-                                                    @Html.RadioButton("StartedTrial", "No") Trial didn't Start
-
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-md-12">
-                                                    <label class="label">Reason Trial did not Start</label>
-                                                </div>
-                                                @Html.TextArea("Reason", new { @class = "form-control", Rows = 4, PlaceHolder = "Enter the reason the Trial did not start" })
-                                            </div>
-                                            <div class="form-group">
-                                                <button class="btn btn-default btn-block" id="saveTrial">Save Trial Progress</button>
-                                            </div>
-                                        </div>
-                                        <div id="Progress"></div>
-                                        <!-- box-footer -->
-                                    </div>
-                                }
-                                else
-                                {
-                                    foreach (var item in ViewBag.progress)
-                                    {
-                                        <div class="box-footer">
-                                            <div class="input-group">
-                                                <div class="col-md-12">
-                                                    <label class="input-group">Trial Progress</label>
-                                                </div>
-                                                <div class="checkbox">
-                                                    @if (item.Started == "Yes")
-                                                    {
-                                                        @Html.RadioButton("StartedTrial", "Yes", new { @checked = "checked"} )
-                                                        @Html.Label("Trial Started")
-                                                        @Html.RadioButton("StartedTrial","No")
-                                                        @Html.Label("Trial didn't Start ")
-                                                    }
-                                                    else
-                                                    {
-                                                        @Html.RadioButton("StartedTrial", "Yes") 
-                                                        @Html.Label("Trial Started")
-                                                        @Html.RadioButton("StartedTrial", "No", new { @checked = "checked"}) 
-                                                        @Html.Label("Trial didn't Start")
-                                                    }
-
-
-                                                </div>
-                                            </div>
-                                            @if (item.Started == "No")
-                                            {
-                                                <div class="form-group">
-                                                    <div class="col-md-12">
-                                                        <label class="label">Reason Trial did not Start</label>
-                                                    </div>
-                                                    <textarea class="form-control" rows="4" disabled="disabled">@item.Reason</textarea>
-                                                </div>
-                                            }
-                                            
-                                        </div>
-                                    <!-- box-footer -->
-                                    }
-
-                                }
-                            </div>
-
-                            <div class="tab-pane" id="tab2">
-                                <p>@{ Html.RenderAction("ShowSetup", new { Id = ViewBag.Id }); }</p>
-                            </div>
-                            <div class="tab-pane" id="tab3">
-                                <p>@{ Html.RenderAction("ShowLateDevelopment", new { Id = ViewBag.Id }); }</p>
-                            </div>
-                            <div class="tab-pane" id="tab4">
-                                <p>@{ Html.RenderAction("ShowActive", new { Id = ViewBag.Id }); }</p>
-                            </div>
-                            <div class="tab-pane" id="tab5">
-                                <p>@{ Html.RenderAction("ShowCloseDown", new { Id = ViewBag.Id }); }</p>
-                            </div>
-                        <div class="tab-pane" id="tab6">
-                            <div id="ListOfDocuments">
-                                <p>@{ Html.RenderAction("ShowDocuments", new { Id = ViewBag.Id }); }</p>
-                            </div>
-                            <section class="content container-fluid">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="box box-solid box-primary">
-                                            <div class="box-header with-border">
-                                                <h3 class="box-title">Add New Document</h3>
-                                                <div class="box-tools pull-right">
-                                                    <!-- Buttons, labels, and many other things can be placed here! -->
-                                                    <!-- Here is a label for example -->
-                                                    <span class="label label-default">Adding a document...</span>
-                                                </div>
-                                                <!-- /.box-tools -->
-                                            </div>
-                                            <!-- /.box-header -->
-                                            <div class="box-body">
-
-                                                <div class="form-horizontal">
-                                                    <h4>Add a Document</h4>
-                                                    <hr />
-                                                    @using (Html.BeginForm("AddDocument","TrialFeasibility", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                                                    {
-                                                        <div class="form-group">
-                                                            <div class="col-md-2">
-                                                                <label class="control-label">Link to the File</label>
-                                                            </div>
-                                                            
-                                                            <div class="col-md-12">
-                                                                @Html.Editor("UploadFile", new {htmlAttributes = new {@class = "form-control", Type = "File"}})
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <div class="col-md-2">
-                                                                <Label class="control-label">File Version</Label>
-                                                            </div>
-                                                            <div class="col-md-12">
-                                                                @Html.Editor("DocumentVersion", new { htmlAttributes = new { @class = "form-control", PlaceHolder = "File Version" } })
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                                <div class="col-md-2">
-                                                                    <label class="control-label">Document Type</label>
-                                                                </div>
-                                                                <div class="col-md-12">
-                                                                    @Html.DropDownList("DocumentType", new SelectList(ViewBag.DocumentTypes, "Id", "TypeName"), null, htmlAttributes: new { @class = "form-control" })
-                                                                </div>
-                                                            </div>
-
-                                                        <div class="form-group">
-                                                            <div class="col-md-2">
-                                                                <label class="control-label">Description</label>
-                                                            </div>
-                                                            <div class="col-md-12">
-                                                                @Html.TextArea("DocumentDescription", new {@class = "form-control", @Rows = 4, PlaceHolder = "Add a description for the document"})
-                                                            </div>
-                                                        </div>
-                                                        <input type="hidden" name="TrialId" id="TrialId" value="@ViewBag.Id"/>
-                                                        <div class="form-group">
-                                                            <div class="col-md-12">
-                                                                <input type="submit" class="btn btn-default btn-block" value="Upload a Document">
-                                                            </div>
-                                                        </div>
-                                                    }
-                                                    
-                                                </div>
-                                            </div>
-                                            <!-- /.box-body -->
-                                        </div>
-                                        <!-- /.box -->
-                                    </div>
-                                </div>
-                            </section>
-                        </div>
-                        <div class="tab-pane" id="tab7">
-@*                            updated via JQuery function below.*@
-@*                            <p>@{ Html.RenderAction("ListAddedRecords", new {Id = ViewBag.Id}); }</p>*@
-                        </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-5 col-md-12 col-sm-12">
-                    <div class="box box-solid box-default">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Trial Contacts</h3>
-                            <div class="box-tools pull-right">
-                                <!-- Buttons, labels, and many other things can be placed here! -->
-                                <!-- Here is a label for example -->
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                                    <i class="fa fa-minus"></i>
-                                </button>
-                            </div>
-                            <!-- /.box-tools -->
-                        </div>
-                        <!-- /.box-header -->
-                        <div class="box-body">
-                            <div class="col-md-12">
-                                <div id="ListOfContacts">
-                                    @if (ViewBag.contactsRole == null)
-                                    {
-                                        <p> There are no Contacts currently attached to this Trial.</p>
-                                    }
-                                    else
-                                    {
-                                        <table id="contacts" class="table table-bordered table-striped">
-                                            <thead>
-                                            <tr>
-                                                <th>Contact Name</th>
-                                                <th class="hidden-xs hidden-md-lg">Organisation</th>
-                                                <th>Email</th>
-                                                <th>Telephone</th>
-                                                <th class="hidden-xs">Trial Role</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            @foreach (var contact in ViewBag.contactsRole)
-                                        {
-                                                <tr>
-                                                    <td><a href="/Contacts/Edit/@contact.ContactName.Id">@contact.ContactName.ContactName</a></td>
-                                                    <td class="hidden-xs hidden-md-lg">@contact.ContactName.Organisation</td>
-                                                    <td style="text-align: center;"><a href="mailto:@contact.ContactName.Email" title="@contact.ContactName.Email"><i class="fa fa-envelope-o"></i></a></td>
-                                                    <td>@contact.ContactName.Telephone</td>
-                                                    <td class="hidden-xs">@contact.RoleName.RoleName</td>
-                                                </tr>
-                                            }
-                                            </tbody>
-                                        </table>
-                                    }
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="box-footer">
-                            <div class="form-group">
-                                
-                                <div class="input-group">
-                                    <div class="col-md-6">
-                                        <label>Contact List</label>
-                                        @Html.DropDownList("Contacts", new SelectList(ViewBag.Contacts, "Id", "ContactName"), null, htmlAttributes: new {@class = "form-control", id = "ContactSel"})
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label>Role List</label>
-                                        @Html.DropDownList("Roles", new SelectList(ViewBag.Roles, "Id", "RoleName"), null, htmlAttributes: new {@class = "form-control", id = "RoleSel"})
-                                    </div>
-                                </div>
-                            </div>
-                                <button id="AddContact" type="button" class="btn btn-default btn-block">Add Contact to this Trial</button>
-
-                        </div>
-                        <!-- box-footer -->
-                    </div>
-                    <div class="box box-solid box-default">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Trial Notifications</h3>
-                            <div class="box-tools pull-right">
-                                <!-- Buttons, labels, and many other things can be placed here! -->
-                                <!-- Here is a label for example -->
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                                    <i class="fa fa-minus"></i>
-                                </button>
-                            </div>
-                            <!-- /.box-tools -->
-                        </div>
-                        <!-- /.box-header -->
-                        <div class="box-body">
-                            <div class="col-md-12">
-                                <div id="ListOfNotes">
-                                    @if (ViewBag.notifications == null)
-                                    {
-                                        <p> There are no Notifications currently attached to this Trial.</p>
-                                    }
-                                    else
-                                    {
-                                        <table id="notifications" class="table table-bordered table-striped">
-                                            <thead>
-                                            <tr>
-                                                <th>Date\Time</th>
-                                                <th>Who</th>
-                                                <th>Notification</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            @foreach (var note in ViewBag.notifications)
-                                            {
-                                                <tr>
-                                                    <td>@note.DateTime.ToString("yyyy-MM-dd hh:mm:ss")</td>
-                                                    <td>@note.Who</td>
-                                                    <td>@note.Message</td>
-                                                </tr>
-                                            }
-                                            </tbody>
-                                        </table>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                        <div class="box-footer">
-                            <div class="form-group">
-                                <label for="Notification">Notification</label>
-                                @Html.TextArea("Notification", new { @class = "form-control", id = "message", @Rows = 4, PlaceHolder = "Add a note to the Trial" })
-                            </div>
-                            <button id="AddNotification" type="button" class="btn btn-default btn-block">Add Note to this Trial</button>
-
-                        </div>
-                        <!-- box-footer -->
-                    </div>
-                    <div class="box box-solid box-default">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Trial Reminders</h3>
-                            <div class="box-tools pull-right">
-                                <!-- Buttons, labels, and many other things can be placed here! -->
-                                <!-- Here is a label for example -->
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                                    <i class="fa fa-minus"></i>
-                                </button>
-                            </div>
-                            <!-- /.box-tools -->
-                        </div>
-                        <!-- /.box-header -->
-                        <div class="box-body">
-                            <div class="col-md-12">
-                                <div id="ListOfReminders">
-                                    @if (ViewBag.reminders == null)
-                                    {
-                                        <p> There are no Reminders currently attached to this Trial.</p>
-                                    }
-                                    else
-                                    {
-                                        <div id="ReminderStatus"></div>
-                                        <table class="table table-bordered table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Cancel</th>
-                                                    <th>Reminder</th>
-                                                    <th>Due Date</th>
-                                                    <th>Days till due</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach (var reminder in ViewBag.reminders)
-                                                {
-                                                    <tr>
-                                                        <td>
-                                                           @Html.CheckBox("CBChecked", (bool) reminder.Checked, new {id = reminder.Id, @class = "stopCount"})
-                                                        </td>
-                                                        <td>@reminder.Reminder</td>
-                                                        <td>@reminder.DueDate</td>
-                                                        <td>
-                                                                                                
-                                                                @(ViewBag.DaysTillDue = (reminder.DueDate - ViewBag.Today).TotalDays)
-                                                            @if (ViewBag.DaysTillDue > 100)
-                                                            {
-                                                                <span class="pull-right-container">
-                                                                    <span class="label pull-right bg-green">@ViewBag.DayTillDue <i class="fa fa-thumbs-o-up"></i></span>
-                                                                </span>
-                                                            }
-                                                            else if (ViewBag.DaysTillDue < 100 && ViewBag.DaysTillDue > 50)
-                                                            {
-                                                                <span class="pull-right-container">
-                                                                    <span class="label pull-right bg-yellow">@ViewBag.DayTillDue <i class="fa fa-calendar-times-o"></i></span>
-                                                                </span>
-                                                            }
-                                                            else
-                                                            {
-                                                                <span class="pull-right-container">
-                                                                    <span class="label pull-right bg-red">@ViewBag.DayTillDue <i class="fa fa-warning"></i></span>
-                                                                </span>
-                                                            }
-                                    
-                                                        </td>
-                                                    </tr>
-                                                }
-                                            </tbody>
-                                        </table>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                        <div class="box-footer">
-                            <div class="form-group">
-                                <div class="input-group">
-                                    @Html.Editor("DueDate", new { htmlAttributes = new { @class = "form-control datepicker", id="dueDate", PlaceHolder = "Reminder Due Date"} })
-                                    
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="Reminder">Reminder</label>
-                                @Html.TextArea("Reminder", new {@class = "form-control", id = "reminder", @Rows = 4, PlaceHolder = "Add a reminder to the Trial"})
-                            </div>
-                            <button id="AddReminder" type="button" class="btn btn-default btn-block">Add Reminder to this Trial</button>
-
-                        </div>
-                        <!-- box-footer -->
-                    </div>
-                </div>
-
-
+        <div class="tab-content">
+        <div class="tab-pane active" id="tab1">
+        <div class="box box-solid box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Trial Management</h3>
+            <div class="box-tools pull-right">
+                <!-- Buttons, labels, and many other things can be placed here! -->
+                <!-- Here is a label for example -->
+                <span class="label label-default">Edit Trial...</span>
             </div>
-        </section>
-    </div>
+            <!-- /.box-tools -->
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+        <div class="col-md-12">
+            <div class="form-horizontal">
+            <h4>Feasibility</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.ShortName)
+            </div>
+            <div class="col-md-10">
+                <div class="form-group">
+                    <div class="input-group">
+                        @Html.EditorFor(model => model.ShortName, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Enter Trial Short Name", disabled = "disabled" } })
+                        <div class="input-group-addon feasibility">
+                            <a href="#" data-toggle="modal" data-target="#modal-default1">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </div>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.ShortName, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.TrialTitle)
+            </div>
+            <div class="col-md-10">
+                <div class="form-group">
+                    @Html.TextAreaFor(model => model.TrialTitle, new { @class = "form-control", Rows = 4, PlaceHolder = "Full Trial title", id = "TrialTitleTextArea" })
+                    @Html.ValidationMessageFor(model => model.TrialTitle, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div id="TrialTitleSave" style="display: none">
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-10">
+                    <button id="saveTitle" class="btn btn-primary btn-block">Save Changes <i class="fa fa-floppy-o"></i></button>
+                </div>
+                <div class="col-md-12"> <br/>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.ApplicationReference)
+            </div>
+            <div class="col-md-10">
+                <div class="form-group">
+                    <div class="input-group">
+                        @Html.EditorFor(model => model.ApplicationReference, new { htmlAttributes = new { @class = "form-control", title = "Application Reference", disabled = "disabled" } })
+                        <div class="input-group-addon feasibility">
+                            <a href="#" data-toggle="modal" data-target="#modal-default1">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </div>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.ApplicationReference, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.BhNumber)
+            </div>
+            <div class="col-md-10">
+                <div class="form-group">
+                    <div class="input-group">
+                        @Html.EditorFor(model => model.BhNumber, new { htmlAttributes = new { @class = "form-control", Title = "BH Number", disabled = "disabled" } })
+                        <div class="input-group-addon feasibility">
+                            <a href="#" data-toggle="modal" data-target="#modal-default1">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </div>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.BhNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.TrialTypeId)
+            </div>
+            <div class="col-md-10">
+                <div class="form-group">
+                    <div class="input-group">
+                        @Html.DropDownList("TrialTypeId", null, htmlAttributes: new { @class = "form-control", Title = "Trial types", disabled = "disabled" })
+                        <div class="input-group-addon feasibility">
+                            <a href="#" data-toggle="modal" data-target="#modal-default1">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </div>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.TrialTypeId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.Commercial)
+            </div>
+            <div class="col-md-10">
+                <div class="form-group">
+                    <div class="checkbox">
+                        @Html.RadioButtonFor(model => model.Commercial, "Commercial") Commercial
+                        @Html.RadioButtonFor(model => model.Commercial, "Non-Commercial") Non-Commercial
+                        @Html.ValidationMessageFor(model => model.Commercial, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+                <div id="CommercialSave" style="display: none">
+                    <div class="col-md-2">
+                    </div>
+                    <div class="col-md-10">
+                        <button id="saveCommercial" class="btn btn-primary btn-block">Save Changes <i class="fa fa-floppy-o"></i></button>
+                    </div>
+                    <div class="col-md-12">
+                        <br />
+                    </div>
+                </div>
+
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.PhaseId)
+            </div>
+            <div class="col-md-10">
+                <div class="form-group">
+                    <div class="input-group">
+                        @Html.DropDownList("PhaseId", null, htmlAttributes: new { @class = "form-control", disabled = "disabled" })
+                        <div class="input-group-addon feasibility">
+                            <a href="#" data-toggle="modal" data-target="#modal-default1">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </div>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.PhaseId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.SampleSize)
+            </div>
+            <div class="col-md-10">
+                <div class="form-group">
+                    <div class="input-group">
+                        @Html.EditorFor(model => model.SampleSize, new { htmlAttributes = new { @class = "form-control", title = "Sample Size", disabled = "disabled" } })
+                        <div class="input-group-addon feasibility">
+                            <a href="#" data-toggle="modal" data-target="#modal-default1">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </div>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.SampleSize, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.GrantTypeId)
+            </div>
+            <div class="col-md-10">
+                <div class="form-group">
+                    <div class="input-group">
+                        @Html.DropDownList("GrantTypeId", null, htmlAttributes: new { @class = "form-control", disabled = "disabled" })
+                        <div class="input-group-addon feasibility">
+                            <a href="#" data-toggle="modal" data-target="#modal-default1">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </div>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.GrantTypeId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.FundingStream)
+            </div>
+            <div class="col-md-10">
+                <div class="form-group">
+                    <div class="input-group">
+                        @Html.EditorFor(model => model.FundingStream, new { htmlAttributes = new { @class = "form-control", Title = "Funding Stream", disabled = "disabled" } })
+                        <div class="input-group-addon feasibility">
+                            <a href="#" data-toggle="modal" data-target="#modal-default1">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </div>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.FundingStream, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.GrantDeadlineDate)
+            </div>
+            <div class="col-md-10">
+                <div class="form-group">
+                    <div class="input-group">
+                        @Html.EditorFor(model => model.GrantDeadlineDate, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                        <div class="input-group-addon feasibility">
+                            <a href="#" data-toggle="modal" data-target="#modal-default1">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </div>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.GrantDeadlineDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+                @Html.Label("Agreements")
+            </div>
+            <div class="col-md-10">
+                <div class="form-group">
+                    <div class="checkbox" id="Agreement1">
+                        @Html.CheckBoxFor(model => model.UniConsultancyAgreement) Uni Consultancy Agreement
+                        @Html.ValidationMessageFor(model => model.UniConsultancyAgreement, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="checkbox" id="Agreement2">
+                        @Html.CheckBoxFor(model => model.NhsConsultancyAgreement) NHS Consultancy Agreement
+                        @Html.ValidationMessageFor(model => model.NhsConsultancyAgreement, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div id="AgreementChange" style="display: none"></div>
+            </div>
+                <div id="AgreementSave" style="display: none">
+                    <div class="col-md-2">
+                    </div>
+                    <div class="col-md-10">
+                        <button id="saveAgreement" class="btn btn-primary btn-block">Save Changes <i class="fa fa-floppy-o"></i></button>
+                    </div>
+                    <div class="col-md-12">
+                        <br />
+                    </div>
+                </div>
+
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.DiseaseTherapyAreaId)
+            </div>
+            <div class="col-md-10">
+                <div class="form-group">
+                    <div class="input-group">
+                        @Html.DropDownList("DiseaseTherapyAreaId", null, htmlAttributes: new { @class = "form-control", disabled = "disabled" })
+                        <div class="input-group-addon">
+                            <a href="#">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </div>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.DiseaseTherapyAreaId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            </div>
+
+        </div>
+        </div><!-- /.box-body -->
+        <!-- /.box -->
+        </div>
+        @if (ViewBag.progress == null)
+        {
+            <div class="box-footer">
+                <div id="EnterProgress">
+                    <div class="input-group">
+                        <div class="col-md-12">
+                            <label class="input-group">Trial Progress</label>
+                        </div>
+                        <div class="checkbox">
+                            @Html.RadioButton("StartedTrial", "Yes") Trial Started
+                            @Html.RadioButton("StartedTrial", "No") Trial didn't Start
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label class="label">Reason Trial did not Start</label>
+                        </div>
+                        @Html.TextArea("Reason", new { @class = "form-control", Rows = 4, PlaceHolder = "Enter the reason the Trial did not start" })
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-default btn-block" id="saveTrial">Save Trial Progress</button>
+                    </div>
+                </div>
+                <div id="Progress"></div>
+                <!-- box-footer -->
+            </div>
+        }
+        else
+        {
+            foreach (var item in ViewBag.progress)
+            {
+                <div class="box-footer">
+                    <div class="input-group">
+                        <div class="col-md-12">
+                            <label class="input-group">Trial Progress</label>
+                        </div>
+                        <div class="checkbox">
+                            @if (item.Started == "Yes")
+                            {
+                                @Html.CheckBox("StartedTrial", new { @checked = "checked" })
+                                @Html.Label("Trial Started")
+                                @Html.CheckBox("StartedTrial")
+                                @Html.Label("Trial didn't Start ")
+                            }
+                            else
+                            {
+                                @Html.CheckBox("StartedTrial")
+                                @Html.Label("Trial Started")
+                                @Html.CheckBox("StartedTrial", new { @checked = "checked" })
+                                @Html.Label("Trial didn't Start ")
+                            }
+
+
+                        </div>
+                    </div>
+                    @if (item.Started == "No")
+                    {
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label class="label">Reason Trial did not Start</label>
+                            </div>
+                            <textarea class="form-control" rows="4" disabled="disabled">@item.Reason</textarea>
+                        </div>
+                    }
+                                            
+                </div>
+                <!-- box-footer -->
+            }
+
+        }
+        </div>
+
+        <div class="tab-pane" id="tab2">
+            <p>@{ Html.RenderAction("ShowSetup", new { Id = ViewBag.Id }); }</p>
+        </div>
+        <div class="tab-pane" id="tab3">
+            <p>@{ Html.RenderAction("ShowLateDevelopment", new { Id = ViewBag.Id }); }</p>
+        </div>
+        <div class="tab-pane" id="tab4">
+            <p>@{ Html.RenderAction("ShowActive", new { Id = ViewBag.Id }); }</p>
+        </div>
+        <div class="tab-pane" id="tab5">
+            <p>@{ Html.RenderAction("ShowCloseDown", new { Id = ViewBag.Id }); }</p>
+        </div>
+        <div class="tab-pane" id="tab6">
+            <div id="ListOfDocuments">
+                <p>@{ Html.RenderAction("ShowDocuments", new { Id = ViewBag.Id }); }</p>
+            </div>
+            <section class="content container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-solid box-primary">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Add New Document</h3>
+                                <div class="box-tools pull-right">
+                                    <!-- Buttons, labels, and many other things can be placed here! -->
+                                    <!-- Here is a label for example -->
+                                    <span class="label label-default">Adding a document...</span>
+                                </div>
+                                <!-- /.box-tools -->
+                            </div>
+                            <!-- /.box-header -->
+                            <div class="box-body">
+
+                                <div class="form-horizontal">
+                                    <h4>Add a Document</h4>
+                                    <hr />
+                                    @using (Html.BeginForm("AddDocument","TrialFeasibility", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                    {
+                                        <div class="form-group">
+                                            <div class="col-md-2">
+                                                <label class="control-label">Link to the File</label>
+                                            </div>
+                                                            
+                                            <div class="col-md-12">
+                                                @Html.Editor("UploadFile", new {htmlAttributes = new {@class = "form-control", Type = "File"}})
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-2">
+                                                <Label class="control-label">File Version</Label>
+                                            </div>
+                                            <div class="col-md-12">
+                                                @Html.Editor("DocumentVersion", new { htmlAttributes = new { @class = "form-control", PlaceHolder = "File Version" } })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-2">
+                                                <label class="control-label">Document Type</label>
+                                            </div>
+                                            <div class="col-md-12">
+                                                @Html.DropDownList("DocumentType", new SelectList(ViewBag.DocumentTypes, "Id", "TypeName"), null, htmlAttributes: new { @class = "form-control" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-2">
+                                                <label class="control-label">Description</label>
+                                            </div>
+                                            <div class="col-md-12">
+                                                @Html.TextArea("DocumentDescription", new {@class = "form-control", @Rows = 4, PlaceHolder = "Add a description for the document"})
+                                            </div>
+                                        </div>
+                                        <input type="hidden" name="TrialId" id="TrialId" value="@ViewBag.Id"/>
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <input type="submit" class="btn btn-default btn-block" value="Upload a Document">
+                                            </div>
+                                        </div>
+                                    }
+                                                    
+                                </div>
+                            </div>
+                            <!-- /.box-body -->
+                        </div>
+                        <!-- /.box -->
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="tab-pane" id="tab7">
+            @*                            updated via JQuery function below.*@
+            @*                            <p>@{ Html.RenderAction("ListAddedRecords", new {Id = ViewBag.Id}); }</p>*@
+        </div>
+        </div>
+        </div>
+        </div>
+        <div class="col-lg-5 col-md-12 col-sm-12">
+            <div class="box box-solid box-default">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Trial Contacts</h3>
+                    <div class="box-tools pull-right">
+                        <!-- Buttons, labels, and many other things can be placed here! -->
+                        <!-- Here is a label for example -->
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                    <!-- /.box-tools -->
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <div id="ListOfContacts">
+                            @if (ViewBag.contactsRole == null)
+                            {
+                                <p> There are no Contacts currently attached to this Trial.</p>
+                            }
+                            else
+                            {
+                                <table id="contacts" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Contact Name</th>
+                                        <th class="hidden-xs hidden-md-lg">Organisation</th>
+                                        <th>Email</th>
+                                        <th>Telephone</th>
+                                        <th class="hidden-xs">Trial Role</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach (var contact in ViewBag.contactsRole)
+                                    {
+                                        <tr>
+                                            <td><a href="/Contacts/Edit/@contact.ContactName.Id">@contact.ContactName.ContactName</a></td>
+                                            <td class="hidden-xs hidden-md-lg">@contact.ContactName.Organisation</td>
+                                            <td style="text-align: center;"><a href="mailto:@contact.ContactName.Email" title="@contact.ContactName.Email"><i class="fa fa-envelope-o"></i></a></td>
+                                            <td>@contact.ContactName.Telephone</td>
+                                            <td class="hidden-xs">@contact.RoleName.RoleName</td>
+                                        </tr>
+                                    }
+                                    </tbody>
+                                </table>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <div class="form-group">
+                                
+                        <div class="input-group">
+                            <div class="col-md-6">
+                                <label>Contact List</label>
+                                @Html.DropDownList("Contacts", new SelectList(ViewBag.Contacts, "Id", "ContactName"), null, htmlAttributes: new {@class = "form-control", id = "ContactSel"})
+                            </div>
+                            <div class="col-md-6">
+                                <label>Role List</label>
+                                @Html.DropDownList("Roles", new SelectList(ViewBag.Roles, "Id", "RoleName"), null, htmlAttributes: new {@class = "form-control", id = "RoleSel"})
+                            </div>
+                        </div>
+                    </div>
+                    <button id="AddContact" type="button" class="btn btn-default btn-block">Add Contact to this Trial</button>
+
+                </div>
+                <!-- box-footer -->
+            </div>
+            <div class="box box-solid box-default">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Trial Notifications</h3>
+                    <div class="box-tools pull-right">
+                        <!-- Buttons, labels, and many other things can be placed here! -->
+                        <!-- Here is a label for example -->
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                    <!-- /.box-tools -->
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <div id="ListOfNotes">
+                            @if (ViewBag.notifications == null)
+                            {
+                                <p> There are no Notifications currently attached to this Trial.</p>
+                            }
+                            else
+                            {
+                                <table id="notifications" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Date\Time</th>
+                                        <th>Who</th>
+                                        <th>Notification</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach (var note in ViewBag.notifications)
+                                    {
+                                        <tr>
+                                            <td>@note.DateTime.ToString("yyyy-MM-dd hh:mm:ss")</td>
+                                            <td>@note.Who</td>
+                                            <td>@note.Message</td>
+                                        </tr>
+                                    }
+                                    </tbody>
+                                </table>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <div class="form-group">
+                        <label for="Notification">Notification</label>
+                        @Html.TextArea("Notification", new { @class = "form-control", id = "message", @Rows = 4, PlaceHolder = "Add a note to the Trial" })
+                    </div>
+                    <button id="AddNotification" type="button" class="btn btn-default btn-block">Add Note to this Trial</button>
+
+                </div>
+                <!-- box-footer -->
+            </div>
+            <div class="box box-solid box-default">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Trial Reminders</h3>
+                    <div class="box-tools pull-right">
+                        <!-- Buttons, labels, and many other things can be placed here! -->
+                        <!-- Here is a label for example -->
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                    <!-- /.box-tools -->
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <div id="ListOfReminders">
+                            @{Html.RenderAction("ShowReminderStatus", new { TrialId = ViewBag.Id });}
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <div class="form-group">
+                            <div class="input-group">
+                                @Html.Editor("DueDate", new { htmlAttributes = new { @class = "form-control datepicker", id="dueDate", PlaceHolder = "Reminder Due Date"} })
+                                    
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Reminder">Reminder</label>
+                            @Html.TextArea("Reminder", new {@class = "form-control", id = "reminder", @Rows = 4, PlaceHolder = "Add a reminder to the Trial"})
+                        </div>
+                        <button id="AddReminder" type="button" class="btn btn-default btn-block">Add Reminder to this Trial</button>
+
+                    </div>
+                    <!-- box-footer -->
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    </section>
+    </div>
+    <div class="modal modal-danger fade" id="modal-reminder">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title">Confirm Deletion</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Do you wish to completely remove this reminder?  OR Select close if you just want to mark it as viewed.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-outline" id="remDelete" data-dismiss="modal">Confirm Delete</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
 </body>
 </html>
 
 @section scripts
 {
     <script>
-    var times = 0;
-    var inp;
-    var fieldName;
-    var original;
-    var type;
-    var aClass;
-    var Id = @ViewBag.Id;
-    $(".input-group-addon").click(function() {
-        times++;
-        var controller = "";
-        var getClass = $(this).attr('class');
-        switch (true) {
-        case getClass.indexOf('feasibility') >= 0:
-            controller = "TrialFeasibility";
-            break;
-        case getClass.indexOf('setup') >= 0:
-            controller = "TrialSetup";
-            break;
-        case getClass.indexOf('lateDev') >= 0:
-            controller = "TrialLateDevelopment";
-            break;
-        case getClass.indexOf('active') >= 0:
-            controller = "TrialActive";
-            break;
-        }
-        if (times >= 2) {
-            if (!$('#reason').val()) {
-                $('#message').text('Please enter a reason for this change.');
-            } else {
-                $(this).html('<a id="saveChange" href="#"><i class="fa fa-edit"></i></a>');
-                $('#' + fieldName).prop("disabled", true);
-                times = 0;
-                var postData = {
-                    Original: original,
-                    FieldName: fieldName,
-                    NewValue: inp.val(),
-                    Reason: $('#reason').val(),
-                    Controller: controller,
-                    TrialId: Id,
-                    Id: Id
-                }
-                $.ajax({
-                    type: 'POST',
-                    url: '/TrialFeasibility/AjaxEdit',
-                    data: postData,
-                    success: function(data) {
-                        $("#tab7").html(data);
+        var times = 0;
+        var inp;
+        var fieldName;
+        var original;
+        var type;
+        var aClass;
+        var Id = @ViewBag.Id;
+        $(".input-group-addon").click(function() {
+            times++;
+            var controller = "";
+            var getClass = $(this).attr('class');
+            switch (true) {
+            case getClass.indexOf('feasibility') >= 0:
+                controller = "TrialFeasibility";
+                break;
+            case getClass.indexOf('setup') >= 0:
+                controller = "TrialSetup";
+                break;
+            case getClass.indexOf('lateDev') >= 0:
+                controller = "TrialLateDevelopment";
+                break;
+            case getClass.indexOf('active') >= 0:
+                controller = "TrialActive";
+                break;
+            case getClass.indexOf('closed') >= 0:
+                controller = "TrialClosed";
+                break;
+            }
+            if (times >= 2) {
+                if (!$('#reason').val()) {
+                    $('#message').text('Please enter a reason for this change.');
+                } else {
+                    $(this).html('<a id="saveChange" href="#"><i class="fa fa-edit"></i></a>');
+                    $('#' + fieldName).prop("disabled", true);
+                    times = 0;
+                    var postData = {
+                        Original: original,
+                        FieldName: fieldName,
+                        NewValue: inp.val(),
+                        Reason: $('#reason').val(),
+                        Controller: controller,
+                        TrialId: Id,
+                        Id: Id
                     }
-                });
-                $('#newDiv').remove();
-                $('#message').remove();
+                    $.ajax({
+                        type: 'POST',
+                        url: '/TrialFeasibility/AjaxEdit',
+                        data: postData,
+                        success: function(data) {
+                            $("#tab7").html(data);
+                        }
+                    });
+                    $('#newDiv').remove();
+                    $('#message').remove();
+                }
+            } else {
+                inp = $(this).parent().find(":input");
+                original = inp.val();
+                fieldName = $(inp).attr("name");
+                $('#' + fieldName).prop("disabled", false);
+                $(this).html('<a id="saveChange" href="#"><i class="fa fa-floppy-o"></i></a>');
+                var pDiv = $(this).parent().closest('div');
+                $(pDiv)
+                    .after($('<div id="newDiv" style="padding-top:17px;"><textarea id="reason" class="form-control textarea" placeholder="Enter the reason why the change is necessary"></textarea></div><div id="message"></div>'));
+
             }
-        } else {
-            inp = $(this).parent().find(":input");
-            original = inp.val();
-            fieldName = $(inp).attr("name");
-            $('#' + fieldName).prop("disabled", false);
-            $(this).html('<a id="saveChange" href="#"><i class="fa fa-floppy-o"></i></a>');
-            var pDiv = $(this).parent().closest('div');
-            $(pDiv)
-                .after($('<div id="newDiv" style="padding-top:17px;"><textarea id="reason" class="form-control textarea" placeholder="Enter the reason why the change is necessary"></textarea></div><div id="message"></div>'));
 
-        }
+        });
 
-    });
-
-    $.ajax({
-        url: '@Url.Action("ListAddedRecords", "TrialFeasibility", new {Id = ViewBag.Id}) ',
-        datatype: "json",
-        type: "post",
-        contenttype: 'application/json; charset=utf-8',
-        async: true,
-        success: function(data) {
-            $("#tab7").html(data);
-        }
-    });
-
-    $('#ContactSel').select2({
-        placeholder: 'Select an option'
-    });
-
-    $("#AddContact").click(function() {
-        var postData = {
-            ContactId: $('#ContactSel').val(),
-            RoleId: $('#RoleSel').val(),
-            TrialId: @ViewBag.Id
-        }
         $.ajax({
-            url: '/TrialFeasibility/ListContacts',
-            type: 'POST',
-            data: postData,
+            url: '@Url.Action("ListAddedRecords", "TrialFeasibility", new {Id = ViewBag.Id}) ',
+            datatype: "json",
+            type: "post",
+            contenttype: 'application/json; charset=utf-8',
+            async: true,
             success: function(data) {
-                $("#ListOfContacts").html(data);
+                $("#tab7").html(data);
             }
         });
-    });
 
-    $("#AddNotification").click(function() {
-        var postData = {
-            Who: '@ViewBag.User',
-            Message: $('#message').val(),
-            TrialId: @ViewBag.Id
-        }
-        $.ajax({
-            url: '/TrialFeasibility/ListNotes',
-            type: 'POST',
-            data: postData,
-            success: function(data) {
-                $("#ListOfNotes").html(data);
-                $('#message').val("");
-            }
+        $('#ContactSel').select2({
+            placeholder: 'Select an option'
         });
-    });
-    $("#AddReminder").click(function() {
-        var postData = {
-            Reminder: $('#reminder').val(),
-            DueDate: $('#dueDate').val(),
-            TrialId: @ViewBag.Id
-        }
-        $.ajax({
-            url: '/TrialFeasibility/ListReminders',
-            type: 'POST',
-            data: postData,
-            success: function(data) {
-                $("#ListOfReminders").html(data);
-                $('#reminder').val("");
-                $('dueDate').val("");
-            }
-        });
-    });
 
-    $("#saveTrial").click(function() {
-        var postData = {
-            Started: $("input[name='StartedTrial']:checked").val(),
-            Reason: $('#Reason').val(),
-            TrialId: @ViewBag.Id
-        }
-        $.ajax({
-            url: '/TrialFeasibility/AddProgress',
-            type: 'POST',
-            data: postData,
-            success: function(data) {
-                $("#Progress").html(data);
-                $("#EnterProgress").fadeOut();
-            }
+        $("#AddContact").click(function() {
+            var postData = {
+                ContactId: $('#ContactSel').val(),
+                RoleId: $('#RoleSel').val(),
+                TrialId: @ViewBag.Id
+            };
+            $.ajax({
+                url: '/TrialFeasibility/ListContacts',
+                type: 'POST',
+                data: postData,
+                success: function(data) {
+                    $("#ListOfContacts").html(data);
+                }
+            });
         });
-    });
 
-    $("#saveSetup").click(function() {
-        var postData = {
-            Completed: $("input[name='StartedTrial']:checked").val(),
-            Reason: $('#Reason').val(),
-            TrialId: @ViewBag.Id
-        };
+        $("#AddNotification").click(function() {
+            var postData = {
+                Who: '@ViewBag.User',
+                Message: $('#message').val(),
+                TrialId: @ViewBag.Id
+            };
+            $.ajax({
+                url: '/TrialFeasibility/ListNotes',
+                type: 'POST',
+                data: postData,
+                success: function(data) {
+                    $("#ListOfNotes").html(data);
+                    $('#message').val("");
+                }
+            });
+        });
+        $("#AddReminder").click(function() {
+            var postData = {
+                Reminder: $('#reminder').val(),
+                DueDate: $('#dueDate').val(),
+                TrialId: @ViewBag.Id
+            };
+            $.ajax({
+                url: '/TrialFeasibility/ListReminders',
+                type: 'POST',
+                data: postData,
+                success: function(data) {
+                    location.reload();
+                    $('#reminder').val("");
+                    $('#dueDate').val("");
+                }
+            });
+        });
+
+        $("#saveTrial").click(function() {
+            var postData = {
+                Started: $("input[name='StartedTrial']:checked").val(),
+                Reason: $('#Reason').val(),
+                TrialId: @ViewBag.Id
+            };
+            $.ajax({
+                url: '/TrialFeasibility/AddProgress',
+                type: 'POST',
+                data: postData,
+                success: function(data) {
+                    $("#Progress").html(data);
+                    $("#EnterProgress").fadeOut();
+                }
+            });
+        });
+
+        $("#saveSetup").click(function() {
+            var postData = {
+                Completed: $("input[name='StartedTrial']:checked").val(),
+                Reason: $('#Reason').val(),
+                TrialId: @ViewBag.Id
+            };
             $.ajax({
                 url: '/TrialFeasibility/AddProgressSetup',
                 type: 'POST',
@@ -876,22 +872,126 @@
             });
         });
 
-        $(".stopCount").on("ifChanged", function() 
-        {
+        var RemPostData = 0;
+
+        $(".stopCount").on("ifChanged",
+            function() {
+                RemPostData = $(this).attr('id');
+                var postData = { Id: RemPostData, Delete: false, TrialId: @ViewBag.Id };
+                if ($(this).is(':checked')) {
+                    $('#modal-reminder').modal('toggle');
+                } else {
+
+                    $.ajax({
+                        url: '/TrialFeasibility/ChangeReminderStatus',
+                        type: 'POST',
+                        data: postData,
+                        success: function(data) {
+                            location.reload();
+                        }
+                    });
+                }
+            });
+
+        $('#modal-reminder').on('hide.bs.modal',
+            function(e) {
+                var clickedId = $(document.activeElement);
+                var reminderDeletion = false;
+                if (clickedId.attr('id') === 'remDelete') {
+                    reminderDeletion = true;
+                }
+                var postData = {
+                    Id: RemPostData,
+                    Delete: reminderDeletion,
+                    TrialId: @ViewBag.Id
+                };
+
+                $.ajax({
+                    url: '/TrialFeasibility/ChangeReminderStatus',
+                    type: 'POST',
+                    data: postData,
+                    success: function(data) {
+                        location.reload();
+                    }
+                });
+            });
+
+        $("#TrialTitleTextArea").change(function() {
+            $("#TrialTitleSave").show();
+        });
+
+        $("#saveTitle").click(function() {
             var postData = {
-                Id: $(this).attr('id')
+                TrialTitle: $("#TrialTitleTextArea").val(),
+                Id: @ViewBag.Id
             };
             $.ajax({
-                url: '/TrialFeasibility/ChangeReminderStatus',
+                url: '/TrialFeasibility/ChangeTrialTitle',
                 type: 'POST',
                 data: postData,
                 success: function(data) {
-                    $("#ReminderStatus").html(data);
-                    $("#ReminderStatus").delay(1000).fadeOut();
+                    $("#TrialTitleSave").hide();
+                }
+            });
+
+        });
+        $("#Agreement1, #Agreement2").on('ifChanged',
+            function() {
+                $("#AgreementSave").show();
+            });
+
+        $("#saveAgreement").click(function() {
+            var uni = false;
+            var nhs = false;
+            if ($("input[name='UniConsultancyAgreement']").iCheck('update')[0].checked) {
+                uni = true;
+            } 
+            if ($("input[name='NhsConsultancyAgreement']").iCheck('update')[0].checked) {
+                nhs = true;
+            }
+            var postData = {
+                UniConsultancyAgreement: uni,
+                NhsConsultancyAgreement: nhs,
+                Id: @ViewBag.Id
+            };
+            $.ajax({
+                url: '/TrialFeasibility/ChangeAgreement',
+                type: 'POST',
+                data: postData,
+                success: function(data) {
+                    $("#AgreementSave").hide();
                 }
             });
         });
-        $(document).ready(function () {
+
+        $("input[name='Commercial']").on('ifChanged',
+            function() {
+                $("#CommercialSave").show();
+            });
+
+        $("#saveCommercial").click(function() {
+            var commValue = "";
+            if ($("input[name='Commercial']").iCheck('update')[0].checked) {
+                commValue = "Commercial";
+            } else {
+                if ($("input[name='Commercial']").iCheck('update')[1].checked) {
+                    commValue = "Non-Commercial";
+                }
+            }
+            var postData = {
+                Commercial: commValue,
+                Id: @ViewBag.Id};
+            $.ajax({
+                url: '/TrialFeasibility/ChangeCommercial',
+                type: 'POST',
+                data: postData,
+                success: function(data) {
+                    $("#CommercialSave").hide();
+                }
+            });
+        });
+
+        $(document).ready(function() {
             $('#listDocs').DataTable();
             $('#contacts').DataTable();
             $('#notifications').DataTable();
@@ -980,6 +1080,7 @@
                 $('#CtaDate').val(Cookies.get('ctaDate'));
             }
         }
+
         $(document).ready(loadFnSetup);
 
         $("#cookieSaveLate").click(function() {
@@ -1004,7 +1105,7 @@
             $('#TargetFpfvDate').val("");
             Cookies.remove('multiSiteInitiation');
             $('#MultiSiteInitiation').val("");
-           
+
             $('#alertMessageLate').hide();
         });
 

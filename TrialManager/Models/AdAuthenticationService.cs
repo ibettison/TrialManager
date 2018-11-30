@@ -36,14 +36,8 @@ namespace Trialmanager.Models
         /// <returns></returns>
         public AuthenticationResult SignIn(String username, String password)
         {
-#if DEBUG
-            // authenticates against your local machine - for development time
-            //ContextType authenticationType = ContextType.Machine;
             ContextType authenticationType = ContextType.Domain;
-#else
-            // authenticates against your Domain AD
-            ContextType authenticationType = ContextType.Domain;
-#endif
+
             PrincipalContext principalContext = new PrincipalContext(authenticationType);
             bool isAuthenticated = false;
             UserPrincipal userPrincipal = null;
