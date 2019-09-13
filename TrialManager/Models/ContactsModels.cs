@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace Trialmanager.Models
+namespace TrialManager.Models
 {
     public class ContactsModels
     {

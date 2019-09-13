@@ -7,13 +7,13 @@ using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 using Owin;
-using Trialmanager.Models;
+using TrialManager.Classes;
 using TrialManager.Models;
 using WebGrease.Css.Ast.Selectors;
 
 namespace TrialManager.Controllers
 {
-    
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -37,6 +37,45 @@ namespace TrialManager.Controllers
                 ViewBag.InCloseDown = 0;
                 ViewBag.Closed = 0;
                 ViewBag.DidNotStart = 0;
+
+                //check the settings for the Dashboard view
+
+                var trialSettings = (from s in db.SettingsModels
+                    join c in db.ContactsModels on s.ContactId equals c.Id
+                    where c.UserId == User.Identity.Name
+                    select s).FirstOrDefault();
+
+                //if there is no setting record then create one with deafaults
+                if (trialSettings == null)
+                {
+                    //now need to find the conatct record for the logged in user
+                    var contactUser = (from c in db.ContactsModels
+                        where c.UserId == User.Identity.Name
+                        select c).FirstOrDefault();
+                    if (contactUser != null)
+                    {
+                        var settingsRecord = new SettingsModels
+                        {
+                            ContactId = contactUser.Id,
+                            HideClosed = "No",
+                            IconType = "Male",
+                            MiniMenu = "No",
+                            QuickLinks = "Yes",
+                            ShowDashStages = "Yes"
+                        };
+                        db.SettingsModels.Add(settingsRecord);
+                        db.SaveChanges();
+                    }
+                    
+                }
+                else
+                {
+                    ViewBag.SettingsHideClosed = trialSettings.HideClosed;
+                    ViewBag.SettingsIconType = trialSettings.IconType;
+                    ViewBag.SettingsMiniMenu = trialSettings.MiniMenu;
+                    ViewBag.SettingsQuickLinks = trialSettings.QuickLinks;
+                    ViewBag.SettingsShowDashStages = trialSettings.ShowDashStages;
+                }
                
                 foreach (var trial in trialFeasibilityModels)
                 {
@@ -235,22 +274,42 @@ namespace TrialManager.Controllers
                         ReminderCount = remCount,
                         TrialId = trial.Id
                     };
-                    trialList.Add(homeView);
+                    if (trialSettings != null)
+                    {
+                        if (trialSettings.HideClosed == "Yes")
+                        {
+                            if (stage != "Closed")
+                            {
+                                trialList.Add(homeView);
+                            }
+                        }
+                        else
+                        {
+                            trialList.Add(homeView);
+                        }
+                    }
+                    else
+                    {
+                        trialList.Add(homeView);
+                    }
+
+
                 }
+                var threeWeeksAgo = DateTime.Now.AddDays(-21);
+                var recentDeletes = (from r in db.RecentTrialsModels
+                    where User.Identity.Name == r.UserId && r.LastAccessed <= threeWeeksAgo 
+                                     select r).ToList();
+                foreach (var deletes in recentDeletes)
+                {
+                    db.RecentTrialsModels.Remove(deletes);
+                }
+                db.SaveChanges();
+                var recentLinks = (from r in db.RecentTrialsModels
+                    where User.Identity.Name == r.UserId
+                    select r).Distinct().OrderByDescending(d => d.LastAccessed).Take(20).ToList();
+                ViewBag.recent = recentLinks.Count > 0 ? recentLinks : null;
             }
-            var threeWeeksAgo = DateTime.Now.AddDays(-21);
-            var recentDeletes = (from r in db.RecentTrialsModels
-                where User.Identity.Name == r.UserId && r.LastAccessed <= threeWeeksAgo 
-                                 select r).ToList();
-            foreach (var deletes in recentDeletes)
-            {
-                db.RecentTrialsModels.Remove(deletes);
-            }
-            db.SaveChanges();
-            var recentLinks = (from r in db.RecentTrialsModels
-                where User.Identity.Name == r.UserId
-                select r).Distinct().OrderByDescending(d => d.LastAccessed).Take(20).ToList();
-            ViewBag.recent = recentLinks.Count > 0 ? recentLinks : null;
+            
             return View(trialList.ToList()); 
 
         }
@@ -269,8 +328,7 @@ namespace TrialManager.Controllers
 
         [Authorize(
             Roles =
-                "NTRF_AUTO_MC_TrialManager_Administrators, NTRF_AUTO_MC_TrialManager_Editors,  NTRF_AUTO_MC_TrialManager_Membership"
-        )]
+                "NTRF_AUTO_MC_TrialManager_Administrators, NTRF_AUTO_MC_TrialManager_Editors")]
         public ActionResult DisplayMenu()
         {
             ViewBag.PassportOver = 0;
@@ -294,7 +352,41 @@ namespace TrialManager.Controllers
                     }
                 }
             }
+            //check the settings for the Dashboard view
+
+            var checkSettings = new CheckSettings();
+            var settings = checkSettings.GetSettings(User.Identity.Name);
+
+
+            ViewBag.SettingsHideClosed = checkSettings.HideClosed;
+            ViewBag.SettingsIconType = checkSettings.IconType;
+            ViewBag.SettingsMiniMenu = checkSettings.MiniMenu;
+            ViewBag.SettingsQuickLinks = checkSettings.QuickLinks;
+            ViewBag.SettingsShowDashStages = checkSettings.ShowDashStages;
             return PartialView("_layOutSideBar");
         }
+
+        [Authorize(
+            Roles =
+                "NTRF_AUTO_MC_TrialManager_Administrators, NTRF_AUTO_MC_TrialManager_Editors,  NTRF_AUTO_MC_TrialManager_Membership")]
+        public ActionResult UserSettings()
+        {
+            //check the settings for the Dashboard view
+
+            var checkSettings = new CheckSettings();
+            var settings = checkSettings.GetSettings(User.Identity.Name);
+
+
+            ViewBag.SettingsHideClosed = checkSettings.HideClosed;
+            ViewBag.SettingsIconType = checkSettings.IconType;
+            ViewBag.SettingsMiniMenu = checkSettings.MiniMenu;
+            ViewBag.SettingsQuickLinks = checkSettings.QuickLinks;
+            ViewBag.SettingsShowDashStages = checkSettings.ShowDashStages;
+
+            return PartialView("_layOutSettings");
+        }
+
+
+
     }
 }

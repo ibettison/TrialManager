@@ -1,4 +1,5 @@
 ﻿@using System.Security.Claims
+@using TrialManager.Classes
 @using ClaimTypes = System.IdentityModel.Claims.ClaimTypes
 @{
     if (User.Identity.IsAuthenticated) {
@@ -7,8 +8,20 @@
         var claimSurName = ((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.Surname);
         var surName = claimSurName.Value;
         ViewBag.FullName = $"{firstName} {surName}";
+        //check the settings for the Dashboard view
+
+        var checkSettings = new CheckSettings();
+        var settings = checkSettings.GetSettings(User.Identity.Name);
+
+
+        ViewBag.SettingsHideClosed = checkSettings.HideClosed;
+        ViewBag.SettingsIconType = checkSettings.IconType;
+        ViewBag.SettingsMiniMenu = checkSettings.MiniMenu;
+        ViewBag.SettingsQuickLinks = checkSettings.QuickLinks;
+        ViewBag.SettingsShowDashStages = checkSettings.ShowDashStages;
     }
-}
+
+ }
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -34,6 +47,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <link rel="shortcut icon" href="/TrialManager/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/TrialManager/favicon.ico" type="image/ico" />
 </head>
 <!--
 BODY TAG OPTIONS:
@@ -55,7 +70,8 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="hold-transition skin-blue sidebar-mini">
+
+<body class="@(ViewBag.SettingsMiniMenu == "Yes"? "hold-transition skin-blue sidebar-mini sidebar-collapse":"hold-transition skin-blue sidebar-mini" )">
     <div class="wrapper">
         @Html.Partial("_LayOutHeader")
         @if (User.Identity.IsAuthenticated)
@@ -72,7 +88,7 @@ desired effect
                     <b>Version</b> 1.0  -  <small>Coded by Ian Bettison</small>
                 </div>
                 <!-- Default to the left -->
-                <strong>Copyright &copy; 2018 <a href="#">Newcastle University</a>.</strong> All rights reserved.
+                <strong>Copyright &copy; 2018 <a href="http://ncl.ac.uk">Newcastle University</a>.</strong> All rights reserved.
             </footer>
         }
         else
@@ -84,7 +100,7 @@ desired effect
                     <b>Version</b> 1.0  -  <small>Coded by Ian Bettison</small>
                 </div>
                 <!-- Default to the left -->
-                <strong>Copyright &copy; 2018 <a href="#">Newcastle University</a>.</strong> All rights reserved.
+                <strong>Copyright &copy; 2018 <a href="http://www.ncl.ac.uk">Newcastle University</a>.</strong> All rights reserved.
             </footer>
         }
         <!-- Control Sidebar -->
@@ -98,35 +114,9 @@ desired effect
             <div class="tab-content">
                 <!-- Home tab content -->
                 <div class="tab-pane active" id="control-sidebar-home-tab">
-                    <h3 class="control-sidebar-heading">Recent Activity</h3>
-                    <ul class="control-sidebar-menu">
-                        <li>
-                            <a href="javascript:;">
-                                <i class="menu-icon fa fa-birthday-cake bg-red"></i>
-                                <div class="menu-info">
-                                    <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
-                                    <p>Will be 23 on April 24th</p>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.control-sidebar-menu -->
-                    <h3 class="control-sidebar-heading">Tasks Progress</h3>
-                    <ul class="control-sidebar-menu">
-                        <li>
-                            <a href="javascript:;">
-                                <h4 class="control-sidebar-subheading">
-                                    Custom Template Design
-                                    <span class="pull-right-container">
-                                        <span class="label label-danger pull-right">70%</span>
-                                    </span>
-                                </h4>
-                                <div class="progress progress-xxs">
-                                    <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
+                    <h3 class="control-sidebar-heading">Trial Stages</h3>
+                    <p>A real time overview of the trial portfolio in their different stages.</p>
+                    <canvas id="currentTrials" width="400" height="400"></canvas>
                     <!-- /.control-sidebar-menu -->
                 </div>
                 <!-- /.tab-pane -->
@@ -134,21 +124,11 @@ desired effect
                 <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
                 <!-- /.tab-pane -->
                 <!-- Settings tab content -->
-                <div class="tab-pane" id="control-sidebar-settings-tab">
-                    <form method="post">
-                        <h3 class="control-sidebar-heading">General Settings</h3>
-                        <div class="form-group">
-                            <label class="control-sidebar-subheading">
-                                Report panel usage
-                                <input type="checkbox" class="pull-right" checked>
-                            </label>
-                            <p>
-                                Some information about this general settings option
-                            </p>
-                        </div>
-                        <!-- /.form-group -->
-                    </form>
-                </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @Html.Action("UserSettings", "Home")
+                }
+                
                 <!-- /.tab-pane -->
             </div>
         </aside>
@@ -166,6 +146,7 @@ desired effect
     @Scripts.Render("~/Scripts/modernizr/script")
     @Scripts.Render("~/admin-lte/js/scripts")
     @Scripts.Render("~/admin-lte/plugins/scripts")
+    @Scripts.Render("~/node_modules/chart.js/dist/scripts")
     @RenderSection("scripts", required: false)
     
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
@@ -179,14 +160,108 @@ user experience. -->
             radioClass: 'iradio_square-blue'
         });
         $(".datepicker").datepicker({
-            format: 'dd/mm/yyyy',
+            format: 'yyyy-mm-dd',
             autoclose: true
         });
         $('#passport').DataTable();
         $('#PassportSel').select2({
             placeholder: 'Select an option'
         });
-        $.fn.dataTable.moment("DD/MM/YYYY");
+        $('#saveSettings').click(function () {
+            var hide = "No";
+            var quick = "No";
+            var mini = "No";
+            var dash = "No";
+            if ($("input[name='HideSelect']:checked").val() === "true") {
+                hide = "Yes";
+            }
+            if ($("input[name='QuickSelect']:checked").val() === "true") {
+                quick = "Yes";
+            }
+            if ($("input[name='MiniSelect']:checked").val() === "true") {
+                mini = "Yes";
+            }
+            if ($("input[name='DashSelect']:checked").val() === "true") {
+                dash = "Yes";
+            }
+            var postData = {
+                HideClosed: hide,
+                IconType: $("input[name='IconSelect']:checked").val(),
+                QuickLinks: quick,
+                MiniMenu: mini,
+                ShowDashStages: dash
+            };
+
+            $.ajax({
+                url: '/TrialManager/TrialFeasibility/ChangeSettings',
+                type: 'POST',
+                data: postData,
+                success: function(data) {
+                    location.reload();
+                }
+            });
+        });
+
+        var ctx = $("#currentTrials");
+        // And for a doughnut chart
+        var config = {
+            type: 'doughnut',
+            data: {
+                datasets: [
+                    {
+                        data: [
+                            @ViewBag.Feasibility, @ViewBag.Setup, @ViewBag.Late, @ViewBag.Live, @ViewBag.InCloseDown,
+                            @ViewBag.Closed
+                        ],
+                        backgroundColor: [
+                            '#00c0ef',
+                            '#00a65a',
+                            '#dd4b39',
+                            '#0073b7',
+                            '#d81b60',
+                            '#3d9970'
+                        ],
+                        borderColor: [
+                            '#eee',
+                            '#eee',
+                            '#eee',
+                            '#eee',
+                            '#eee',
+                            '#eee'
+                        ],
+                        borderWidth: 2
+                    }
+                ],
+
+                // These labels appear in the legend and in the tooltips when hovering different arcs
+                labels: [
+                    'Feasibility',
+                    'In Setup',
+                    'Late development',
+                    'Live',
+                    'In Close Down',
+                    'Closed'
+                ]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                tooltips: {
+                    enabled: true
+                }
+            }
+        };
+        var myDoughnutChart = new Chart(ctx, config);
+        $('#rhs').click(function() {
+            setTimeout(function() {
+                myDoughnutChart.destroy();
+                myDoughnutChart = new Chart(ctx, config);
+            },
+            100);
+            
+        });
+
     </script>
 </body>
 </html>

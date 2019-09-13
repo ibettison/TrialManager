@@ -20,7 +20,7 @@ else
             @foreach (var note in ViewBag.notifications)
             {
                 <tr>
-                    <td>@note.DateTime.ToString("yyyy-MM-dd hh:mm:ss")</td>
+                    <td>@note.DateTime.ToString("yyyy-MM-dd HH:mm:ss")</td>
                     <td>@note.Who</td>
                     <td>@note.Message</td>
                 </tr>

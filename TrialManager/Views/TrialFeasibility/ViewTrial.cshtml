@@ -1,8 +1,9 @@
-﻿@using System.Activities.Expressions
+﻿@using System
+@using System.Activities.Expressions
 @using System.Web.Mvc.Html
 @using System.Web.UI.WebControls
-@using Trialmanager.Controllers
-@using Trialmanager.Models
+@using TrialManager.Controllers
+@using TrialManager.Models
 @model TrialFeasibilityModels
 
 @{
@@ -26,7 +27,7 @@
             </h1>
             <ol class="breadcrumb">
                 <li>
-                    <a href="/Home/Index">
+                    <a href="/TrialManager/Home/Index">
                         <i class="fa fa-dashboard"></i>@ViewBag.link
                     </a>
                 </li>
@@ -271,7 +272,7 @@
                                             @item.ShortName.ShortName
                                         </td>
                                         <td>
-                                            @item.DateTime
+                                            @item.DateChanged
                                         </td>
                                         <td>
                                             @item.WhoChanged
@@ -324,21 +325,21 @@
                                             <thead>
                                             <tr>
                                                 <th>Contact Name</th>
-                                                <th class="hidden-md hidden-xs">Organisation</th>
+                                                <th class="hidden-xs">Role Info</th>
                                                 <th>Email</th>
                                                 <th>Telephone</th>
-                                                <th class="hidden-xs">Trial Role</th>
+                                                <th>Trial Role</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             @foreach (var contact in ViewBag.contactsRole)
                                         {
                                                 <tr>
-                                                    <td><a href="/Contacts/Edit/@contact.ContactName.Id">@contact.ContactName.ContactName</a></td>
-                                                    <td class="hidden-md hidden-xs">@contact.ContactName.Organisation</td>
+                                                    <td><a href="/TrialManager/Contacts/Edit/@contact.ContactName.Id">@contact.ContactName.ContactName</a></td>
+                                                    <td class="hidden-xs">@contact.RoleDescription</td>
                                                     <td style="text-align: center;"><a href="mailto:@contact.ContactName.Email" title="@contact.ContactName.Email"><i class="fa fa-envelope-o"></i></a></td>
                                                     <td>@contact.ContactName.Telephone</td>
-                                                    <td class="hidden-xs">@contact.RoleName.RoleName</td>
+                                                    <td>@contact.RoleName.RoleName</td>
                                                 </tr>
                                             }
                                             </tbody>
@@ -515,7 +516,7 @@
                     }
                     $.ajax({
                         type: 'POST',
-                        url: '/TrialFeasibility/AjaxEdit',
+                        url: '@Url.Action("AjaxEdit", "TrialFeasibility")',
                         data: postData,
                         success: function(data) {
                             $("#tab7").html(data);
@@ -555,7 +556,7 @@
                 RoleId: $('#RoleSel').val(),
                 TrialId: @ViewBag.Id }
             $.ajax({
-                url: '/TrialFeasibility/ListContacts',
+                url: '@Url.Action("ListContacts", "TrialFeasibility")',
                 type: 'POST',
                 data: postData,
                 success: function(data) {
@@ -570,7 +571,7 @@
                 Message: $('#message').val(),
                 TrialId: @ViewBag.Id }
             $.ajax({
-                url: '/TrialFeasibility/ListNotes',
+                url: '@Url.Action("ListNotes", "TrialFeasibility")',
                 type: 'POST',
                 data: postData,
                 success: function(data) {
@@ -585,7 +586,7 @@
                 DueDate: $('#dueDate').val(),
                 TrialId: @ViewBag.Id }
             $.ajax({
-                url: '/TrialFeasibility/ListReminders',
+                url: '@Url.Action("ListReminders", "TrialFeasibility")',
                 type: 'POST',
                 data: postData,
                 success: function(data) {
@@ -602,7 +603,7 @@
                 Reason: $('#Reason').val(),
                 TrialId: @ViewBag.Id }
             $.ajax({
-                url: '/TrialFeasibility/AddProgress',
+                url: '@Url.Action("AddProgress", "TrialFeasibility")',
                 type: 'POST',
                 data: postData,
                 success: function(data) {
@@ -617,7 +618,7 @@
                 Reason: $('#Reason').val(),
                 TrialId: @ViewBag.Id }
             $.ajax({
-                url: '/TrialFeasibility/AddProgressSetup',
+                url: '@Url.Action("AddProgressSetup", "TrialFeasibility")',
                 type: 'POST',
                 data: postData,
                 success: function(data) {

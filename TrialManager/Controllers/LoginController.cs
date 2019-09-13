@@ -2,11 +2,11 @@
 using System.ComponentModel.DataAnnotations;
 using System.Web;
 using System.Web.Mvc;
-using Trialmanager.Models;
 using Microsoft.Owin.Security;
+using TrialManager.Models;
 
 
-namespace Trialmanager.Controllers
+namespace TrialManager.Controllers
 {
     [AllowAnonymous]
     public class LoginController : Controller

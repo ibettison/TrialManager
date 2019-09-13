@@ -1,8 +1,9 @@
-﻿@using System.Activities.Expressions
+﻿@using System
+@using System.Activities.Expressions
 @using System.Web.Mvc.Html
 @using System.Web.UI.WebControls
-@using Trialmanager.Controllers
-@using Trialmanager.Models
+@using TrialManager.Controllers
+@using TrialManager.Models
 @model TrialFeasibilityModels
 
 @{
@@ -29,7 +30,7 @@
             </h1>
             <ol class="breadcrumb">
                 <li>
-                    <a href="/Home/Index">
+                    <a href="/TrialManager/Home/Index">
                         <i class="fa fa-dashboard"></i>@ViewBag.link
                     </a>
                 </li>
@@ -277,7 +278,7 @@
             <div class="col-md-10">
                 <div class="form-group">
                     <div class="input-group">
-                        @Html.EditorFor(model => model.GrantDeadlineDate, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                        @Html.EditorFor(model => model.GrantDeadlineDate, new { htmlAttributes = new { @class = "form-control datepicker", disabled = "disabled" } })
                         <div class="input-group-addon feasibility">
                             <a href="#" data-toggle="modal" data-target="#modal-default1">
                                 <i class="fa fa-edit"></i>
@@ -537,21 +538,24 @@
                                     <thead>
                                     <tr>
                                         <th>Contact Name</th>
-                                        <th class="hidden-xs hidden-md-lg">Organisation</th>
+                                        <th class="hidden-xs">Role Info</th>
                                         <th>Email</th>
                                         <th>Telephone</th>
                                         <th class="hidden-xs">Trial Role</th>
+                                        <th><i class="fa fa-trash"></i></th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @foreach (var contact in ViewBag.contactsRole)
                                     {
                                         <tr>
-                                            <td><a href="/Contacts/Edit/@contact.ContactName.Id">@contact.ContactName.ContactName</a></td>
-                                            <td class="hidden-xs hidden-md-lg">@contact.ContactName.Organisation</td>
+                                            <td><a href="/TrialManager/Contacts/Edit/@contact.ContactName.Id">@contact.ContactName.ContactName</a></td>
+                                            <td class="hidden-xs">@contact.RoleDescription</td>
                                             <td style="text-align: center;"><a href="mailto:@contact.ContactName.Email" title="@contact.ContactName.Email"><i class="fa fa-envelope-o"></i></a></td>
                                             <td>@contact.ContactName.Telephone</td>
                                             <td class="hidden-xs">@contact.RoleName.RoleName</td>
+                                            <td>@Html.CheckBox("ConChecked", false, new { id = contact.Id, @class = "delContact" })
+</td>
                                         </tr>
                                     }
                                     </tbody>
@@ -563,20 +567,19 @@
                 </div>
                 <div class="box-footer">
                     <div class="form-group">
-                                
-                        <div class="input-group">
-                            <div class="col-md-6">
-                                <label>Contact List</label>
-                                @Html.DropDownList("Contacts", new SelectList(ViewBag.Contacts, "Id", "ContactName"), null, htmlAttributes: new {@class = "form-control", id = "ContactSel"})
-                            </div>
-                            <div class="col-md-6">
-                                <label>Role List</label>
-                                @Html.DropDownList("Roles", new SelectList(ViewBag.Roles, "Id", "RoleName"), null, htmlAttributes: new {@class = "form-control", id = "RoleSel"})
-                            </div>
+                        <div class="col-md-6" style="padding-left: 0px; padding-right: 7px;">
+                            <label>Contact List</label>
+                            @Html.DropDownList("Contacts", new SelectList(ViewBag.Contacts, "Id", "ContactName"), null, htmlAttributes: new {@class = "form-control", id = "ContactSel"})
                         </div>
+                        <div class="col-md-6" style="padding-left: 7px; padding-right: 0px;">
+                            <label>Role List</label>
+                            @Html.DropDownList("Roles", new SelectList(ViewBag.Roles, "Id", "RoleName"), null, htmlAttributes: new { @class = "form-control", id = "RoleSel" })
+                        </div>
+                        <label>Role Information</label>
+                        @Html.Editor("ContactRole", new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Contact Role Information" } })
                     </div>
+                        
                     <button id="AddContact" type="button" class="btn btn-default btn-block">Add Contact to this Trial</button>
-
                 </div>
                 <!-- box-footer -->
             </div>
@@ -614,7 +617,7 @@
                                     @foreach (var note in ViewBag.notifications)
                                     {
                                         <tr>
-                                            <td>@note.DateTime.ToString("yyyy-MM-dd hh:mm:ss")</td>
+                                            <td>@note.DateTime.ToString("yyyy-MM-dd HH:mm:ss")</td>
                                             <td>@note.Who</td>
                                             <td>@note.Message</td>
                                         </tr>
@@ -658,7 +661,6 @@
                         <div class="form-group">
                             <div class="input-group">
                                 @Html.Editor("DueDate", new { htmlAttributes = new { @class = "form-control datepicker", id="dueDate", PlaceHolder = "Reminder Due Date"} })
-                                    
                             </div>
                         </div>
                         <div class="form-group">
@@ -750,7 +752,7 @@
                     }
                     $.ajax({
                         type: 'POST',
-                        url: '/TrialFeasibility/AjaxEdit',
+                        url: '@Url.Action("AjaxEdit", "TrialFeasibility")',
                         data: postData,
                         success: function(data) {
                             $("#tab7").html(data);
@@ -792,14 +794,15 @@
             var postData = {
                 ContactId: $('#ContactSel').val(),
                 RoleId: $('#RoleSel').val(),
+                RoleDescription: $('#ContactRole').val(),
                 TrialId: @ViewBag.Id
             };
             $.ajax({
-                url: '/TrialFeasibility/ListContacts',
+                url: '@Url.Action("ListContacts", "TrialFeasibility")',
                 type: 'POST',
                 data: postData,
                 success: function(data) {
-                    $("#ListOfContacts").html(data);
+                    location.reload();
                 }
             });
         });
@@ -811,7 +814,7 @@
                 TrialId: @ViewBag.Id
             };
             $.ajax({
-                url: '/TrialFeasibility/ListNotes',
+                url: '@Url.Action("ListNotes", "TrialFeasibility")',
                 type: 'POST',
                 data: postData,
                 success: function(data) {
@@ -827,7 +830,7 @@
                 TrialId: @ViewBag.Id
             };
             $.ajax({
-                url: '/TrialFeasibility/ListReminders',
+                url: '@Url.Action("ListReminders", "TrialFeasibility")',
                 type: 'POST',
                 data: postData,
                 success: function(data) {
@@ -845,7 +848,7 @@
                 TrialId: @ViewBag.Id
             };
             $.ajax({
-                url: '/TrialFeasibility/AddProgress',
+                url: '@Url.Action("AddProgress", "TrialFeasibility")',
                 type: 'POST',
                 data: postData,
                 success: function(data) {
@@ -862,7 +865,7 @@
                 TrialId: @ViewBag.Id
             };
             $.ajax({
-                url: '/TrialFeasibility/AddProgressSetup',
+                url: '@Url.Action("AddProgressSetup", "TrialFeasibility")',
                 type: 'POST',
                 data: postData,
                 success: function(data) {
@@ -871,6 +874,22 @@
                 }
             });
         });
+
+        var delConPost = 0;
+
+        $(".delContact").on("ifChanged",
+            function() {
+                delConPost = $(this).attr('id');
+                var postData = { Id: delConPost, TrialId: @ViewBag.Id };
+                $.ajax({
+                    url: '@Url.Action("DeleteConTrial", "TrialFeasibility")',
+                    type: 'POST',
+                    data: postData,
+                    success: function(data) {
+                        location.reload();
+                    }
+                });
+            });
 
         var RemPostData = 0;
 
@@ -883,7 +902,7 @@
                 } else {
 
                     $.ajax({
-                        url: '/TrialFeasibility/ChangeReminderStatus',
+                        url: '@Url.Action("ChangeReminderStatus", "TrialFeasibility")',
                         type: 'POST',
                         data: postData,
                         success: function(data) {
@@ -907,7 +926,7 @@
                 };
 
                 $.ajax({
-                    url: '/TrialFeasibility/ChangeReminderStatus',
+                    url: '@Url.Action("ChangeReminderStatus", "TrialFeasibility")',
                     type: 'POST',
                     data: postData,
                     success: function(data) {
@@ -926,7 +945,7 @@
                 Id: @ViewBag.Id
             };
             $.ajax({
-                url: '/TrialFeasibility/ChangeTrialTitle',
+                url: '@Url.Action("ChangeTrialTitle", "TrialFeasibility")',
                 type: 'POST',
                 data: postData,
                 success: function(data) {
@@ -955,7 +974,7 @@
                 Id: @ViewBag.Id
             };
             $.ajax({
-                url: '/TrialFeasibility/ChangeAgreement',
+                url: '@Url.Action("ChangeAgreement", "TrialFeasibility")',
                 type: 'POST',
                 data: postData,
                 success: function(data) {
@@ -982,7 +1001,7 @@
                 Commercial: commValue,
                 Id: @ViewBag.Id};
             $.ajax({
-                url: '/TrialFeasibility/ChangeCommercial',
+                url: '@Url.Action("ChangeCommercial", "TrialFeasibility")',
                 type: 'POST',
                 data: postData,
                 success: function(data) {

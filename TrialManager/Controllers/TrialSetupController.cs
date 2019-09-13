@@ -6,9 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Trialmanager.Models;
+using TrialManager.Models;
 
-namespace Trialmanager.Controllers
+namespace TrialManager.Controllers
 {
     [Authorize(Roles = "NTRF_AUTO_MC_TrialManager_Administrators, NTRF_AUTO_MC_TrialManager_Editors")]
     public class TrialSetupController : Controller
@@ -50,18 +50,14 @@ namespace Trialmanager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ProjectIdentifier,ResearchDevelopmentId,GrantFunderRef,SponsorRef,RecRef,EudractRef,IrasId,RecruitmentTarget,TrialLocationId,RecDate,HraDate,CtaDate,TrialId")] TrialSetupModels trialSetupModels)
+        public ActionResult Create([Bind(Include = "Id,ProjectIdentifier,ResearchDevelopmentId,GrantFunderRef,SponsorRef,RecRef,EudractRef,IrasId,RecruitmentTarget,TrialLocationId,SiteName,ApprovalDate,RecDate,HraDate,CtaDate,FunderMileStoneReport,TrialId")] TrialSetupModels trialSetupModels)
         {
             if (ModelState.IsValid)
             {
                 db.TrialSetupModels.Add(trialSetupModels);
                 db.SaveChanges();
-                return RedirectToAction("Index");
             }
-
-            ViewBag.TrialLocationId = new SelectList(db.TrialLocationModels, "Id", "Location", trialSetupModels.TrialLocationId);
-            ViewBag.TrialId = new SelectList(db.TrialFeasibilityModels, "Id", "ShortName", trialSetupModels.TrialId);
-            return View(trialSetupModels);
+            return RedirectToAction("Edit","TrialFeasibility", new { Id= trialSetupModels.TrialId });          
         }
 
         // GET: TrialSetup/Edit/5

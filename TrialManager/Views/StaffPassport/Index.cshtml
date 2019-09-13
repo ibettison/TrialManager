@@ -1,5 +1,6 @@
-﻿@using TrialManager.Models
-@model IEnumerable<StaffPassportViewModels>
+﻿@using System
+@using TrialManager.Models
+@model System.Collections.Generic.IEnumerable<StaffPassportViewModels>
 
 @{
     ViewBag.Title = "Staff Passport";
@@ -17,7 +18,7 @@
             <small>@ViewBag.Small</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="/Home/Index"><i class="fa fa-dashboard"></i>@ViewBag.link</a></li>
+            <li><a href="/TrialManager/Home/Index"><i class="fa fa-dashboard"></i>@ViewBag.link</a></li>
             <li class="active">@ViewBag.Title</li>
         </ol>
     </section>
@@ -111,8 +112,8 @@
                                             @Html.DisplayFor(modelItem => item.ResearchPassportExpiry)
                                         </td>
                                         <td>
-                                            <a href="/StaffPassport/Edit/@item.Id"><i class="fa fa-edit"></i></a> |
-                                            <a href="/StaffPassport/Delete/@item.Id"><i class="fa fa-trash"></i></a>
+                                            <a href="/TrialManager/StaffPassport/Edit/@item.Id"><i class="fa fa-edit"></i></a> |
+                                            <a href="/TrialManager/StaffPassport/Delete/@item.Id"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 }

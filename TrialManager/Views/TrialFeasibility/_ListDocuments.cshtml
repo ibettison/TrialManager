@@ -1,5 +1,5 @@
 ﻿@using System.Web.UI.WebControls
-@model Trialmanager.Models.TrialDocumentsModels
+@model TrialManager.Models.TrialDocumentsModels
 @{
     Layout = null;
 }
@@ -60,13 +60,13 @@ else
                                             @item.TypeName.TypeName
                                         </td>
                                         <td>
-                                            @item.DateTime 
+                                            @item.DateTime.ToString("yyyy-MM-dd HH:mm:ss") 
                                         </td>
                                         <td>
                                             @item.UploadedBy
                                         </td>
                                         <td class="text-center">
-                                            <a href="/TrialFeasibility/DownloadFile?FileName=@item.DocumentLink"><i class="fa fa-download"></i></a>
+                                            <a href="/TrialManager/TrialFeasibility/DownloadFile?FileName=@item.DocumentLink"><i class="fa fa-download"></i></a>
                                         </td>
                                         <td>
                                             @item.DocumentVersion
@@ -75,8 +75,8 @@ else
                                             @item.DocumentDescription
                                         </td>
                                         <td>
-                                            <a href="/TrialDocuments/Edit/@item.Id"><i class="fa fa-edit"></i></a> |
-                                            <a href="/TrialDocuments/Delete/@item.Id"><i class="fa fa-trash"></i></a>
+                                            <a href="/TrialManager/TrialDocuments/Edit/@item.Id"><i class="fa fa-edit"></i></a> |
+                                            <a href="/TrialManager/TrialDocuments/Delete/@item.Id"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
 

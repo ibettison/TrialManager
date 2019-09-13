@@ -5,14 +5,14 @@ namespace TrialManager.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Trialmanager.Models.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<TrialManager.Models.ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(Trialmanager.Models.ApplicationDbContext context)
+        protected override void Seed(TrialManager.Models.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

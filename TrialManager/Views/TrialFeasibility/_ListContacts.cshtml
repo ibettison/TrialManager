@@ -16,17 +16,20 @@ else
             <th>Email Address</th>
             <th>Telephone</th>
             <th>Trial Role</th>
+            <th><i class="fa fa-trash"></i></th>
         </tr>
         </thead>
         <tbody>
             @foreach (var contact in ViewBag.contactsRole)
             {
                 <tr>
-                    <td><a href="/Contacts/Edit/@contact.ContactName.Id">@contact.ContactName.ContactName</a></td>
+                    <td><a href="/TrialManager/Contacts/Edit/@contact.ContactName.Id">@contact.ContactName.ContactName</a></td>
                     <td class="hidden-md">@contact.ContactName.Organisation</td>
                     <td><a href="mailto:@contact.ContactName.Email">@contact.ContactName.Email</a></td>
                     <td>@contact.ContactName.Telephone</td>
                     <td>@contact.RoleName.RoleName</td>
+                    <td>@Html.CheckBox("ConChecked", false, new { id = contact.Id, @class = "delContact" })
+</td>
                 </tr>
             }
         </tbody>

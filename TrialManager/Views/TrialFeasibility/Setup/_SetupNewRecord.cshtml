@@ -1,5 +1,5 @@
 ﻿@using System.Web.UI.WebControls
-@model Trialmanager.Models.TrialSetupModels
+@model TrialManager.Models.TrialSetupModels
     
 @{
    
@@ -114,14 +114,8 @@
                 
                 <div class="form-group">
                     <div class="col-md-12">
-                        <div class="input-group date">
-                            <div class="input-group-addon">
-                                <i class="fa fa-calendar"></i>
-                            </div>
-                            @Html.EditorFor(model => model.SiteName, new { htmlAttributes = new { @class = "form-control datepicker", PlaceHolder = "Site Name", autocomplete = "off" } })
+                            @Html.EditorFor(model => model.SiteName, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Site Name"} })
                             @Html.ValidationMessageFor(model => model.SiteName, "", new { @class = "text-danger" })
-                        </div>
-
                     </div>
                 </div>
 

@@ -1,4 +1,4 @@
-﻿@model Trialmanager.Models.StaffPassportModels
+﻿@model TrialManager.Models.StaffPassportModels
 
 @{
     ViewBag.Title = "Edit";
@@ -15,7 +15,7 @@
             <small>@ViewBag.Small</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="/Home/Index"><i class="fa fa-dashboard"></i>@ViewBag.link</a></li>
+            <li><a href="/TrialManager/Home/Index"><i class="fa fa-dashboard"></i>@ViewBag.link</a></li>
             <li class="active">@ViewBag.Title</li>
         </ol>
     </section>
@@ -66,24 +66,42 @@
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.ContractEndDate, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
-                                        @Html.EditorFor(model => model.ContractEndDate, new { htmlAttributes = new { @class = "form-control datepicker", autocomplete = "off" } })
-                                        @Html.ValidationMessageFor(model => model.ContractEndDate, "", new { @class = "text-danger" })
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            @Html.EditorFor(model => model.ContractEndDate, new { htmlAttributes = new { @class = "form-control datepicker", autocomplete = "off" } })
+                                            @Html.ValidationMessageFor(model => model.ContractEndDate, "", new { @class = "text-danger" })
+                                        </div>
+
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.ResearchPassportExpiry, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
-                                        @Html.EditorFor(model => model.ResearchPassportExpiry, new { htmlAttributes = new { @class = "form-control datepicker", autocomplete = "off" } })
-                                        @Html.ValidationMessageFor(model => model.ResearchPassportExpiry, "", new { @class = "text-danger" })
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            @Html.EditorFor(model => model.ResearchPassportExpiry, new { htmlAttributes = new { @class = "form-control datepicker", autocomplete = "off" } })
+                                            @Html.ValidationMessageFor(model => model.ResearchPassportExpiry, "", new { @class = "text-danger" })
+                                        </div>
+
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.ResearchPassportRenewal, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
-                                        @Html.EditorFor(model => model.ResearchPassportRenewal, new { htmlAttributes = new { @class = "form-control datepicker", autocomplete = "off" } })
-                                        @Html.ValidationMessageFor(model => model.ResearchPassportRenewal, "", new { @class = "text-danger" })
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            @Html.EditorFor(model => model.ResearchPassportRenewal, new { htmlAttributes = new { @class = "form-control datepicker", autocomplete = "off" } })
+                                            @Html.ValidationMessageFor(model => model.ResearchPassportRenewal, "", new { @class = "text-danger" })
+                                        </div>
+
                                     </div>
                                 </div>
 
@@ -98,8 +116,14 @@
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.AccessExpiryDate, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
-                                        @Html.EditorFor(model => model.AccessExpiryDate, new { htmlAttributes = new { @class = "form-control datepicker", autocomplete = "off" } })
-                                        @Html.ValidationMessageFor(model => model.AccessExpiryDate, "", new { @class = "text-danger" })
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            @Html.EditorFor(model => model.AccessExpiryDate, new { htmlAttributes = new { @class = "form-control datepicker", autocomplete = "off" } })
+                                            @Html.ValidationMessageFor(model => model.AccessExpiryDate, "", new { @class = "text-danger" })
+                                        </div>
+
                                     </div>
                                 </div>
 

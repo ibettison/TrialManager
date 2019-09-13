@@ -7,9 +7,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Trialmanager.Models;
+using TrialManager.Models;
 
-namespace Trialmanager.Controllers
+namespace TrialManager.Controllers
 {
     [Authorize(Roles = "NTRF_AUTO_MC_TrialManager_Administrators, NTRF_AUTO_MC_TrialManager_Editors")]
     public class DiseaseTherapyAreaController : Controller

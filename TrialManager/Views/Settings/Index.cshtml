@@ -1,0 +1,63 @@
+﻿@model IEnumerable<TrialManager.Models.SettingsModels>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ContactName.ContactName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HideClosed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IconType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QuickLinks)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MiniMenu)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShowDashStages)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ContactName.ContactName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HideClosed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IconType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.QuickLinks)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MiniMenu)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShowDashStages)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

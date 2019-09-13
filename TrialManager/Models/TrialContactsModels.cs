@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace Trialmanager.Models
+namespace TrialManager.Models
     {
         public class TrialContactsModels
         {
@@ -14,6 +14,7 @@ namespace Trialmanager.Models
             public int ContactId { get; set; }
             public int TrialId { get; set; }
             public int RoleId { get; set; }
+            public string RoleDescription { get; set; }
 
             [ForeignKey("TrialId")]
             public virtual TrialFeasibilityModels ShortName { get; set; }

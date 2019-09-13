@@ -7,16 +7,18 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Trialmanager.Models
+namespace TrialManager.Models
 {
     public class TrialFeasibilityModels
     {
         [Key]
         public int Id { get; set; }
 
+        [Required(ErrorMessage = "The Short Name is required")]
         [DisplayName("Short Name")]
         public string ShortName { get; set; }
 
+        [Required(ErrorMessage = "The Trial Title is required")]
         [DisplayName("Trial title")]
         public string TrialTitle { get; set; }
 
@@ -38,6 +40,7 @@ namespace Trialmanager.Models
         [DisplayName("Sample Size")]
         public string SampleSize { get; set; }
 
+        [Range(1, int.MaxValue, ErrorMessage = "Please select a Grant type")]
         [DisplayName("Grant type")]
         public int GrantTypeId { get; set; }
 
@@ -45,7 +48,7 @@ namespace Trialmanager.Models
         public string FundingStream { get; set; }
 
         [DisplayName("Grant deadline")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? GrantDeadlineDate { get; set; }
 
         [DisplayName("University Consultancy Agreement")]

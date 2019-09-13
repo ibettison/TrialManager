@@ -25,14 +25,35 @@
                     <!-- Menu Toggle Button -->
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <!-- The user image in the navbar-->
-                        <img src="~/Content/user-png-image-15189.png" class="user-image" alt="User Image">
+                        @if (ViewBag.SettingsIconType == "Male")
+                        {
+                            <img src="~/Content/male.png" class="user-image" alt="User Image">
+                        }
+                        else
+                        {
+                            if (ViewBag.SettingsIconType == "Female")
+                            {
+                                <img src="~/Content/Female.png" class="user-image" alt="User Image">
+                            }
+                        }
+
                         <!-- hidden-xs hides the username on small devices so only the image appears. -->
                         <span class="hidden-xs">@ViewBag.FullName</span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- The user image in the menu -->
                         <li class="user-header">
-                            <img src="~/Content/user-png-image-15189.png" class="img-circle" alt="User Image">
+                            @if (ViewBag.SettingsIconType == "Male")
+                            {
+                                <img src="~/Content/male.png" class="user-image" alt="User Image">
+                            }
+                            else
+                            {
+                                if (ViewBag.SettingsIconType == "Female")
+                                {
+                                    <img src="~/Content/Female.png" class="user-image" alt="User Image">
+                                }
+                            }
                             <p>
                                 @ViewBag.FullName
                                 <small>Connected to Campus</small>
@@ -59,13 +80,13 @@
                 </li>
                 <!-- Control Sidebar Toggle Button -->
                 <li>
-                    <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                    <a href="#" data-toggle="control-sidebar" id="rhs"><i class="fa fa-gears"></i></a>
                 </li>
                 
                 }
                 else
                 {
-                    <li><a href="/Login">Login <i class="fa fa-laptop"></i></a></li>
+                    <li><a href="~/Login">Login <i class="fa fa-laptop"></i></a></li>
 
                 }
                 

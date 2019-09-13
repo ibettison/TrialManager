@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Trialmanager.Models.RolesModels>
+﻿@model IEnumerable<TrialManager.Models.RolesModels>
 
 @{
     ViewBag.Title = "Role Type";
@@ -15,7 +15,7 @@
             <small>@ViewBag.Small</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="/Home/Index"><i class="fa fa-dashboard"></i>@ViewBag.link</a></li>
+            <li><a href="/TrialManager/Home/Index"><i class="fa fa-dashboard"></i>@ViewBag.link</a></li>
             <li class="active">@ViewBag.Title</li>
         </ol>
     </section>
@@ -25,7 +25,7 @@
             <div class="col-md-6">
                 <div class="box box-solid box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Roll type List</h3>
+                        <h3 class="box-title">Role Type List</h3>
                         <div class="box-tools pull-right">
                             <!-- Buttons, labels, and many other things can be placed here! -->
                             <!-- Here is a label for example -->
@@ -52,7 +52,7 @@
                                         @Html.DisplayFor(modelItem => item.RoleName)
                                     </td>
                                     <td>
-                                        <a href="/Roles/Edit/@item.Id"><i class="fa fa-edit"></i></a> |
+                                        <a href="/TrialManager/Roles/Edit/@item.Id"><i class="fa fa-edit"></i></a> |
                                         <a href="#"><i id="@item.Id" class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
@@ -111,7 +111,7 @@
                     }
 
                     $.ajax({
-                        url: '/Roles/DeleteRoles',
+                        url: '@Url.Action("DeleteRoles", "Roles")',
                         type: 'POST',
                         data: postData,
                         success: function(data) {

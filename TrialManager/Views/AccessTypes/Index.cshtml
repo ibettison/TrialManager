@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Trialmanager.Models.AccessTypesModels>
+﻿@model IEnumerable<TrialManager.Models.AccessTypesModels>
 @{
     ViewBag.Title = "Access Types";
     ViewBag.Small = "List";
@@ -13,7 +13,7 @@
             <small>@ViewBag.Small</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="/Home/Index"><i class="fa fa-dashboard"></i>@ViewBag.link</a></li>
+            <li><a href="/TrialManager/Home/Index"><i class="fa fa-dashboard"></i>@ViewBag.link</a></li>
             <li class="active">@ViewBag.Title</li>
         </ol>
     </section>
@@ -50,7 +50,7 @@
                                         @Html.DisplayFor(modelItem => item.AccessName)
                                     </td>
                                     <td>
-                                        <a href="/AccessTypes/Edit/@item.Id"><i class="fa fa-edit"></i></a> |
+                                        <a href="/TrialManager/AccessTypes/Edit/@item.Id"><i class="fa fa-edit"></i></a> |
                                         <a href="#"><i id="@item.Id" class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
@@ -109,7 +109,7 @@
                         Delete: AccessDeletion};
 
                     $.ajax({
-                        url: '/AccessTypes/DeleteAccessTypes',
+                        url: '@Url.Action("DeleteAccessTypes", "AccessTypes")',
                         type: 'POST',
                         data: postData,
                         success: function(data) {

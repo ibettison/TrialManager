@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
-using Trialmanager.Models;
+using TrialManager.Models;
 
 namespace TrialManager.Models
 {
@@ -17,18 +17,18 @@ namespace TrialManager.Models
         [DisplayName("Contract Type")]
         public string ContractType { get; set; }
         [DisplayName("Contract End Date")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime ContractEndDate { get; set; }
         [DisplayName("Passport Expiry")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime ResearchPassportExpiry { get; set; }
         [DisplayName("Passport Renewal")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime ResearchPassportRenewal { get; set; }
         [DisplayName("Access type")]
         public string TypeofAccess{ get; set; }
         [DisplayName("Access Expiry")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime AccessExpiryDate { get; set; }
         public int Renewal90 { get; set; }
         public int Renewal180 { get; set; }

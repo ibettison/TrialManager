@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewBag.Title = "Delete";
+}
+<div class="tab-pane" id="control-sidebar-settings-tab">
+    <h3 class="control-sidebar-heading">General Settings</h3>
+    <div class="form-group">
+        <label class="control-sidebar-subheading">
+            @if (ViewBag.SettingsHideClosed == "Yes")
+            {
+                @Html.CheckBox("HideSelect", htmlAttributes: new { @checked = true})
+                @Html.Label(" Hide Closed trials")
+            }
+            else
+            {
+                @Html.CheckBox("HideSelect")
+                @Html.Label(" Hide Closed trials")
+            }
+
+        </label>
+        <label class="control-sidebar-subheading">
+            @if (ViewBag.SettingsIconType == "Male")
+            {
+                @Html.RadioButton("IconSelect", "Male", htmlAttributes: new  {@checked = true})
+                @Html.Label(" Male")
+                @Html.RadioButton("IconSelect", "Female") 
+                @Html.Label(" Female")
+            }
+            else
+            {
+                @Html.RadioButton("IconSelect", "Male") 
+                @Html.Label(" Male")
+                @Html.RadioButton("IconSelect", "Female", htmlAttributes: new { @checked = true}) 
+                @Html.Label(" Female")
+            }
+                
+        </label>
+        <label class="control-sidebar-subheading">
+            @if (ViewBag.SettingsQuickLinks == "Yes")
+            {
+                @Html.CheckBox("QuickSelect", htmlAttributes: new {@checked = true})
+                @Html.Label(" Show Quick links")
+            }
+            else
+            {
+                @Html.CheckBox("QuickSelect")
+                @Html.Label(" Show Quick Links")
+            }
+        </label>
+        <label class="control-sidebar-subheading">
+            @if (ViewBag.SettingsMiniMenu == "Yes")
+            {
+                @Html.CheckBox("MiniSelect", htmlAttributes: new { @checked = true })
+                @Html.Label(" Minimise Menu")
+            }
+            else
+            {
+                @Html.CheckBox("MiniSelect")
+                @Html.Label(" Minimise Menu")
+            }
+        </label>
+        <label class="control-sidebar-subheading">
+            @if (ViewBag.SettingsShowDashStages == "Yes")
+            {
+                @Html.CheckBox("DashSelect", htmlAttributes: new { @checked = true })
+                @Html.Label(" Dashboard Trial Stages")
+            }
+            else
+            {
+                @Html.CheckBox("DashSelect")
+                @Html.Label(" Dashboard Trial Stages")
+            }
+
+        </label>
+        <p>
+            Select the options above to change your Dashboard view
+        </p>
+        <button id="saveSettings" class="btn btn-block btn-default">Save Settings</button>
+    </div>
+    <!-- /.form-group -->
+</div>
+
+
+

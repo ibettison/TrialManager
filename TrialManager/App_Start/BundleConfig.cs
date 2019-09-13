@@ -11,11 +11,11 @@ namespace TrialManager
         {
             bundles.Add(new ScriptBundle("~/Scripts/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
+                        "~/scripts/jquery.unobtrusive-ajax.js",
                         "~/Scripts/dataTables.js",
                         "~/Scripts/select2.full.js",
                         "~/Scripts/icheck.js",
                         "~/scripts/bootstrap-datepicker.js",
-                        "~/scripts/jquery.unobtrusive-ajax.js",
                         "~/scripts/moment.js",
                         "~/Scripts/js.cookie.js"));
 
@@ -29,6 +29,10 @@ namespace TrialManager
             bundles.Add(new ScriptBundle("~/admin-lte/plugins/scripts").Include(
              "~/admin-lte/plugins/fastclick/fastclick.js",
              "~/admin-lte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"));
+
+            bundles.Add(new ScriptBundle("~/node_modules/chart.js/dist/scripts").Include(
+                    "~/node_modules/chart.js/dist/Chart.js"
+                ));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
@@ -45,15 +49,15 @@ namespace TrialManager
                       //"~/content/bootstrap-theme.css",
                       "~/Content/Site.css",
                       "~/Content/font-awesome.css",
-                      "~/Content/css/bootstrap-datepicker.css",
+                      "~/Content/bootstrap-datepicker.css",
                       "~/Content/datatables.css",
                       "~/Content/select2.css",
-                      "~/Content/all.css"));
+                      "~/Content/blue.css"));
 
             bundles.Add( new StyleBundle("~/admin-lte/css/styles").Include(
-                      "~/admin-lte/css/alt/AdminLTE-select2.css",
+                      "~/admin-lte/css/AdminLTE-select2.css",
                       "~/admin-lte/css/AdminLTE.css",
-                      "~/admin-lte/css/skins/skin-blue.css"
+                      "~/admin-lte/css/skin-blue.css"
                 ));
             bundles.Add(new StyleBundle("~/admin-lte/plugins/style").Include(
                       "~/admin-lte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css"

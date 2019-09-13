@@ -8,7 +8,6 @@ using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 using TrialManager.Models;
-using Trialmanager.Models;
 
 namespace TrialManager.Controllers
 {

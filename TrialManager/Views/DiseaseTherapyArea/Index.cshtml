@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Trialmanager.Models.DiseaseTherapyAreaModels>
+﻿@model IEnumerable<TrialManager.Models.DiseaseTherapyAreaModels>
 
 @{
     ViewBag.Title = "Disease Therapy Area";
@@ -16,7 +16,7 @@
             <small>@ViewBag.Small</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="/Home/Index"><i class="fa fa-dashboard"></i>@ViewBag.link</a></li>
+            <li><a href="/TrialManager/Home/Index"><i class="fa fa-dashboard"></i>@ViewBag.link</a></li>
             <li class="active">@ViewBag.Title</li>
         </ol>
     </section>
@@ -54,7 +54,7 @@
                                         @Html.DisplayFor(modelItem => item.DiseaseTherapyAreaName)
                                     </td>
                                     <td>
-                                        <a href="/DiseaseTherapyArea/Edit/@item.Id"><i class="fa fa-edit"></i></a> |
+                                        <a href="/TrialManager/DiseaseTherapyArea/Edit/@item.Id"><i class="fa fa-edit"></i></a> |
                                         <a href="#"><i id="@item.Id" class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
@@ -114,7 +114,7 @@
                     }
 
                     $.ajax({
-                        url: '/DiseaseTherapyArea/DeleteTherapy',
+                        url: '@Url.Action("DeleteTherapy","DiseaseTherapyArea")',
                         type: 'POST',
                         data: postData,
                         success: function(data) {

@@ -1,4 +1,4 @@
-﻿@model Trialmanager.Models.TrialTypeModels
+﻿@model TrialManager.Models.TrialTypeModels
 
 
 <!DOCTYPE html>
@@ -18,7 +18,7 @@
             <small>@ViewBag.Small</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="/Home/Index"><i class="fa fa-dashboard"></i>@ViewBag.link</a></li>
+            <li><a href="/TrialManager/Home/Index"><i class="fa fa-dashboard"></i>@ViewBag.link</a></li>
             <li class="active">@ViewBag.Title</li>
         </ol>
     </section>
@@ -28,11 +28,11 @@
             <div class="col-md-6">
                 <div class="box box-solid box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Add a New Trial</h3>
+                        <h3 class="box-title">Add a New Trial Type</h3>
                         <div class="box-tools pull-right">
                             <!-- Buttons, labels, and many other things can be placed here! -->
                             <!-- Here is a label for example -->
-                            <span class="label label-default">Creating New Trial...</span>
+                            <span class="label label-default">Creating New Trial type...</span>
                         </div>
                         <!-- /.box-tools -->
                     </div>
@@ -43,7 +43,7 @@
                                 @Html.AntiForgeryToken()
         
                                 <div class="form-horizontal">
-                                    <h4>TrialTypeModels</h4>
+                                    <h4>Trial Types</h4>
                                     <hr />
                                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                     <div class="form-group">
@@ -63,12 +63,6 @@
                             }
                     </div>
                     <!-- /.box-body -->
-                    <div class="box-footer">
-                        <!--Use this to keep the data last typed in a cookie so that it can be saved properly later-->
-                        <p>Save what you have typed in a cookie if you are distracted!</p>
-                        <a class="btn btn-app"><i class="fa fa-save"></i>Keep</a> <a class="btn btn-app"><i class="fa fa-exclamation"></i>Clear</a> <a class="btn btn-app"><i class="fa fa-close"></i>Delete</a>
-                    </div>
-                    <!-- box-footer -->
                 </div>
                 <!-- /.box -->
             </div>

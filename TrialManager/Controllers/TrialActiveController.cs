@@ -9,7 +9,6 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.Ajax.Utilities;
 using TrialManager.Models;
-using Trialmanager.Models;
 
 namespace TrialManager.Controllers
 {

@@ -2,8 +2,8 @@
 using Owin;
 
 
-[assembly: OwinStartupAttribute(typeof(Trialmanager.Startup))]
-namespace Trialmanager
+[assembly: OwinStartupAttribute(typeof(TrialManager.Startup))]
+namespace TrialManager
 {
     public partial class Startup
     {

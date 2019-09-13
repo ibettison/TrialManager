@@ -5,7 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using TrialManager.Models;
 
-namespace Trialmanager.Models
+namespace TrialManager.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
@@ -62,10 +62,12 @@ namespace Trialmanager.Models
         public DbSet<TrialGroupTrialModels> TrialGroupTrialModels { get; set; }
         public DbSet<RecentTrialsModels> RecentTrialsModels { get; set; }
 
-        public System.Data.Entity.DbSet<TrialManager.Models.ActiveStatusModels> ActiveStatusModels { get; set; }
+        public DbSet<ActiveStatusModels> ActiveStatusModels { get; set; }
 
-        public System.Data.Entity.DbSet<TrialManager.Models.TrialActiveModels> TrialActiveModels { get; set; }
+        public DbSet<TrialActiveModels> TrialActiveModels { get; set; }
 
-        public System.Data.Entity.DbSet<TrialManager.Models.TrialCloseDownModels> TrialCloseDownModels { get; set; }
+        public DbSet<TrialCloseDownModels> TrialCloseDownModels { get; set; }
+
+        public DbSet<SettingsModels> SettingsModels { get; set; }
     }
 }

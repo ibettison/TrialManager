@@ -4,7 +4,7 @@ using Microsoft.Owin.Security.Cookies;
 using Owin;
 
 
-namespace Trialmanager
+namespace TrialManager
 {
     public static class MyAuthentication
     {

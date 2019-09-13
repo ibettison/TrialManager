@@ -1,0 +1,66 @@
+﻿@model TrialManager.Models.SettingsModels
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SettingsModels</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ContactName.ContactName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContactName.ContactName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HideClosed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HideClosed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IconType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IconType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QuickLinks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QuickLinks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MiniMenu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MiniMenu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShowDashStages)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShowDashStages)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
-using Trialmanager.Models;
+using TrialManager.Models;
 
 namespace TrialManager.Models
 {

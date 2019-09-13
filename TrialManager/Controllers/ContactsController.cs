@@ -7,10 +7,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Trialmanager.Models;
 using TrialManager.Models;
 
-namespace Trialmanager.Controllers
+namespace TrialManager.Controllers
 {
     [Authorize(Roles = "NTRF_AUTO_MC_TrialManager_Administrators, NTRF_AUTO_MC_TrialManager_Editors")]
     public class ContactsController : Controller
@@ -106,32 +105,6 @@ namespace Trialmanager.Controllers
             }
             ViewBag.ContactStatusId = new SelectList(db.ContactStatusModels.Where(s => s.Deleted == null), "Id", "ContactStatusName", contactsModels.ContactStatusId);
             return View(contactsModels);
-        }
-
-        // GET: Contacts/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ContactsModels contactsModels = db.ContactsModels.Find(id);
-            if (contactsModels == null)
-            {
-                return HttpNotFound();
-            }
-            return View(contactsModels);
-        }
-
-        // POST: Contacts/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            ContactsModels contactsModels = db.ContactsModels.Find(id);
-            db.ContactsModels.Remove(contactsModels);
-            db.SaveChanges();
-            return RedirectToAction("Index");
         }
 
         [HttpPost]

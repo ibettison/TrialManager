@@ -8,7 +8,6 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TrialManager.Models;
-using Trialmanager.Models;
 
 namespace TrialManager.Controllers
 {
@@ -20,7 +19,7 @@ namespace TrialManager.Controllers
         // GET: ActiveStatus
         public ActionResult Index()
         {
-            return View(db.ActiveStatusModels.ToList());
+            return View(db.ActiveStatusModels.Where(s => s.Deleted == null).ToList());
         }
 
         // GET: ActiveStatus/Create

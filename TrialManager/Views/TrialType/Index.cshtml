@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Trialmanager.Models.TrialTypeModels>
+﻿@model System.Collections.Generic.IEnumerable<TrialManager.Models.TrialTypeModels>
 
 @{
     ViewBag.Title = "Trial Type";
@@ -15,7 +15,7 @@
             <small>@ViewBag.Small</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="/Home/Index"><i class="fa fa-dashboard"></i>@ViewBag.link</a></li>
+            <li><a href="/TrialManager/Home/Index"><i class="fa fa-dashboard"></i>@ViewBag.link</a></li>
             <li class="active">@ViewBag.Title</li>
         </ol>
     </section>
@@ -25,11 +25,11 @@
             <div class="col-md-6">
                 <div class="box box-solid box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Add a New Trial</h3>
+                        <h3 class="box-title">List of Trial Types</h3>
                         <div class="box-tools pull-right">
                             <!-- Buttons, labels, and many other things can be placed here! -->
                             <!-- Here is a label for example -->
-                            <span class="label label-default">Creating New Trial...</span>
+                            <span class="label label-default">Trial Type List...</span>
                         </div>
                         <!-- /.box-tools -->
                     </div>
@@ -42,7 +42,7 @@
                             <table class="table">
                                 <tr>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.TrialTypeName)
+                                        Trial Types
                                     </th>
                                     <th></th>
                                 </tr>
@@ -54,7 +54,7 @@
                                             @Html.DisplayFor(modelItem => item.TrialTypeName)
                                         </td>
                                         <td>
-                                            <a href="/TrialType/Edit/@item.Id"><i class="fa fa-edit"></i></a> |
+                                            <a href="/TrialManager/TrialType/Edit/@item.Id"><i class="fa fa-edit"></i></a> |
                                             <a href="#"><i id="@item.Id" class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
@@ -113,7 +113,7 @@
                     }
 
                     $.ajax({
-                        url: '/TrialType/DeleteType',
+                        url: '@Url.Action("DeleteType", "TrialType")',
                         type: 'POST',
                         data: postData,
                         success: function(data) {

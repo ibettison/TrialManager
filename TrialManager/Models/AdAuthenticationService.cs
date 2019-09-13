@@ -1,11 +1,12 @@
 ﻿using System;
 using System.DirectoryServices.AccountManagement;
 using System.Security.Claims;
+using System.Web.Configuration;
 using Microsoft.Owin.Security;
 
 
 
-namespace Trialmanager.Models
+namespace TrialManager.Models
 {
     public class AdAuthenticationService
     {
@@ -39,6 +40,7 @@ namespace Trialmanager.Models
             ContextType authenticationType = ContextType.Domain;
 
             PrincipalContext principalContext = new PrincipalContext(authenticationType);
+//            PrincipalContext principalContext = new PrincipalContext(authenticationType, null, "dc=campus,dc=ncl,dc=ac,dc=uk", "nmtmd", "NineSingingPanthers19");
             bool isAuthenticated = false;
             UserPrincipal userPrincipal = null;
             try
@@ -98,15 +100,23 @@ namespace Trialmanager.Models
                 identity.AddClaim(new Claim(ClaimTypes.Email, userPrincipal.EmailAddress));
             }
 
-            var groups = userPrincipal.GetAuthorizationGroups();
-            foreach (var @group in groups)
-            {
-                identity.AddClaim(new Claim(ClaimTypes.Role, @group.Name));
-            }
+            //try
+            //{
+                PrincipalSearchResult<Principal> groups = userPrincipal.GetGroups();
+                foreach (var @group in groups)
+                {
+                    identity.AddClaim(new Claim(ClaimTypes.Role, @group.Name));
+                }
 
-            // add your own claims if you need to add more information stored on the cookie
+                // add your own claims if you need to add more information stored on the cookie
 
-            return identity;
+                return identity;
+            //}
+            //catch (Exception exception)
+            //{
+                //return identity;
+
+            //}
         }
     }
 }

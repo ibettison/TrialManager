@@ -6,11 +6,11 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Trialmanager.Models;
 using TrialManager.Models;
 
 namespace TrialManager.Controllers
 {
+    [Authorize(Roles = "NTRF_AUTO_MC_TrialManager_Administrators, NTRF_AUTO_MC_TrialManager_Editors")]
     public class StaffPassportController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -75,7 +75,7 @@ namespace TrialManager.Controllers
         {
             ViewBag.TypeofAccessId = new SelectList(db.AccessTypesModels.Where(d => d.Deleted == null), "Id", "AccessName");
             ViewBag.ContactId = new SelectList(db.ContactsModels, "Id", "ContactName");
-            ViewBag.ContractTypeId = new SelectList(db.ContractTypesModels, "Id", "ContractTypeName");
+            ViewBag.ContractTypeId = new SelectList(db.ContractTypesModels.Where(d => d.Deleted == null), "Id", "ContractTypeName");
             return View();
         }
 
@@ -95,7 +95,7 @@ namespace TrialManager.Controllers
 
             ViewBag.TypeofAccessId = new SelectList(db.AccessTypesModels.Where(d => d.Deleted == null), "Id", "AccessName", staffPassportModels.TypeofAccessId);
             ViewBag.ContactId = new SelectList(db.ContactsModels, "Id", "ContactName", staffPassportModels.ContactId);
-            ViewBag.ContractTypeId = new SelectList(db.ContractTypesModels, "Id", "ContractTypeName", staffPassportModels.ContractTypeId);
+            ViewBag.ContractTypeId = new SelectList(db.ContractTypesModels.Where(d => d.Deleted == null), "Id", "ContractTypeName", staffPassportModels.ContractTypeId);
             return View(staffPassportModels);
         }
 

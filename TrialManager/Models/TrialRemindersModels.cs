@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace Trialmanager.Models
+namespace TrialManager.Models
 {
     public class TrialRemindersModels
     {
@@ -13,7 +13,7 @@ namespace Trialmanager.Models
         public int Id { get; set; }
         public string Reminder { get; set; }
         public int TrialId { get; set; }
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime DueDate { get; set; }
         public Boolean Checked { get; set; }
         [ForeignKey("TrialId")]

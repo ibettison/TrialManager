@@ -11,44 +11,43 @@ using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls.Expressions;
-using Trialmanager.Models;
 using TrialManager.Classes;
 using TrialManager.Models;
 
-namespace Trialmanager.Controllers
+namespace TrialManager.Controllers
 {
     public class TrialFeasibilityController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: TrialFeasibility
-        [Authorize(Roles = "NTRF_AUTO_MC_TrialManager_Administrators, NTRF_AUTO_MC_TrialManager_Editors")]
-        public ActionResult Index()
-        {
-
-            var trialFeasibilityModels = (from fease in db.TrialFeasibilityModels
-                join setup in db.TrialSetupModels on fease.Id equals setup.TrialId
-                select fease).ToList();
-            ViewBag.Trial = trialFeasibilityModels.Count > 0 ? trialFeasibilityModels : null;
-            //db.TrialFeasibilityModels.Include(t => t.DiseaseTherapyAreaName).Include(t => t.GrantTypeName).Include(t => t.PhaseName).Include(t => t.TrialTypeName);
-            return View();
-        }
-
-        // GET: TrialFeasibility/Details/5
-        [Authorize(Roles = "NTRF_AUTO_MC_TrialManager_Administrators, NTRF_AUTO_MC_TrialManager_Editors")]
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            TrialFeasibilityModels trialFeasibilityModels = db.TrialFeasibilityModels.Find(id);
-            if (trialFeasibilityModels == null)
-            {
-                return HttpNotFound();
-            }
-            return View(trialFeasibilityModels);
-        }
+//        [Authorize(Roles = "NTRF_AUTO_MC_TrialManager_Administrators, NTRF_AUTO_MC_TrialManager_Editors")]
+//        public ActionResult Index()
+//        {
+//
+//            var trialFeasibilityModels = (from fease in db.TrialFeasibilityModels
+//                join setup in db.TrialSetupModels on fease.Id equals setup.TrialId
+//                select fease).ToList();
+//            ViewBag.Trial = trialFeasibilityModels.Count > 0 ? trialFeasibilityModels : null;
+//            //db.TrialFeasibilityModels.Include(t => t.DiseaseTherapyAreaName).Include(t => t.GrantTypeName).Include(t => t.PhaseName).Include(t => t.TrialTypeName);
+//            return View();
+//        }
+//
+//        // GET: TrialFeasibility/Details/5
+//        [Authorize(Roles = "NTRF_AUTO_MC_TrialManager_Administrators, NTRF_AUTO_MC_TrialManager_Editors")]
+//        public ActionResult Details(int? id)
+//        {
+//            if (id == null)
+//            {
+//                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+//            }
+//            TrialFeasibilityModels trialFeasibilityModels = db.TrialFeasibilityModels.Find(id);
+//            if (trialFeasibilityModels == null)
+//            {
+//                return HttpNotFound();
+//            }
+//            return View(trialFeasibilityModels);
+//        }
 
         // GET: TrialFeasibility/Create
         [Authorize(Roles = "NTRF_AUTO_MC_TrialManager_Administrators, NTRF_AUTO_MC_TrialManager_Editors")]
@@ -305,6 +304,23 @@ namespace Trialmanager.Controllers
                                     getVar.SetValue(fModel, Convert.ToString(nv));
                                 }
                             }
+                            if (fn == "ShortName")
+                            {
+                                //the shortName is used for the contact Group name and identifies if a contact has been added to the trial. If the ShortName changes 
+                                //then it has to be reflected in the Groupname to auto update the contact info.
+                                var trialGroupTrialModels = (from t in db.TrialGroupTrialModels
+                                                             where t.TrialId == model.Id
+                                                             select t).FirstOrDefault();
+                                var trialGroupModels = (from g in db.TrialGroupModels
+                                    where g.Id == trialGroupTrialModels.TrialGroupId
+                                    select g).FirstOrDefault();
+                                if (trialGroupModels != null)
+                                {
+                                    trialGroupModels.GroupName = nv;
+                                    db.TrialGroupModels.AddOrUpdate(trialGroupModels);
+                                    db.SaveChanges();
+                                }
+                            }
                         }
                     }
                     db.Entry(fModel).State = EntityState.Modified;
@@ -480,7 +496,8 @@ namespace Trialmanager.Controllers
                 {
                     ContactId = model.ContactId,
                     RoleId = model.RoleId,
-                    TrialId = model.TrialId
+                    TrialId = model.TrialId,
+                    RoleDescription = model.RoleDescription
                 };
                 db.TrialContactsModels.Add(newContact);
                 db.SaveChanges();
@@ -774,38 +791,62 @@ namespace Trialmanager.Controllers
         [HttpPost]
         public ActionResult AddDocument(TrialDocumentsModels model)
         {
-            if (ModelState.IsValid)
+            HttpPostedFileBase file = model.UploadFile;
+            if (!(file?.ContentLength > 0)) return RedirectToAction("Edit", new {Id = model.TrialId});
+            var fileName = Path.GetFileName(file.FileName);
+            if (fileName == null) return RedirectToAction("Edit", new {Id = model.TrialId});
+            var path = Path.Combine(Server.MapPath("~/App_Data/UploadedFiles"), fileName);
+            file.SaveAs(path);
+            model.DocumentLink = path;
+            model.DocumentFileName = fileName;
+            var newDoc = new TrialDocumentsModels()
             {
-                HttpPostedFileBase file = model.UploadFile;
-                if (file.ContentLength > 0)
-                {
-                    var fileName = Path.GetFileName(file.FileName);
-                    if (fileName != null)
-                    {
-                        var path = Path.Combine(Server.MapPath("~/App_Data/UploadedFiles"), fileName);
-                        file.SaveAs(path);
-                        model.DocumentLink = path;
-                        model.DocumentFileName = fileName;
-                    }
-                    var newDoc = new TrialDocumentsModels()
-                        {
-                            DateTime = DateTime.Now,
-                            UploadedBy = User.Identity.Name,
-                            TrialId = model.TrialId,
-                            DocumentFileName = model.DocumentFileName,
-                            DocumentLink = model.DocumentLink,
-                            DocumentVersion = model.DocumentVersion,
-                            DocumentDescription = model.DocumentDescription,
-                            DocumentType = model.DocumentType
-                        };
-                    db.TrialDocumentsModels.Add(newDoc);
-                    db.SaveChanges();
-                }
-
-               
-            }
+                DateTime = DateTime.Now,
+                UploadedBy = User.Identity.Name,
+                TrialId = model.TrialId,
+                DocumentFileName = model.DocumentFileName,
+                DocumentLink = model.DocumentLink,
+                DocumentVersion = model.DocumentVersion,
+                DocumentDescription = model.DocumentDescription,
+                DocumentType = model.DocumentType
+            };
+            db.TrialDocumentsModels.Add(newDoc);
+            db.SaveChanges();
             return RedirectToAction("Edit", new { Id = model.TrialId });
         }
+
+
+        public ActionResult ChangeSettings(SettingsModels model)
+        {
+            //find contact record
+            var contact = (from c in db.ContactsModels
+                where c.UserId == User.Identity.Name
+                select c).FirstOrDefault();
+
+            var settings = (from s in db.SettingsModels
+                where s.ContactId == contact.Id
+                select s).FirstOrDefault();
+
+
+            if (contact != null)
+            {
+                var changeSettings = db.SettingsModels.Find(settings.Id);
+
+                if (changeSettings != null)
+                {
+                    changeSettings.ContactId = contact.Id;
+                    changeSettings.IconType = model.IconType;
+                    changeSettings.HideClosed = model.HideClosed;
+                    changeSettings.QuickLinks = model.QuickLinks;
+                    changeSettings.MiniMenu = model.MiniMenu;
+                    changeSettings.ShowDashStages = model.ShowDashStages;
+                    db.SettingsModels.AddOrUpdate(changeSettings);
+                    db.SaveChanges();
+                }
+                
+            }
+            return RedirectToAction("index", "Home");
+        } 
 
         public ActionResult ChangeTrialTitle(TrialFeasibilityModels model)
         {
@@ -872,6 +913,8 @@ namespace Trialmanager.Controllers
                     Started = model.Started,
                     TrialId = model.TrialId
                 };
+                db.TrialStartedModels.Add(newTrialStart);
+                db.SaveChanges();
             }
 
             return RedirectToAction("DisplayProgress", new { Id = model.TrialId });
@@ -1018,6 +1061,18 @@ namespace Trialmanager.Controllers
             }
             
             return View(trialFeasibilityModels);
+        }
+
+
+        public ActionResult DeleteConTrial(TrialContactsModels model)
+        {
+            var delCon = db.TrialContactsModels.Find(model.Id);
+            if (ModelState.IsValid)
+            {
+                if (delCon != null) db.TrialContactsModels.Remove(delCon);
+                db.SaveChanges();
+            }
+            return RedirectToAction("ShowUpdatedContacts");
         }
 
         [HttpPost]

@@ -1,11 +1,34 @@
-﻿ <!-- Left side column. contains the logo and sidebar -->
+﻿@using System
+@using System.Security.Claims
+@using ClaimTypes = System.IdentityModel.Claims.ClaimTypes
+@{
+    if (User.Identity.IsAuthenticated)
+    {
+        var claimFirstName = ((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.GivenName);
+        var firstName = claimFirstName.Value;
+        var claimSurName = ((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.Surname);
+        var surName = claimSurName.Value;
+        ViewBag.FullName = $"{firstName} {surName}";
+    }
+}
+ <!-- Left side column. contains the logo and sidebar -->
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="~/Content/user-png-image-15189.png" class="img-circle" alt="User Image">
+                @if (ViewBag.SettingsIconType == "Male")
+                {
+                    <img src="~/Content/male.png" class="img-circle" alt="User Image">
+                }
+                else
+                {
+                    if (ViewBag.SettingsIconType == "Female")
+                    {
+                        <img src="~/Content/Female.png" class="img-circle" alt="User Image">
+                    }
+                }
             </div>
             <div class="pull-left info">
                 <p>@ViewBag.FullName</p>
@@ -18,7 +41,7 @@
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">MENU</li>
             <!-- Optionally, you can add icons to the links -->
-            <li><a href="~/home/index"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+            <li><a href="/TrialManager/home/index"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-object-group"></i> <span>Trials</span>
@@ -27,7 +50,7 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="/TrialFeasibility/Create"><i class="fa fa-files-o"></i><span>New Trial</span></a></li>
+                    <li><a href="/TrialManager/TrialFeasibility/Create"><i class="fa fa-files-o"></i><span>New Trial</span></a></li>
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-object-ungroup"></i> <span>Types</span>
@@ -36,12 +59,12 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="/TrialType/"><i class="fa fa-plus"></i><span>Trial</span></a></li>
-                            <li><a href="/TrialLocation/"><i class="fa fa-plus"></i><span>Location</span></a></li>
-                            <li><a href="/Phase/"><i class="fa fa-plus"></i><span>Phase</span></a></li>
-                            <li><a href="/GrantType/"><i class="fa fa-plus"></i><span>Grant</span></a></li>
-                            <li><a href="/DiseaseTherapyArea/"><i class="fa fa-plus"></i><span>Disease/Therapy Area</span></a></li>
-                            <li><a href="/ActiveStatus/"><i class="fa fa-plus"></i><span>Active Status</span></a></li>
+                            <li><a href="/TrialManager/TrialType/"><i class="fa fa-plus"></i><span>Trial</span></a></li>
+                            <li><a href="/TrialManager/TrialLocation/"><i class="fa fa-plus"></i><span>Location</span></a></li>
+                            <li><a href="/TrialManager/Phase/"><i class="fa fa-plus"></i><span>Phase</span></a></li>
+                            <li><a href="/TrialManager/GrantType/"><i class="fa fa-plus"></i><span>Grant</span></a></li>
+                            <li><a href="/TrialManager/DiseaseTherapyArea/"><i class="fa fa-plus"></i><span>Disease/Therapy Area</span></a></li>
+                            <li><a href="/TrialManager/ActiveStatus/"><i class="fa fa-plus"></i><span>Active Status</span></a></li>
                         </ul>
                     </li>
                         
@@ -55,9 +78,9 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="/Contacts/"><i class="fa fa-user-plus"></i><span>Add/edit a Contact</span></a></li>
-                    <li><a href="/Roles/"><i class="fa fa-street-view"></i><span>Add Contact role</span></a></li>
-                    <li><a href="/ContactStatus/"><i class="fa fa-tasks"></i><span>Add Contact status</span></a></li>
+                    <li><a href="/TrialManager/Contacts/"><i class="fa fa-user-plus"></i><span>Add/edit a Contact</span></a></li>
+                    <li><a href="/TrialManager/Roles/"><i class="fa fa-street-view"></i><span>Add Contact role</span></a></li>
+                    <li><a href="/TrialManager/ContactStatus/"><i class="fa fa-tasks"></i><span>Add Contact status</span></a></li>
                 </ul>
             </li>
             <li class="treeview">
@@ -88,7 +111,7 @@
                     }
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="/StaffPassport/"><i class="fa fa-search"></i><span>Passport Overview</span>
+                    <li><a href="/TrialManager/StaffPassport/"><i class="fa fa-search"></i><span>Passport Overview</span>
                         <span class="pull-right-container">
                     @if (ViewBag.PassportNearly > 0)
                     {
@@ -109,8 +132,8 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="/AccessTypes/"><i class="fa fa-plus"></i><span>Access Types</span></a></li>
-                            <li><a href="/ContractTypes/"><i class="fa fa-plus"></i><span>Contract types</span></a></li>
+                            <li><a href="/TrialManager/AccessTypes/"><i class="fa fa-plus"></i><span>Access Types</span></a></li>
+                            <li><a href="/TrialManager/ContractTypes/"><i class="fa fa-plus"></i><span>Contract types</span></a></li>
                         </ul>
                     </li>
 
@@ -124,7 +147,7 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="/DocumentTypes/"><i class="fa fa-plus"></i><span>Add/edit Document Type</span></a></li>
+                    <li><a href="/TrialManager/DocumentTypes/"><i class="fa fa-plus"></i><span>Add/edit Document Type</span></a></li>
                 </ul>
             </li>
             <li class="treeview">
@@ -135,9 +158,9 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="/TrialGroup/"><i class="fa fa-edit"></i><span>Create New Trial Group</span></a></li>
-                    <li><a href="/ContactTrialGroup/"><i class="fa fa-user-plus"></i><span>Add User to Trial Group</span></a></li>
-                    <li><a href="/TrialGroupTrial/"><i class="fa fa-object-ungroup"></i><span>Add Trial to Trial Group</span></a></li>
+                    <li><a href="/TrialManager/TrialGroup/"><i class="fa fa-edit"></i><span>Create New Trial Group</span></a></li>
+                    <li><a href="/TrialManager/ContactTrialGroup/"><i class="fa fa-user-plus"></i><span>Add User to Trial Group</span></a></li>
+                    <li><a href="/TrialManager/TrialGroupTrial/"><i class="fa fa-object-ungroup"></i><span>Add Trial to Trial Group</span></a></li>
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-trash-o"></i> <span>Delete</span>
