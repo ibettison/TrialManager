@@ -21,68 +21,130 @@
                                 <hr/>
                                 @Html.ValidationSummary(true, "", new {@class = "text-danger"})
                                 @Html.HiddenFor(model => model.Id)
-                                
-                                <div class="form-group">
+
+                                <div class="col-md-2">
+                                    @Html.LabelFor(model => model.ProjectIdentifier)
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="form-group">
                                         @Html.EditorFor(model => model.ProjectIdentifier, new { htmlAttributes = new { @class = "form-control", title = "Project Identifier", disabled = "disabled" } })
                                         @Html.ValidationMessageFor(model => model.ProjectIdentifier, "", new { @class = "text-danger" })
+                                    </div>
                                 </div>
-                                
-                                <div class="form-group">
+
+                                <div class="col-md-2">
+                                    @Html.LabelFor(model => model.ResearchDevelopmentId)
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="form-group">
                                         @Html.EditorFor(model => model.ResearchDevelopmentId, new { htmlAttributes = new { @class = "form-control", title = "RD Identifier", disabled = "disabled" } })
                                         @Html.ValidationMessageFor(model => model.ResearchDevelopmentId, "", new { @class = "text-danger" })
-
+                                    </div>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="col-md-2">
+                                    @Html.LabelFor(model => model.GrantFunderRef)
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="form-group">
                                         @Html.EditorFor(model => model.GrantFunderRef, new {htmlAttributes = new {@class = "form-control", title="Grant funder reference", disabled = "disabled"}})
+                                    </div>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="col-md-2">
+                                    @Html.LabelFor(model => model.SponsorRef)
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="form-group">
                                         @Html.EditorFor(model => model.SponsorRef, new {htmlAttributes = new {@class = "form-control", Title = "Sponsor Reference", disabled = "disabled" } })
+                                    </div>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="col-md-2">
+                                    @Html.LabelFor(model => model.RecRef)
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="form-group">
                                         @Html.EditorFor(model => model.RecRef, new {htmlAttributes = new {@class = "form-control", Title = "REC Reference", disabled = "disabled" } })
+                                    </div>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="col-md-2">
+                                    @Html.LabelFor(model => model.EudractRef)
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="form-group">
                                         @Html.EditorFor(model => model.EudractRef, new {htmlAttributes = new {@class = "form-control", Title = "EUDract Reference", disabled = "disabled" } })
+                                    </div>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="col-md-2">
+                                    @Html.LabelFor(model => model.IrasId)
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="form-group">
                                         @Html.EditorFor(model => model.IrasId, new {htmlAttributes = new {@class = "form-control", Title="IRAS Id", disabled="disabled"}})
+                                    </div>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="col-md-2">
+                                    @Html.LabelFor(model => model.RecruitmentTarget)
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="form-group">
                                         @Html.EditorFor(model => model.RecruitmentTarget, new { htmlAttributes = new { @class = "form-control", Title = "Recruitment target", disabled = "disabled" } })
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.Label("Location")
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="form-group">
+
+                                        @Html.DropDownList("TrialLocationId", null, htmlAttributes: new { @class = "form-control", Title = "Trial Location", disabled = "disabled" })
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.LabelFor(model => model.RecDate)
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        @Html.EditorFor(model => model.RecDate, new { htmlAttributes = new { @class = "form-control", Title = "REC Date", disabled = "disabled" } })
+                                    </div>
                                 </div>
 
-                                <div class="form-group">
-                                    @Html.Label("Location", htmlAttributes: new {@class = "control-label col-md-1"})
-                                        @Html.DropDownList("TrialLocationId", null, htmlAttributes: new {@class = "form-control", Title = "Trial Location", disabled = "disabled" })
+                                <div class="col-md-2">
+                                    @Html.LabelFor(model => model.HraDate)
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        @Html.EditorFor(model => model.HraDate, new { htmlAttributes = new { @class = "form-control", Title = "HRA Date", disabled = "disabled" } })
+                                        @Html.ValidationMessageFor(model => model.HraDate, "", new { @class = "text-danger" })
+                                    </div>
                                 </div>
 
-                                <div class="form-group">
-                                        @Html.EditorFor(model => model.RecDate, new {htmlAttributes = new {@class = "form-control", Title = "REC Date", disabled = "disabled" } })
+                                <div class="col-md-2">
+                                    @Html.LabelFor(model => model.CtaDate)
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        @Html.EditorFor(model => model.CtaDate, new { htmlAttributes = new { @class = "form-control", Title = "CTA Date", disabled = "disabled" } })
+
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.LabelFor(model => model.FunderMileStoneReport)
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        @Html.EditorFor(model => model.FunderMileStoneReport, new { htmlAttributes = new { @class = "form-control", Title = "Funder Milestone Report Submission", disabled = "disabled" } })
+
+                                    </div>
                                 </div>
 
-                                <div class="form-group">
-                                        @Html.EditorFor(model => model.HraDate, new {htmlAttributes = new {@class = "form-control", Title = "HRA Date", disabled = "disabled" } })
-                                        @Html.ValidationMessageFor(model => model.HraDate, "", new {@class = "text-danger"})
-                                </div>
-
-                                <div class="form-group">
-                                    @Html.EditorFor(model => model.CtaDate, new {htmlAttributes = new {@class = "form-control", Title = "CTA Date", disabled = "disabled" } })
+                                    <input type="hidden" name="TrialId" value="@ViewBag.Id" />
 
                                 </div>
-                                <div class="form-group">
-                                    @Html.EditorFor(model => model.FunderMileStoneReport, new { htmlAttributes = new { @class = "form-control", Title = "Funder Milestone Report Submission", disabled = "disabled" } })
-
-                                </div>
-
-                                <input type="hidden" name="TrialId" value="@ViewBag.Id"/>
-                               
-                            </div>
                         }
                     </div>
                         <!-- /.box-body -->
